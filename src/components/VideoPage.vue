@@ -901,3 +901,33 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'videPage',
+  data () {
+    return {
+      videoID: 10000
+    }
+  },
+  methods: {
+    getVideo () {
+      this.$axios
+        .get('/video/' + this.videoID)
+        .then(successResponse => {
+          this.responseResult = JSON.stringify(successResponse.data)
+          if (successResponse.data.code === 200) {
+            alert(successResponse.data.data)
+          }
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.message)
+          }
+        })
+        .catch(failResponse => {})
+    }
+  },
+  mounted: function () {
+    this.getVideo()
+  }
+}
+</script>

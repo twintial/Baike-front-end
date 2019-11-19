@@ -115,5 +115,12 @@ export default {
       }
     }
   }
+  // 前段检测暂时不使用
+  // mounted: function () {
+  //   $("#register").on("forminvalid.zf.abide", function(ev,frm) {
+  //   alert("Form is valid, finally!");
+  //   // do something perhaps
+  //   });
+  // }
 }
 </script>

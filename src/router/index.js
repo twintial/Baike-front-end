@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HomePage from '@/components/HomePage.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
+import VideoPage from '@/components/VideoPage.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/video',
+      name: 'interactiveVideo',
+      component: VideoPage
     }
   ]
 })
