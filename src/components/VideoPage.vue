@@ -927,7 +927,7 @@ export default {
     }
   },
   mounted: function () {
-    this.getVideo()
+    
   }
 }
 </script>

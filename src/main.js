@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'jquery'
+import './assets/bower_components/foundation-sites/dist/foundation.js'
+// import './assets/bower_components/jquery/dist/jquery.js'
+// import './assets/bower_components/what-input/what-input.js'
+
 // 引用axios，并设置基础URL为后端服务api地址
 var axios = require('axios')
 axios.defaults.baseURL = 'http://localhost:8443/api'
