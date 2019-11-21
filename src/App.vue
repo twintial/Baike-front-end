@@ -238,12 +238,12 @@
                             </div>
                         </div>
                         <div id="search-bar" class="clearfix search-bar-light">
-                            <form method="post">
+                            <form method="get">
                                 <div class="search-input float-left">
-                                    <input type="search" name="search" placeholder="Seach Here your video">
+                                    <input type="search" name="search" placeholder="" v-model="SearchName" required>
                                 </div>
                                 <div class="search-btn float-right text-right">
-                                    <button class="button" name="search" type="submit">search now</button>
+                                    <button   class="button"  @click="search">search now</button>
                                 </div>
                             </form>
                         </div>
@@ -413,6 +413,23 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+    data () {
+    return {
+      SearchName: ''
+    }
+  },
+  methods: {
+    search () {
+      this.$axios
+        .get('/SearchVideo/' + this.SearchName)
+        .then(successResponse => {
+            alert(successResponse.data)
+        })
+        .catch(failResponse => {
+
+        })
+    }
+  }
 }
 </script>
