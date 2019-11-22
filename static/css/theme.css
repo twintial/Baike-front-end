@@ -3201,10 +3201,10 @@ footer {
     .submit-post .video-layout span {
       font-size: 12px;
       color: #6c6c6c; }
-  .submit-post button[type="submit"] {
+  /* .submit-post button[type="submit"] {
     margin: 20px 0 50px 0;
     background: #61ca37;
-    border-bottom: 3px solid #53ac2f; }
+    border-bottom: 3px solid #53ac2f; } */
 
 /* ==========================================================================
 	18-login - register

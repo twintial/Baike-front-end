@@ -136,26 +136,48 @@
                             </div>
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <form data-abide novalidate>
+                                    <form data-abide novalidate onsubmit="return false;">
                                         <div data-abide-error class="alert callout" style="display: none;">
                                             <p><i class="fa fa-exclamation-triangle"></i>还有未填写的信息哦</p>
                                         </div>
                                         <div class="row">
                                             <div class="large-12 columns">
-                                                <label>标题
-                                                    <input type="text" placeholder="在这里填写你的视频标题..." required>
+                                                <label>标题:
+                                                    <input v-model="videoName" type="text" placeholder="在这里填写你的视频标题..." required>
                                                     <span class="form-error">
                                                         视频标题不能为空
                                                     </span>
                                                 </label>
                                             </div>
                                             <div class="large-12 columns">
-                                                <label >简介
-                                                    <textarea placeholder="在这里填写你的视频简介..."></textarea>
+                                                <label >简介:
+                                                    <textarea v-model="introduction" placeholder="在这里填写你的视频简介..."></textarea>
                                                 </label>
                                             </div>
                                             <div class="large-12 columns">
-                                                <div class="video-upload">
+                                              <div>
+                                                <label>选择你的视频封面:</label>
+                                                <label for="avatar"> 
+                                                  <img id="cover-preview" :src="coverFiles.length ? url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"/>
+                                                </label>
+                                              </div>
+                                              <div v-show="false">
+                                                <file-upload
+                                                  extensions="gif,jpg,jpeg,png,webp"
+                                                  accept="image/png,image/gif,image/jpeg,image/webp"
+                                                  name="avatar"
+                                                  post-action="http://localhost:8443/api/cover/upload"
+                                                  :drop="false"
+                                                  v-model="coverFiles"
+                                                  @input-filter="coverInputFilter"
+                                                  @input-file="coverInputFile"
+                                                  ref="cover">
+                                                  Upload avatar
+                                                </file-upload>
+                                              </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                              <div class="video-upload">
                                                 <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
                                                         <h3>Drop files to upload</h3>
                                                 </div>
@@ -202,43 +224,24 @@
                                                             <td v-else-if="file.success">成功</td>
                                                             <td v-else-if="file.active">上传中</td>
                                                             <td v-else>等待上传</td>
-                                                            <!-- <div class="btn-group">
-                                                                <button class="button" type="button" data-toggle="example-dropdown-1">
-                                                                Action
-                                                                </button>
-                                                                <div class="dropdown-pane" id="example-dropdown-1" data-dropdown data-hover="true" data-hover-pane="true">
-                                                                <a href="#" v-if="file.active" @click.prevent="$refs.upload.update(file, {active: false})">Abort</a>
-                                                                <a href="#" v-else-if="file.error && file.error !== 'compressing' && $refs.upload.features.html5" @click.prevent="$refs.upload.update(file, {active: true, error: '', progress: '0.00'})">Retry upload</a>
-                                                                <a :class="{'dropdown-item': true, disabled: file.success || file.error === 'compressing'}" href="#" v-else @click.prevent="file.success || file.error === 'compressing' ? false : $refs.upload.update(file, {active: true})">Upload</a>
-                                                                <a :class="{'dropdown-item': true, disabled: !file.active}" href="#" @click.prevent="file.active ? $refs.upload.update(file, {error: 'cancel'}) : false">Cancel</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item" href="#" @click.prevent="$refs.upload.remove(file)">Remove</a>
-                                                                </div>
-                                                            </div> -->
                                                         </tr>
                                                         </tbody>
                                                     </table>
                                                     </div>
-                                                    <div class="example-foorer">
-                                                    <div class="footer-status float-right">
-                                                        Drop: {{$refs.upload ? $refs.upload.drop : false}},
-                                                        Active: {{$refs.upload ? $refs.upload.active : false}},
-                                                        Uploaded: {{$refs.upload ? $refs.upload.uploaded : true}},
-                                                        Drop active: {{$refs.upload ? $refs.upload.dropActive : false}}
-                                                    </div>
                                                     <div>
                                                         <file-upload v-show="files.length"
                                                         class="button primary resize-button"
+                                                        :name="name"
                                                         :post-action="postAction"
                                                         :extensions="extensions"
                                                         :accept="accept"
-                                                        :multiple="multiple"
-                                                        :directory="directory"
-                                                        :size="size || 0"
+                                                        :multiple="true"
+                                                        :directory="false"
+                                                        :size="0"
                                                         :thread="thread < 1 ? 1 : (thread > 5 ? 5 : thread)"
-                                                        :drop="drop"
-                                                        :drop-directory="dropDirectory"
-                                                        :add-index="addIndex"
+                                                        :drop="true"
+                                                        :drop-directory="true"
+                                                        :add-index="false"
                                                         v-model="files"
                                                         @input-filter="inputFilter"
                                                         @input-file="inputFile"
@@ -246,39 +249,27 @@
                                                         <i class="fa fa-plus"></i>
                                                         上传视频
                                                         </file-upload>
-                                                        <!-- <button type="button" class="button success resize-button" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                                                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                                                            开始上传
-                                                        </button> -->
                                                         <button type="button" class="button alert resize-button"  v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false">
                                                         <i class="fa fa-stop" aria-hidden="true"></i>
                                                             停止上传
                                                         </button>
                                                     </div>
-                                                    </div>
                                                 </div>
-                                                </div>
-                                            </div>
-                                            <div class="large-12 columns">
-                                                <div class="upload-video">
-                                                    <label for="imgUpload" class="button">Upload Image</label>
-                                                    <input type="file" id="imgUpload" class="show-for-sr">
-                                                    <span>No file chosen</span>
-                                                </div>
+                                              </div>
                                             </div>
                                             <div class="large-12 columns">
                                                 <div class="post-category">
-                                                    <label>选择视频种类：
-                                                        <select>
-                                                            <option value="">one</option>
-                                                            <option value="">two</option>
-                                                            <option value="">three</option>
+                                                    <label>选择视频种类:
+                                                        <select v-model="tag">
+                                                            <option value="动画">动画</option>
+                                                            <option value="旅游">旅游</option>
+                                                            <option value="美少女">美少女</option>
                                                         </select>
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="large-12 columns">
-                                                <button class="button expanded" type="submit" name="submit">上传</button>
+                                            <div class="large-12 columns" style="text-align:center">
+                                                <button id="submit-button" class="button primary" @click="submitVideo">立即投稿</button>
                                             </div>
                                         </div>
                                     </form>
@@ -315,8 +306,22 @@ tbody {
   padding-bottom: 10px;
 }
 
-#before-update{
-    padding: 50px;
+#before-update {
+  padding: 50px;
+}
+#cover-preview {
+  width: 370px;
+  height: 220px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+#submit-button {
+  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .video-upload .filename {
@@ -359,7 +364,8 @@ tbody {
 </style>
 
 <script>
-import ImageCompressor from '@xkeshi/image-compressor'
+// import ImageCompressor from '@xkeshi/image-compressor'
+import Cropper from 'cropperjs'
 import FileUpload from 'vue-upload-component'
 export default {
   components: {
@@ -367,26 +373,29 @@ export default {
   },
   data() {
     return {
+      // 视频信息
+      videoName: '',
+      introduction: '',
+      tag: '',
+      // 视频上传
       files: [],
       accept: 'video/mp4',
       extensions: 'mp4',
       // extensions: ['gif', 'jpg', 'jpeg','png', 'webp'],
       // extensions: /\.(gif|jpe?g|png|webp)$/i,
       minSize: 0,
-      size: 0,
-      multiple: true,
-      directory: false,
-      drop: true,
-      dropDirectory: true,
-      addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: 'http://localhost:8443/api/upload',
-      // autoCompress: 1024 * 1024,
+      postAction: 'http://localhost:8443/api/video/upload',
       uploadAuto: true,
       currentIndex: -1,
+      // 视频封面上传
+      coverFiles: [],
+      cropper: false,
+      url: '',
     }
   },
+
 
   mounted() {
     window.addEventListener('beforeunload', e => {
@@ -406,40 +415,9 @@ export default {
         if (!/\.(mp4)$/i.test(newFile.name)) {
           return prevent()
         }
-        // Automatic compression
-        // 自动压缩
-        // if (newFile.file && newFile.type.substr(0, 6) === 'image/' && this.autoCompress > 0 && this.autoCompress < newFile.size) {
-        //   newFile.error = 'compressing'
-        //   const imageCompressor = new ImageCompressor(null, {
-        //     convertSize: Infinity,
-        //     maxWidth: 512,
-        //     maxHeight: 512,
-        //   })
-        //   imageCompressor.compress(newFile.file)
-        //     .then((file) => {
-        //       this.$refs.upload.update(newFile, { error: '', file, size: file.size, type: file.type })
-        //     })
-        //     .catch((err) => {
-        //       this.$refs.upload.update(newFile, { error: err.message || 'compress' })
-        //     })
-        // }
       }
-      // if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-      //   // Create a blob field
-      //   // 创建 blob 字段
-      //   newFile.blob = ''
-      //   let URL = window.URL || window.webkitURL
-      //   if (URL && URL.createObjectURL) {
-      //     newFile.blob = URL.createObjectURL(newFile.file)
-      //   }
-      //   // Thumbnails
-      //   // 缩略图
-      //   newFile.thumb = ''
-      //   if (newFile.blob && newFile.type.substr(0, 6) === 'image/') {
-      //     newFile.thumb = newFile.blob
-      //   }
-      // }
     },
+    // 视频上用传函数
     // add, update, remove File Event
     inputFile(newFile, oldFile) {
       if (newFile && oldFile) {
@@ -490,11 +468,80 @@ export default {
         })
         .catch(failResponse => {})
     },
+
+    // 封面上传用函数
+    coverInputFile(newFile, oldFile, prevent) {
+      if (newFile && oldFile) {
+        if (newFile.active && !oldFile.active) {
+        }
+      }
+      // Automatically activate upload
+      if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+        if (this.uploadAuto && !this.$refs.cover.active) {
+          this.$refs.cover.active = true
+        }
+      }
+    },
+    coverInputFilter(newFile, oldFile, prevent) {
+      if (newFile && !oldFile) {
+        if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+          this.alert('你上传的不是一张图片')
+          return prevent()
+        }
+      }
+
+      if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+        let URL = window.URL || window.webkitURL
+        if (URL && URL.createObjectURL) {
+          this.url = URL.createObjectURL(newFile.file)
+        }
+        // 删除上一张图片
+        if (this.coverFiles.length){
+          this.deleteFile(this.coverFiles[0].response)
+        }
+      }
+    },
+
+
     // 离开页面时调用，删除所有上传文件
     deleteAllFile(e){
       for (let i in this.files){
         this.deleteFile(this.files[i].response)
       }
+      this.deleteFile(this.coverFiles[0].response)
+    },
+
+    submitVideo(){
+      if (!this.files.length){
+        this.$dlg.alert("请上传视频", {messageType: 'error'})
+        return
+      }
+      if (!this.coverFiles.length){
+        this.$dlg.alert("请给你的视频选择封面", {messageType: 'error'})
+        return
+      }
+      let videoUUIDs = []
+      for (let i in this.files){
+        videoUUIDs[i] = this.files[i].response.uuid
+      }
+      this.$axios
+        .post('/video/submit', {
+          videoName: this.videoName,
+          introduction: this.introduction,
+          tag: this.tag,
+          coverUUID: this.coverFiles[0].response.uuid,
+          videoFilesUUID: videoUUIDs
+        })
+        .then(successResponse => {
+          this.responseResult = JSON.stringify(successResponse.data)
+          if (successResponse.data.code === 200) {
+            this.$dlg.alert(successResponse.data.data, {messageType: 'success'})
+          }
+          if (successResponse.data.code === 400) {
+            this.$dlg.alert(successResponse.data.message, {messageType: 'error'})
+          }
+        })
+        .catch(failResponse => {})
     }
   }
 }
