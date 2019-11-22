@@ -167,8 +167,8 @@
                                     </div>
                                     <div class="top-bar-right search-btn">
                                         <ul class="menu">
-                                            <li class="search">
-                                                <i class="fa fa-search"></i>
+                                            <li v-bind:class="type1">
+                                                <i v-bind:class="type2"></i>
                                             </li>
                                         </ul>
                                     </div>
@@ -237,15 +237,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="search-bar" class="clearfix search-bar-light">
-                            <form method="get">
+                        <div id="search-bar" class="clearfix search-bar-light" >
+                            <div>
                                 <div class="search-input float-left">
-                                    <input type="search" name="search" placeholder="" v-model="SearchName" required>
+                                    <input type="search" name="search" v-model="SN" required/>
                                 </div>
                                 <div class="search-btn float-right text-right">
-                                    <button   class="button"  @click="search">search now</button>
+                                    <button   class="button"  @click="searcho">搜索</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -416,20 +416,26 @@ export default {
   name: 'App',
     data () {
     return {
-      SearchName: ''
+      SN: '',
+      type1:'search',
+      type2:'fa fa-search',
+      type3:'display:none;'
     }
   },
   methods: {
-    search () {
-      this.$axios
-        .get('/SearchVideo/' + this.SearchName)
-        .then(successResponse => {
-            alert(successResponse.data)
-        })
-        .catch(failResponse => {
-
-        })
-    }
+    searcho () {
+        this.type1='search'
+      this.type2='fa fa-search'
+      this.type3='display:none;'
+        if (this.$route.path!='/SearchResult') {
+      this.$router.push({path: '/SearchResult', query: {SR: this.SN}}) 
+      this.SN=''
+      }
+      else{
+      this.$router.push({path: '/SearchResult2', query: {SR: this.SN}}) 
+      this.SN=''
+      }
+     }
   }
 }
 </script>

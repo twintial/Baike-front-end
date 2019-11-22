@@ -10,7 +10,7 @@
               <div class="medium-8 small-12 columns">
                 <div class="head-title">
                   <i class="fa fa-search"></i>
-                  <h4>“ Comedy videos ”的查询结果</h4>
+                  <h4>{{ ResultName }}的查询结果</h4>
                 </div>
               </div>
             </div>
@@ -38,24 +38,25 @@
                           <div class="video-stats clearfix">
                             <div class="thumb-stats pull-left">
                               <i class="fa fa-heart"></i>
-                              <span>506</span>
+                              <span>{{ praisePoint }}</span>
                             </div>
                           </div>
                         </div>
                         <div class="post-des">
                           <h6>
-                            <a href="single-video-v2.html"
-                              >There are many variations of passage.</a
-                            >
+                            <a href="single-video-v2.html">{{
+                              introduction
+                            }}</a>
                           </h6>
+
                           <div class="post-stats clearfix">
                             <p class="pull-left">
                               <i class="fa fa-clock-o"></i>
-                              <span>5 January 16</span>
+                              <span>{{ uploadTime}}</span>
                             </p>
                             <p class="pull-left">
                               <i class="fa fa-eye"></i>
-                              <span>1,862K</span>
+                              <span>{{ playVolume }}</span>
                             </p>
                           </div>
                           <div class="post-summary">
@@ -84,7 +85,7 @@
               <nav aria-label="Pagination">
                 <ul class="pagination text-center">
                   <li class="pagination-next" style="display:inline">
-                    <a href="#" aria-label="Next page"><<</a>
+                    <a href="#" aria-label="Next page"></a>
                   </li>
                   <li style="display:inline">
                     <a href="#" aria-label="Page 2">1</a>
@@ -121,15 +122,21 @@
                 <div class="widgetTitle">
                   <h5>Search Videos</h5>
                 </div>
+
                 <form id="searchform" method="get" role="search">
                   <div class="input-group">
                     <input
                       class="input-group-field"
-                      type="text"
-                      placeholder="Enter your keyword"
+                      type="search"
+                      name="search"
+                      v-model="SearchName"
+                      required
                     />
+
                     <div class="input-group-button">
-                      <input type="submit" class="button" value="Submit" />
+                      <button class="button" @click="search2">
+                        搜索
+                      </button>
                     </div>
                   </div>
                 </form>
@@ -200,4 +207,45 @@
   <!-- End Category Content-->
 </template>
 
-
+<script>
+export default {
+  name: "SearchResult",
+  data() {
+    return {
+      SearchName: "",
+      praisePoint: "",
+      uploadTime: "",
+      introduction: "",
+      icon: "",
+      playVolume: "",
+      ResultName:""
+    }
+  },
+  mounted() {
+    if (this.$route.query.SR != null) {
+      this.SearchName = this.$route.query.SR;
+      this.search();
+    }
+  },
+  methods: {
+    search() {
+      this.$axios
+        .get("/SearchVideo/" + this.SearchName)
+        .then(successResponse => {
+          this.ResultName=this.SearchName;
+          var jsonObj = JSON.parse(JSON.stringify(successResponse.data[0]));
+          this.praisePoint = jsonObj.praisePoint;
+          this.uploadTime = jsonObj.uploadTime.substring(0,10);
+          this.introduction = jsonObj.introduction;
+          this.icon = jsonObj.icon;
+          this.playVolume = jsonObj.playVolume;
+          
+        })
+        .catch(failResponse => {});
+    },
+    search2() {
+      this.$router.push({path: '/SearchResult2', query: {SR: this.SearchName}})
+    }
+  }
+};
+</script>
