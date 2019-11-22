@@ -86,7 +86,7 @@ p{
   font-weight: bold;
   border-radius: 5px;
   margin: 0;
-  text-transform: uppercase; }
+}
 
 .secondary-button {
   width: 30px;
@@ -3079,13 +3079,14 @@ footer {
   .submit-post .extraMargin {
     margin-bottom: 60px; }
   .submit-post label {
-    padding: 0;
-    display: block;
+    /* padding: 0;
+    display: block; */
     margin: 0;
     font-size: 13px !important;
     font-weight: bold !important;
-    color: #6c6c6c !important;
-    text-transform: capitalize !important; }
+    /* color: #6c6c6c !important;
+    text-transform: capitalize !important;  */
+  }
   .submit-post h6 {
     font-size: 13px;
     color: #6c6c6c;

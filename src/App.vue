@@ -161,7 +161,7 @@
                                     <div class="top-bar-left">
                                         <ul class="menu">
                                             <li class="menu-text">
-                                                <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+                                                <a href="index.html"><img src="http://localhost:8443/img/logo.png" alt="logo"></a>
                                             </li>
                                         </ul>
                                     </div>
