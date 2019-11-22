@@ -239,7 +239,6 @@
                                                         :drop="drop"
                                                         :drop-directory="dropDirectory"
                                                         :add-index="addIndex"
-                                                        :data="data"
                                                         v-model="files"
                                                         @input-filter="inputFilter"
                                                         @input-file="inputFile"
@@ -383,9 +382,6 @@ export default {
       thread: 3,
       name: 'file',
       postAction: 'http://localhost:8443/api/upload',
-      data: {
-        fileID : '',
-      },
       // autoCompress: 1024 * 1024,
       uploadAuto: true,
       currentIndex: -1,
@@ -393,10 +389,12 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('beforeunload', e => this.deleteAllFile(e))
-    window.onbeforeunload = e => {
-      return '是否确定离开'
-    };
+    window.addEventListener('beforeunload', e => {
+      this.deleteAllFile(e)
+    })
+    // window.addEventListener("unload", function(event) { 
+      
+    // })
   },
   methods: {
     inputFilter(newFile, oldFile, prevent) {
@@ -404,13 +402,8 @@ export default {
         // Before adding a file
         // 添加文件前
         // Filter system files or hide files
-        // 过滤系统文件 和隐藏文件
-        if (/(\/|^)(Thumbs\.db|desktop\.ini|\..+)$/.test(newFile.name)) {
-          return prevent()
-        }
-        // Filter php html js file
-        // 过滤 php html js 文件
-        if (/\.(php5?|html?|jsx?)$/i.test(newFile.name)) {
+        // 过滤系统非视频文件，之后添加别的视频类型
+        if (!/\.(mp4)$/i.test(newFile.name)) {
           return prevent()
         }
         // Automatic compression
@@ -431,21 +424,21 @@ export default {
         //     })
         // }
       }
-      if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-        // Create a blob field
-        // 创建 blob 字段
-        newFile.blob = ''
-        let URL = window.URL || window.webkitURL
-        if (URL && URL.createObjectURL) {
-          newFile.blob = URL.createObjectURL(newFile.file)
-        }
-        // Thumbnails
-        // 缩略图
-        newFile.thumb = ''
-        if (newFile.blob && newFile.type.substr(0, 6) === 'image/') {
-          newFile.thumb = newFile.blob
-        }
-      }
+      // if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+      //   // Create a blob field
+      //   // 创建 blob 字段
+      //   newFile.blob = ''
+      //   let URL = window.URL || window.webkitURL
+      //   if (URL && URL.createObjectURL) {
+      //     newFile.blob = URL.createObjectURL(newFile.file)
+      //   }
+      //   // Thumbnails
+      //   // 缩略图
+      //   newFile.thumb = ''
+      //   if (newFile.blob && newFile.type.substr(0, 6) === 'image/') {
+      //     newFile.thumb = newFile.blob
+      //   }
+      // }
     },
     // add, update, remove File Event
     inputFile(newFile, oldFile) {
@@ -472,10 +465,6 @@ export default {
         // remove
         if (oldFile.success && oldFile.response.uuid) {
           this.deleteFile(oldFile.response)
-          // $.ajax({
-          //   type: 'DELETE',
-          //   url: '/upload/delete?id=' + oldFile.response.id,
-          // })
         }
       }
       // Automatically activate upload
@@ -495,14 +484,13 @@ export default {
         .delete('/upload/' + response.uuid + '/' + response.type)
         .then(successResponse => {
         this.responseResult = JSON.stringify(successResponse.data)
-        if (successResponse.data.code === 200) {
-          alert(successResponse.data)
-          alert(this.responseResult)
+        if (successResponse.data === false) {
+            this.$dlg.alert('删除失败', {messageType: 'error'});
           }
         })
         .catch(failResponse => {})
     },
-
+    // 离开页面时调用，删除所有上传文件
     deleteAllFile(e){
       for (let i in this.files){
         this.deleteFile(this.files[i].response)
