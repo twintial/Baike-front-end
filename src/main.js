@@ -6,6 +6,8 @@ import router from './router'
 import 'jquery'
 import vUploader from 'v-uploader'
 import vDialogs from 'v-dialogs'
+
+
 Vue.use(vDialogs)
 
 

@@ -926,7 +926,8 @@ export default {
         .catch(failResponse => {})
     }
   },
-  mounted: function () {
+  mounted() {
+      this.getVideo()
   }
 }
 </script>
