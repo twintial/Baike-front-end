@@ -261,7 +261,7 @@
                                                 <div class="post-category">
                                                     <label>选择视频种类:
                                                         <select v-model="tag">
-                                                            <option value="动画">动画</option>
+                                                            <option value="动画" selected>动画</option>
                                                             <option value="旅游">旅游</option>
                                                             <option value="美少女">美少女</option>
                                                         </select>
@@ -521,16 +521,21 @@ export default {
         return
       }
       let videoUUIDs = []
+      let videoNames = []
       for (let i in this.files){
-        videoUUIDs[i] = this.files[i].response.uuid
+        videoUUIDs[i] = this.files[i].response.uuid + "." + this.files[i].type
+          .substr(this.files[i].type.lastIndexOf("/") + 1)
+        videoNames[i] = this.files[i].name
       }
       this.$axios
         .post('/video/submit', {
           videoName: this.videoName,
           introduction: this.introduction,
           tag: this.tag,
-          coverUUID: this.coverFiles[0].response.uuid,
-          videoFilesUUID: videoUUIDs
+          coverUUID: this.coverFiles[0].response.uuid + "." + this.coverFiles[0].type
+            .substr(this.coverFiles[0].type.lastIndexOf("/") + 1),
+          videoFilesUUID: videoUUIDs,
+          videoNames: videoNames
         })
         .then(successResponse => {
           this.responseResult = JSON.stringify(successResponse.data)
