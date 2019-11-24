@@ -108,7 +108,7 @@
                                                   </table>
                                                   </div>
                                                   <div>
-                                                      <file-upload v-show="files.length"
+                                                      <file-upload v-show="files.length" style="margin-top:15px; margin-bottom:15px"
                                                       class="button primary resize-button"
                                                       :name="name"
                                                       :post-action="postAction"
@@ -162,7 +162,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 a {
   color: #000;
   text-decoration: none; 
@@ -241,7 +241,11 @@ tbody {
   padding: 0;
 }
 </style>
-
+<style>
+p {
+  color: white;
+}
+</style>
 <script>
 // import ImageCompressor from '@xkeshi/image-compressor'
 // import Cropper from 'cropperjs'
@@ -392,18 +396,17 @@ export default {
 
     submitVideo(){
       if (!this.files.length){
-        this.$dlg.alert("请上传视频", {messageType: 'error'})
+        this.$dlg.toast("请上传视频", {messageType: 'error', closeTime: 5})
         return
       }
       if (!this.coverFiles.length){
-        this.$dlg.alert("请给你的视频选择封面", {messageType: 'error'})
+        this.$dlg.toast("请给你的视频选择封面", {messageType: 'error', closeTime: 5})
         return
       }
       let videoUUIDs = []
       let videoNames = []
       for (let i in this.files){
-        videoUUIDs[i] = this.files[i].response.uuid + "." + this.files[i].type
-          .substr(this.files[i].type.lastIndexOf("/") + 1)
+        videoUUIDs[i] = this.files[i].response.uuid + "." + this.files[i].response.type
         videoNames[i] = this.files[i].name
       }
       this.$axios
@@ -411,18 +414,17 @@ export default {
           videoName: this.videoName,
           introduction: this.introduction,
           tag: this.tag,
-          coverUUID: this.coverFiles[0].response.uuid + "." + this.coverFiles[0].type
-            .substr(this.coverFiles[0].type.lastIndexOf("/") + 1),
+          coverUUID: this.coverFiles[0].response.uuid + "." + this.coverFiles[0].response.type,
           videoFilesUUID: videoUUIDs,
           videoNames: videoNames
         })
         .then(successResponse => {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
-            this.$dlg.alert(successResponse.data.data, {messageType: 'success'})
+            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
-            this.$dlg.alert(successResponse.data.message, {messageType: 'error'})
+            this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {})
