@@ -6,6 +6,7 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import VideoPage from '@/components/VideoPage.vue'
 import ErrorPage from '@/components/404.vue'
+import SearchResult from '@/components/SearchResult.vue'
 
 import UploadPage from '@/components/profile/SubmitPost.vue'
 import AboutMe from '@/components/profile/ProfileAboutMe'
@@ -95,6 +96,11 @@ export default new Router({
       path: '/my-video',
       name: 'myVideo',
       component: Video
+    },
+    {
+      path: '/searchresult',
+      name: 'SearchResult',
+      component: SearchResult
     }
   ]
 })
