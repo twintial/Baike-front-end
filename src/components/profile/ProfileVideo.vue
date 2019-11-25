@@ -39,7 +39,7 @@
                                                 <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                             </div>
                                             <div class="video-btns">
-                                                <button v-show="picked === 'editable'" class="hollow button primary resize-button"><i class="fa fa-pencil-square-o"></i>edit</button>
+                                                <button v-show="picked === 'editable'" class="hollow button primary resize-button" @click="goToEdit(video.interVideoID)"><i class="fa fa-pencil-square-o"></i>edit</button>
                                                 <button class="hollow button alert resize-button" @click="comfirmToDelete(video.interVideoID)"><i class="fa fa-trash"></i>delete</button>
                                             </div>
                                         </div>
@@ -50,7 +50,7 @@
                               空空如也
                             </div>
                             <div class="show-more-inner text-center">
-                                <a href="#" class="show-more-btn">show more</a>
+                                <button class="show-more-btn" @click="showMore">show more</button>
                             </div>
                         </div>
                     </div>
@@ -80,12 +80,18 @@ input[type=radio] {
 <script>
 import profileHeader from '@/components/profile/common/ProfileHeader.vue'
 import leftSideBar from '@/components/profile/common/LeftSideBar.vue'
+// 数组合并
+Array.prototype.extend = function (other_array) {
+    other_array.forEach(function(v) {this.push(v)}, this);  
+}
 export default {
     name: 'aboutMe',
     components: {profileHeader, leftSideBar},
     data() {
       return {
         picked: 'publish',
+        currentPage: 1,
+        temp: [],
         videos: []
       }
     },
@@ -99,10 +105,17 @@ export default {
         return val;
       }
     },
+    // 每次监听到temp的变化就把temp加入videos
+    // 若改变picked，则需要初始化
     watch: {
       picked: function(val){
         this.videos = []
+        this.currentPage = 1
         this.requestForVideos(val, 1)
+      },
+      temp: function(val){
+        this.videos.extend(val)
+        val = []
       }
     },
     methods: {
@@ -111,7 +124,7 @@ export default {
         .get('/video/' + state + '/' + pageNum)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            this.videos = successResponse.data.data
+            this.temp = successResponse.data.data
             this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
@@ -119,6 +132,9 @@ export default {
           }
         })
         .catch(failResponse => {})
+      },
+      showMore(){
+        this.requestForVideos(this.picked, ++this.currentPage)
       },
       // 从页面上移除
       reomveFromVideos(intervideoID){
@@ -154,6 +170,11 @@ export default {
         }, {
           messageType: 'confirm'
         })
+      },
+      goToEdit(interVideoID){
+        this.$router.push({name: 'xxx', query: {
+          interVideoID: interVideoID
+        }})
       }
     }
 }
