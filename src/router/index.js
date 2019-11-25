@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/components/002.vue'
+import HomePage from '@/components/EditInterVideo.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import VideoPage from '@/components/VideoPage.vue'

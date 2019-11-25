@@ -36,6 +36,9 @@
                             <option value="three" class="option">three</option>
                         </select>
 
+                        <!-- <select>
+                          <option v-for="(   , index) in xxx" :key="index">{{xxx}}</option> -->
+
                         <label>Branch Plot:</label>
                         <div id="new-nodelist">
                             <textarea type="text" class="new-node" style="height:100px;" id="textfield" disabled></textarea>
@@ -272,6 +275,19 @@ import orgchart from '@/assets/jquery.orgchart.js'
 });
 
 export default {
+  name: 'editintervideo',
+  data() {
+    return {
 
+    }
+  },
+  methods: {
+    getVideoList(){
+
+    },
+    postJson(){
+      
+    }
+  }
 }
 </script>
