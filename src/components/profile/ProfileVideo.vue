@@ -46,11 +46,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-show="!videos.length" style="text-align:center">
+                            <div v-show="!videos.length" class="text-style">
                               空空如也
                             </div>
-                            <div class="show-more-inner text-center">
-                                <button class="show-more-btn" @click="showMore">show more</button>
+                            <div v-if="currentPage < totlePage" class="show-more-inner text-center">
+                              <button class="show-more-btn" @click="showMore">show more</button>
+                            </div>
+                            <div v-else v-show="videos.length" style="text-style">
+                              没有更多了
                             </div>
                         </div>
                     </div>
@@ -62,6 +65,10 @@
 <style scoped>
 input[type=radio] {
     display: initial;
+}
+.text-style {
+  text-align: center;
+  margin-bottom: 20px;
 }
 .video-stats {
   color: black;
@@ -91,6 +98,7 @@ export default {
       return {
         picked: 'publish',
         currentPage: 1,
+        totlePage: 0,
         temp: [],
         videos: []
       }
@@ -104,6 +112,9 @@ export default {
         }
         return val;
       }
+    },
+    mounted() {
+      this.requestForVideos(this.picked, this.currentPage)
     },
     // 每次监听到temp的变化就把temp加入videos
     // 若改变picked，则需要初始化
@@ -125,6 +136,8 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
+            this.totlePage = successResponse.data.message
+            // alert(this.totlePage)
             this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {

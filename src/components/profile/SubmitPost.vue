@@ -16,9 +16,6 @@
                           <div class="row">
                               <div class="large-12 columns">
                                   <form data-abide novalidate onsubmit="return false;">
-                                      <div data-abide-error class="alert callout" style="display: none;">
-                                          <p><i class="fa fa-exclamation-triangle"></i>还有未填写的信息哦</p>
-                                      </div>
                                       <div class="row">
                                           <div class="large-12 columns">
                                               <label>标题:
@@ -390,7 +387,7 @@ export default {
 
     // 离开页面时调用，删除所有上传文件
     deleteAllFile(e){
-      for (let i in this.files){
+      for (let i = 0; i < this.files.length; i++){
         this.deleteFile(this.files[i].response)
       }
       this.deleteFile(this.coverFiles[0].response)
@@ -405,16 +402,18 @@ export default {
     submitVideo(){
       const key = this.$dlg.mask('视频上传中...')
       if (!this.files.length){
+        this.$dlg.close(key)
         this.$dlg.toast("请上传视频", {messageType: 'error', closeTime: 5})
         return
       }
       if (!this.coverFiles.length){
+        this.$dlg.close(key)
         this.$dlg.toast("请给你的视频选择封面", {messageType: 'error', closeTime: 5})
         return
       }
       let videoUUIDs = []
       let videoNames = []
-      for (let i in this.files){
+      for (let i = 0; i < this.files.length; i++){
         videoUUIDs[i] = this.files[i].response.uuid + "." + this.files[i].response.type
         videoNames[i] = this.files[i].name
       }
@@ -438,7 +437,9 @@ export default {
             this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 5})
           }
         })
-        .catch(failResponse => {})
+        .catch(failResponse => {
+          this.$dlg.close(key)
+        })
     }
   }
 }
