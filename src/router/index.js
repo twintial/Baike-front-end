@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/components/EditInterVideo.vue'
+import HomePage from '@/components/HomePage.vue'
+import EditPage from '@/components/EditInterVideo.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import VideoPage from '@/components/VideoPage.vue'
@@ -13,17 +14,11 @@ import Favourite from '@/components/profile/ProfileFavourite'
 import Followers from '@/components/profile/ProfileFollowers'
 import Setting from '@/components/profile/ProfileSetting'
 import Video from '@/components/profile/ProfileVideo'
-import test from '@/test.vue'
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
-    // 测试
-    {
-      path: '/test',
-      component: test
-    },
     // 错误页面重定向
     {
       path: '*',
@@ -63,6 +58,12 @@ export default new Router({
       path: '/upload',
       name: 'uploadInteractiveVideo',
       component: UploadPage
+    },
+    // 编辑页面
+    {
+      path: '/edit',
+      name: 'editPage',
+      component: EditPage
     },
     // 个人信息
     {

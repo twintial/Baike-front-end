@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
 import orgchart from '@/assets/jquery.orgchart.js'
-  $(function() {
+$(function() {
 
   var datascource = {
     'name': 'Beginning',
@@ -281,9 +281,11 @@ export default {
 
     }
   },
+  mounted() {
+    alert(this.$route.query.interVideoID)
+  },
   methods: {
     getVideoList(){
-
     },
     postJson(){
       

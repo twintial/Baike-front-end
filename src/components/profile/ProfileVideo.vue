@@ -172,7 +172,7 @@ export default {
         })
       },
       goToEdit(interVideoID){
-        this.$router.push({name: 'xxx', query: {
+        this.$router.push({name: 'editPage', query: {
           interVideoID: interVideoID
         }})
       }
