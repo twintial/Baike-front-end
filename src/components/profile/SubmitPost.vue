@@ -277,6 +277,7 @@ export default {
       // 视频封面上传
       coverFiles: [],
       url: '',
+      // 判断是否是上传操作，防止误删
     }
   },
 
@@ -346,7 +347,8 @@ export default {
         .then(successResponse => {
         this.responseResult = JSON.stringify(successResponse.data)
         if (successResponse.data === false) {
-            this.$dlg.alert('删除失败', {messageType: 'error'});
+          // 暂时不使用，上传时也会出现
+            // this.$dlg.alert('删除失败', {messageType: 'error'});
           }
         })
         .catch(failResponse => {})
@@ -358,7 +360,7 @@ export default {
         if (newFile.active && !oldFile.active) {
         }
       }
-      // Automatically activate upload
+      // 自动上传
       if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
         if (this.uploadAuto && !this.$refs.cover.active) {
           this.$refs.cover.active = true
@@ -393,8 +395,15 @@ export default {
       }
       this.deleteFile(this.coverFiles[0].response)
     },
-
+    initPage(){
+      this.videoName = ''
+      this.introduction = ''
+      this.files = []
+      this.coverFiles = []
+      this.tag = ''
+    },
     submitVideo(){
+      const key = this.$dlg.mask('视频上传中...')
       if (!this.files.length){
         this.$dlg.toast("请上传视频", {messageType: 'error', closeTime: 5})
         return
@@ -419,8 +428,10 @@ export default {
           videoNames: videoNames
         })
         .then(successResponse => {
+          this.$dlg.close(key)
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
+            this.initPage()
             this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {

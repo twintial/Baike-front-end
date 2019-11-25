@@ -21,7 +21,7 @@
                                 <div class="media-object stack-for-small">
                                     <div class="media-object-section media-img-content">
                                         <div class="video-img">
-                                            <img :src="'http://localhost:8443/'+video.icon" alt="video thumbnail">
+                                            <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                         </div>
                                     </div>
                                     <div class="media-object-section media-video-content resize">
@@ -39,8 +39,8 @@
                                                 <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                             </div>
                                             <div class="video-btns">
-                                                <a class="video-btn" href="#"><i class="fa fa-pencil-square-o"></i>edit</a>
-                                                <a class="video-btn" href="#"><i class="fa fa-trash"></i>delete</a>
+                                                <button v-show="picked === 'editable'" class="hollow button primary resize-button"><i class="fa fa-pencil-square-o"></i>edit</button>
+                                                <button class="hollow button alert resize-button" @click="comfirmToDelete(video.interVideoID)"><i class="fa fa-trash"></i>delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -72,6 +72,10 @@ input[type=radio] {
 .resize {
   width: 100%;
 }
+.resize-button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 </style>
 <script>
 import profileHeader from '@/components/profile/common/ProfileHeader.vue'
@@ -86,6 +90,7 @@ export default {
       }
     },
     filters: {
+      // 简介格式规范，暂时不用
       introductionFormat: function(val){
         if (val.length > 2){
           val = val.substr(0, 2) + "<br/>" + val.substr(2)
@@ -105,17 +110,51 @@ export default {
         this.$axios
         .get('/video/' + state + '/' + pageNum)
         .then(successResponse => {
-          this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
             this.videos = successResponse.data.data
-            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
+            this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
             this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {})
+      },
+      // 从页面上移除
+      reomveFromVideos(intervideoID){
+        var index = -1;
+        for (var i in this.videos){
+          if (this.videos[i].interVideoID === intervideoID){
+            index = i;
+            break;
+          }
         }
+        this.videos.splice(index, 1)
+      },
+      // 从后端删除
+      deleteVideo(interVideoID){
+        this.$axios
+        .delete('/video/' + interVideoID)
+        .then(successResp => {
+          if (successResp.data.code === 200) {
+            // 及时删除
+            this.reomveFromVideos(interVideoID)
+            this.$dlg.toast('删除成功', {messageType: 'success', closeTime: 5})
+          }
+          if (successResp.data.code === 400) {
+            this.$dlg.toast(successResp.data.message, {messageType: 'error', closeTime: 5})
+          }
+        })
+      },
+      // 弹出确认框
+      comfirmToDelete(interVideoID){
+        var that = this
+        this.$dlg.alert('确定要删除吗？', function(){
+          that.deleteVideo(interVideoID)
+        }, {
+          messageType: 'confirm'
+        })
+      }
     }
 }
 </script>

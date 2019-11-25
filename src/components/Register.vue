@@ -105,7 +105,8 @@ export default {
           .then(successResponse => {
             this.responseResult = JSON.stringify(successResponse.data)
             if (successResponse.data.code === 200) {
-              alert(successResponse.data.data)
+              alert("ok")
+              this.$router.push('/login')
             }
             if (successResponse.data.code === 400) {
               alert(successResponse.data.message)
