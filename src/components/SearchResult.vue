@@ -39,7 +39,7 @@
                       <div class="post thumb-border">
                         <div class="post-thumb">
                           <img
-                            src= ""
+                            :src="'http://localhost:8443/img/videoCover/'+result.interVideoID+'/'+result.icon"
                             alt="new video"
                           />
                           <a href="single-video-v2.html" class="hover-posts">
@@ -64,7 +64,7 @@
                             <p class="pull-left">
                               <i class="fa fa-clock-o"></i>
                               <span>{{
-                                result.uploadTime.substring(0, 10)
+                                result.uploadTime
                               }}</span>
                             </p>
                             <p class="pull-left">
@@ -98,7 +98,7 @@
               <nav aria-label="Pagination">
                 <ul class="pagination text-center">
                   <li class="pagination-next" style="display:inline">
-                    <a aria-label="Next page" @click="prePage"><</a>
+                    <a aria-label="Next page" @click="prePage"></a>
                   </li>
                   <li
                     style="display:inline"
