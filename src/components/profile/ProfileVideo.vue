@@ -52,7 +52,7 @@
                             <div v-if="currentPage < totlePage" class="show-more-inner text-center">
                               <button class="show-more-btn" @click="showMore">show more</button>
                             </div>
-                            <div v-else v-show="videos.length" style="text-style">
+                            <div v-else v-show="videos.length" class="text-style">
                               没有更多了
                             </div>
                         </div>
