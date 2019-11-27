@@ -14,6 +14,7 @@
                       </div>
                     </div>
                 </div>
+                <button @click="test">测试</button>
             </section>
             <!-- single post stats -->
             <section class="SinglePostStats">
@@ -908,15 +909,14 @@
   background: black;
   display: initial;
 }
+
 .test {
-  top: 100px;
-  left: 100px;
-  position: relative;
-  height: 500px;
-  /* 导航栏为6 */
-  z-index: 9999;
-  opacity: .6;
-  background: black;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
 }
 .select-shade {
   position: relative;
@@ -951,10 +951,7 @@ export default {
             url: 'http://localhost:8443/video/100024/37750c3691e2448ba4d9012c66c7c950.mp4',//改成一个默认视频
           },
           autoplay: false,
-          danmaku: {
-            id: '37750c3691e2448ba4d9012c66c7c950',
-            api: 'http://localhost:8443/api/danmaku/',
-          }
+          danmaku: true
       },
       player: null,
     }
@@ -1002,6 +999,10 @@ export default {
       })
       // 获得互动视频信息
       this.getVideo(this.interVideoID)
+    },
+
+    test() {
+      
     }
   },
 }
