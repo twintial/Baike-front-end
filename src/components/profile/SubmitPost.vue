@@ -390,7 +390,7 @@ export default {
 
     // 离开页面时调用，删除所有上传文件
     deleteAllFile(e){
-      for (let i in this.files){
+      for (let i = 0; i < this.files.length; i++){
         this.deleteFile(this.files[i].response)
       }
       this.deleteFile(this.coverFiles[0].response)
@@ -414,7 +414,7 @@ export default {
       }
       let videoUUIDs = []
       let videoNames = []
-      for (let i in this.files){
+      for (let i = 0; i < this.files.length; i++){
         videoUUIDs[i] = this.files[i].response.uuid + "." + this.files[i].response.type
         videoNames[i] = this.files[i].name
       }

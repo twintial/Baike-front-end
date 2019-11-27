@@ -23,21 +23,24 @@
                         <input type="text" id="selected-node" class="selected-node-group" disabled>
 
                         <label>Change Node Video:</label>
-                        <select id="change" disabled>
+                        <!-- <select id="change" disabled>
                             <option value="one" class="option">one</option>
                             <option value="two" class="option">two</option>
                             <option value="three" class="option">three</option>
+                        </select> -->
+                        <select id="change" disabled>
+                          <option v-for="(videoList, index) in videoList" :key="index">{{videoList.title}}</option>
                         </select>
 
                         <label>Select New Video:</label>
-                        <select id="select" disabled>
+                        <!-- <select id="select" disabled>
                             <option value="one" class="option">one</option>
                             <option value="two" class="option">two</option>
                             <option value="three" class="option">three</option>
+                        </select> -->
+                        <select id="select" disabled>
+                          <option v-for="(videoList, index) in videoList" :key="index">{{videoList.title}}</option>
                         </select>
-
-                        <!-- <select>
-                          <option v-for="(   , index) in xxx" :key="index">{{xxx}}</option> -->
 
                         <label>Branch Plot:</label>
                         <div id="new-nodelist">
@@ -58,7 +61,7 @@
                                 <button type="button" class="button alert" id="btn-delete-nodes" style="width:120px" disabled>Delete</button>
                             </div>
                         </div>
-                        <button type="button" class="button success" id="btn-commit" style="width:270px;margin-top:10px" disabled>Commit</button>
+                        <button @click="postJson" type="button" class="button success" id="btn-commit" style="width:270px;margin-top:10px" disabled>Commit</button>
                     </div>
                 </div>
                 <div class="small-9 columns" style="margin-top:20px">
@@ -73,9 +76,12 @@
 </template>
 
 <script type="text/javascript">
-import orgchart from '@/assets/jquery.orgchart.js'
-$(function() {
 
+import orgchart from "@/assets/jquery.orgchart.js"
+
+var choiceList = [];
+
+var Init = function() {
   var datascource = {
     'name': 'Beginning',
     'title': 'Choose Start Video'
@@ -162,26 +168,38 @@ $(function() {
 
 
   $('#btn-add-nodes').on('click', function() {
+    var flag = 0;
     var $chartContainer = $('#chart-container');
     var nodeVals = [];
     var title = $('#select option:selected').val();
 
-    $('#new-nodelist').find('.new-node').each(function(index, title) {
-      var validVal1 = title.value.trim();
+    $('#new-nodelist').find('.new-node').each(function(index, item) {
+      var validVal1 = item.value.trim();
+      for (var i = 0; i < choiceList.length; i++) {
+        if (validVal1 == choiceList[i]){
+          alert('Plot should not repeat');
+          flag = 1;
+          return;
+        }
+      }
       if (validVal1.length) {
         nodeVals.push(validVal1);
       }
     });
 
+    if (flag == 1){
+      return;
+    }
+
     if (!nodeVals.length) {
-      alert('Please choose branch video')
+      alert('Please input branch plot')
       return;
     }
 
     var $node = $('#selected-node').data('node');
 
     if (title === null) {
-      alert('Please input branch plot');
+      alert('Please choose branch video');
       return;
     }
     // var nodeType = $('input[name="node-type"]:checked');
@@ -204,6 +222,7 @@ $(function() {
       //     return { 'title': title, 'relationship': rel, 'id': getId(), 'name': name};
       // });
       oc.addChildren($node, nodeVals.map(function (item) {
+          choiceList.push(item);
           return {'relationship': rel, 'id': getId(), 'name': item, 'title': title};
         }));
     } else {
@@ -211,6 +230,7 @@ $(function() {
       //     return { 'title': title, 'relationship': '110', 'id': getId(), 'name': name};
       // });
       oc.addSiblings($node.closest('tr').siblings('.nodes').find('.node:first'), nodeVals.map(function (item) {
+          choiceList.push(item);
           return { 'title': item, 'relationship': '110', 'id': getId(), 'name': item, 'title': title};
         }));
     }
@@ -264,32 +284,77 @@ $(function() {
     oc.removeNodes($node);
     $('#selected-node').val('').data('node', null);
   });
+}
 
+var structure = ''
 
-  $('#btn-commit').on('click', function() {//提交json
-    // $('.orgchart').find('.focused').removeClass('focused');
-    // $('#selected-node').val('');
-    // $('#new-nodelist').find('input:first').val('').parent().siblings().remove();
-    // $('#node-type-panel').find('input').prop('checked', false);
-  });
-});
+function createJson() {//获取json到structure
+  var subObj = getJson($('#chart-container'));
+  var datasourceJSON = {};
+  datasourceJSON = JSON.stringify(subObj, null, 2);
+  structure = datasourceJSON;
+  alert(structure);
+}
 
-export default {
+function getJson(chart) {//生成Json
+  var tr = chart.find('tr:first');
+  var subObj = { 'plot': tr.find('.title').text(), 'video': tr.find('.content').text() }
+  tr.siblings(':last').children().each(function() {
+      if (!subObj.children) { subObj.children = []; }
+      subObj.children.push(getJson($(this)));
+    });
+  return subObj
+}
+
+import qs from 'qs';
+
+var vm = {
   name: 'editintervideo',
   data() {
     return {
-
+        videoList: [],
+        IVID: 0,
     }
   },
   mounted() {
-    alert(this.$route.query.interVideoID)
+    this.IVID = this.$route.query.interVideoID
+    this.$axios
+      .get('/edit/' + this.IVID)
+      .then(successResponse => {
+        this.videoList = successResponse.data.data
+        // alert(this.videoList)
+      })
+      .catch(failResponse => {
+        alert("Error!")
+      });
+    Init();
   },
   methods: {
-    getVideoList(){
-    },
     postJson(){
-      
+      createJson()
+      alert(structure)
+      this.$axios
+        .post('/edit' , qs.stringify({
+          Structure: structure,
+          ID: this.IVID
+        }))
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            alert("ok")
+            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 3})
+            this.$router.push('/my-video')
+          }
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.message)
+          }
+        })
+        .catch(failResponse => {
+          this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 3})
+          alert("Error!")
+        })
     }
   }
 }
+
+export default vm
 </script>
