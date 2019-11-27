@@ -15,11 +15,19 @@ import Favourite from '@/components/profile/ProfileFavourite'
 import Followers from '@/components/profile/ProfileFollowers'
 import Setting from '@/components/profile/ProfileSetting'
 import Video from '@/components/profile/ProfileVideo'
+
+import Test from '@/test.vue'
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    // 测试
+    {
+      path: '/test',
+      name: 'test',
+      component: Test
+    },
     // 错误页面重定向
     {
       path: '*',

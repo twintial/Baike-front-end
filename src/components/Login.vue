@@ -93,7 +93,7 @@ export default {
               this.$router.push('/')
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message)
+            alert(successResponse.data.msg)
           }
         })
         .catch(failResponse => {})

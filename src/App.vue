@@ -866,7 +866,6 @@
     <!--end off canvas wrapper-->
   </div>
 </template>
-
 <script>
 import SearchResultVue from './components/SearchResult.vue';
 export default {

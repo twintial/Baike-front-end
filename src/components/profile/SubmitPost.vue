@@ -434,7 +434,7 @@ export default {
             this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
-            this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 5})
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {
