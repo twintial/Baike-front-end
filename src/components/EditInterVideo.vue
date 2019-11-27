@@ -293,7 +293,6 @@ function createJson() {//获取json到structure
   var datasourceJSON = {};
   datasourceJSON = JSON.stringify(subObj, null, 2);
   structure = datasourceJSON;
-  alert(structure);
 }
 
 function getJson(chart) {//生成Json
@@ -332,7 +331,6 @@ var vm = {
   methods: {
     postJson(){
       createJson()
-      alert(structure)
       this.$axios
         .post('/edit' , qs.stringify({
           Structure: structure,
@@ -340,7 +338,6 @@ var vm = {
         }))
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            alert("ok")
             this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 3})
             this.$router.push('/my-video')
           }
