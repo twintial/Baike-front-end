@@ -942,6 +942,7 @@ export default {
       isEnded: false,
       interVideoID: '',
       interVideoInfo: '',
+      nowVideoID: '',
       nextVideos: [],
       // 视频相关
       options: {
@@ -965,9 +966,9 @@ export default {
 
   },
   methods: {
-    getVideo (videoID) {
+    getVideo (interVideoID) {
       this.$axios
-        .get('/video/' + videoID)
+        .get('/video/' + interVideoID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.interVideoInfo = successResponse.data.data
@@ -980,6 +981,7 @@ export default {
         .catch(failResponse => {})
     },
     initPage(){
+      this.nowVideoID = this.interVideoInfo.initVideoID
       this.nextVideos = this.interVideoInfo.nextVideos
       // 切换到初始视频
       this.player.switchVideo(
@@ -987,14 +989,17 @@ export default {
             url: 'http://localhost:8443/' + this.interVideoInfo.initVideo.videoURL,
           },
           {
-            id: this.interVideoInfo.initVideoID,
+            id: this.nowVideoID,
             api: 'http://localhost:8443/api/danmaku/',
           }
       );
     },
 
     // 点击互动视频按键时候的操作
-    
+    requestForNextVideo(videoID, ){
+
+    },
+
     init() {
       // 获取到视频id
       this.interVideoID = this.$route.query.vID
@@ -1010,10 +1015,12 @@ export default {
       $(".dplayer").append(this.container)
       // 监听视频是否播放完毕
       this.player.on('ended', function() {
-        $(".dplayer-mask").addClass("mask-show")
-        // 调整位置并显示
-        this.container.css("top", 200 - ((this.choice.length * 20)))
-        this.container.css("display", "initial")
+        if (this.nextVideos.length){
+          $(".dplayer-mask").addClass("mask-show")
+          // 调整位置并显示
+          this.container.css("top", 200 - ((this.choice.length * 20)))
+          this.container.css("display", "initial")
+        }
       })
       // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
