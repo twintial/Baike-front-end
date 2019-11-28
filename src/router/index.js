@@ -9,12 +9,9 @@ import ErrorPage from '@/components/404.vue'
 import SearchResult from '@/components/SearchResult.vue'
 
 import UploadPage from '@/components/profile/SubmitPost.vue'
-import AboutMe from '@/components/profile/ProfileAboutMe'
-import Comments from '@/components/profile/ProfileComments'
-import Favourite from '@/components/profile/ProfileFavourite'
-import Followers from '@/components/profile/ProfileFollowers'
-import Setting from '@/components/profile/ProfileSetting'
-import Video from '@/components/profile/ProfileVideo'
+import MyAccount from '@/components/profile/ProfileMyInfor'
+import othersAccount from '@/components/otherprofile/ProfileOMyInfor'
+
 Vue.use(Router)
 
 export default new Router({
@@ -68,34 +65,15 @@ export default new Router({
     },
     // 个人信息
     {
-      path: '/about-me',
-      name: 'aboutMe',
-      component: AboutMe
+      path: '/myaccount',
+      name: 'myAccount',
+      component: MyAccount
     },
+    // 他人信息页
     {
-      path: '/comments',
-      name: 'comments',
-      component: Comments
-    },
-    {
-      path: '/favourite',
-      name: 'favourite',
-      component: Favourite
-    },
-    {
-      path: '/follower',
-      name: 'follower',
-      component: Followers
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: Setting
-    },
-    {
-      path: '/my-video',
-      name: 'myVideo',
-      component: Video
+      path: '/othersaccount',
+      name: 'othersAccount',
+      component: othersAccount
     },
     {
       path: '/searchresult',

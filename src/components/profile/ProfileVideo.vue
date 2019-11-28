@@ -1,8 +1,5 @@
 <template>
     <div>
-        <profile-header></profile-header>
-        <div class="row">
-            <left-side-bar></left-side-bar>
             <!-- right side content area -->
             <div class="large-8 columns profile-inner">
                 <!-- single post description -->
@@ -11,10 +8,10 @@
                         <div class="large-12 columns">
                             <div class="heading">
                                 <i class="fa fa-video-camera"></i>
-                                <h4>我的视频</h4>
+                                <h4>My Video</h4>
                                 <span>
-                                    <input type="radio" id="publish" value="publish" v-model="picked"><label for="publish">已发布</label>
-                                    <input type="radio" id="editable" value="editable" v-model="picked"><label for="editable">待编辑</label>
+                                    <input type="radio" id="publish" value="publish" v-model="picked"><label for="publish">Published</label>
+                                    <input type="radio" id="editable" value="editable" v-model="picked"><label for="editable">Editing</label>
                                 </span>
                             </div>
                             <div v-for="(video, index) in videos" :key="index" class="profile-video">
@@ -32,8 +29,8 @@
                                         <div class="video-detail clearfix">
                                             <div class="video-stats">
                                                 <span>
-                                                  <i class="fa fa-check-square-o" v-if="picked==='publish'" aria-hidden="true">已发布</i>
-                                                  <i class="fa fa-pencil-square-o" v-else aria-hidden="true">待编辑</i>
+                                                  <i class="fa fa-check-square-o" v-if="picked==='publish'" aria-hidden="true">Published</i>
+                                                  <i class="fa fa-pencil-square-o" v-else aria-hidden="true">Editing</i>
                                                 </span>
                                                 <span><i class="fa fa-clock-o"></i>{{video.uploadTime}}</span>
                                                 <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
@@ -47,19 +44,18 @@
                                 </div>
                             </div>
                             <div v-show="!videos.length" class="text-style">
-                              空空如也
+                              You haven't upload {{picked}} video
                             </div>
                             <div v-if="currentPage < totlePage" class="show-more-inner text-center">
                               <button class="show-more-btn" @click="showMore">show more</button>
                             </div>
                             <div v-else v-show="videos.length" class="text-style">
-                              没有更多了
+                              -end-
                             </div>
                         </div>
                     </div>
                 </section><!-- End single post description -->
             </div><!-- end left side content area -->
-        </div>
     </div>
 </template>
 <style scoped>
@@ -85,15 +81,13 @@ input[type=radio] {
 }
 </style>
 <script>
-import profileHeader from '@/components/profile/common/ProfileHeader.vue'
-import leftSideBar from '@/components/profile/common/LeftSideBar.vue'
+
 // 数组合并
 Array.prototype.extend = function (other_array) {
     other_array.forEach(function(v) {this.push(v)}, this);  
 }
 export default {
-    name: 'aboutMe',
-    components: {profileHeader, leftSideBar},
+    name: 'Myvideo',
     data() {
       return {
         picked: 'publish',
@@ -168,6 +162,7 @@ export default {
           if (successResp.data.code === 200) {
             // 及时删除
             this.reomveFromVideos(interVideoID)
+            this.$emit('func')
             this.$dlg.toast('删除成功', {messageType: 'success', closeTime: 5})
           }
           if (successResp.data.code === 400) {
