@@ -15,6 +15,11 @@
                    <!-- :src="'http://localhost:8443/img/userIcon/'+UserInfo.iconURL+'/'+video.icon" -->
                     <img src="http://placehold.it/120x110" alt="profile author img">
                 </div>
+                <div class="profile-subscribe">
+                    <div class="mysub">                   
+                        <button @click="subscribeHim">subscribe</button>
+                    </div>
+                </div>
                 <div class="clearfix">
                     <div class="profile-author-name float-left">
                         <h4>{{UserInfo.nickName}}</h4>
@@ -54,7 +59,7 @@
                                 </div>
                                 <div class="li-text float-left">
                                     <p class="number-text">{{UserInfo.usersFollowNum}}</p>
-                                    <span>myfollows</span>
+                                    <span>hisfollows</span>
                                 </div>
                             </li>
                         </ul>
@@ -63,11 +68,21 @@
             </div>
         </div>
     </div>
-
-    
   </section><!-- End profile top section -->
   
 </template>
+<style scoped>
+.mysub{
+    padding-left:16px
+}
+
+.myspan{
+  display:inline-block;
+  width:45px;
+}
+
+</style>
+
 <script>
 export default {
   name: 'HisprofileHeader',
@@ -79,13 +94,11 @@ export default {
   methods:{
       getUserHead(){
         this.$axios
-        .post('/aboutMe', {
-        })
+        .get('/aboutHis/' + this.$route.query.oID)
         .then(successResponse => {
-          this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
             this.UserInfo = successResponse.data.data
-            this.$emit('func',successResponse.data.data.introduction , successResponse.data.data.nickName)
+            this.$emit('func',successResponse.data.data.introduction )
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.msg)
@@ -93,24 +106,28 @@ export default {
         })
         .catch(failResponse => {})
       },
-      minusFollower(){
-          if( this.UserInfo.usersFollowNum != 0){
-            this.UserInfo.usersFollowNum--
+      subscribeHim(){
+        this.$axios
+        .get('/aboutHis/subscribe/' + this.$route.query.oID)
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            this.UserInfo.userFollowerNum++
+            alert(successResponse.data.msg)       
           }
-      },
-      minusFavVideo(){
-          if( this.UserInfo.favVideoNum != 0){
-            this.UserInfo.favVideoNum--
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.msg)
           }
-      },
-      minusMyVideo(){
-          if( this.UserInfo.uploadVideoNum != 0){
-            this.UserInfo.uploadVideoNum--
-          }
+        })
+        .catch(failResponse => {})
       }
   },
   mounted(){
       this.getUserHead()
+  },
+  watch:{
+    '$route'(to,from) {
+        this.getUserHead()
+    }
   }
 }
 </script>

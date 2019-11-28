@@ -8,7 +8,7 @@
                         <div class="large-12 columns">
                             <div class="heading">
                                 <i class="fa fa-heart"></i>
-                                <h4>Favorite Videos</h4>
+                                <h4>His Videos</h4>
                             </div>
                              <div class="description">
                             <div v-for="(video, index) in videos" :key="index" class="profile-video">
