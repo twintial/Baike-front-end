@@ -88,7 +88,7 @@ export default {
             this.$emit('func',successResponse.data.data.introduction , successResponse.data.data.nickName)
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message)
+            alert(successResponse.data.msg)
           }
         })
         .catch(failResponse => {})

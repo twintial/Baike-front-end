@@ -66,7 +66,7 @@ export default {
                         location.reload()
                 }
                 if (successResponse.data.code === 400) {
-                    alert(successResponse.data.message)
+                    alert(successResponse.data.msg)
                 }
                 })
                 .catch(failResponse => {})
