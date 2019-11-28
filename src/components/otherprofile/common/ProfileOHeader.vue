@@ -101,7 +101,7 @@ export default {
             this.$emit('func',successResponse.data.data.introduction )
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message)
+            alert(successResponse.data.msg)
           }
         })
         .catch(failResponse => {})
@@ -112,10 +112,10 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.UserInfo.userFollowerNum++
-            alert(successResponse.data.message)       
+            alert(successResponse.data.msg)       
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message)
+            alert(successResponse.data.msg)
           }
         })
         .catch(failResponse => {})

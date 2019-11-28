@@ -78,12 +78,12 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
-            this.totlePage = successResponse.data.message
+            this.totlePage = successResponse.data.msg
             
             this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
-            this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 5})
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {})
