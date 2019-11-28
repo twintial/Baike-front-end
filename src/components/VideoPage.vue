@@ -925,6 +925,7 @@
   width: 250px;
   height: 10px;
   z-index: 3;
+  display: none;
 }
 
 </style>
@@ -972,7 +973,7 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.interVideoInfo = successResponse.data.data
-            this.initPage();
+            this.switch(this.interVideoInfo.initVideoID, this.interVideoInfo.initVideo.videoURL, this.interVideoInfo.nextVideos);
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.message)
@@ -980,28 +981,29 @@ export default {
         })
         .catch(failResponse => {})
     },
-    initPage(){
-      this.nowVideoID = this.interVideoInfo.initVideoID
-      this.nextVideos = this.interVideoInfo.nextVideos
+    switch(nowVID, nowURL, nextVideos){
+      this.nowVideoID = nowVID
+      this.nextVideos = nextVideos
       // 切换到初始视频
       this.player.switchVideo(
           {
-            url: 'http://localhost:8443/' + this.interVideoInfo.initVideo.videoURL,
+            url: 'http://localhost:8443/' + nowURL,
           },
           {
             id: this.nowVideoID,
             api: 'http://localhost:8443/api/danmaku/',
+            user: sessionStorage.getItem('userID')
           }
       );
     },
 
     // 点击互动视频按键时候的操作
-    requestForNextVideo(videoID, choiceContent){
+    requestForNextVideo(videoID){
       this.$axios
-        .get('/video/' + videoID + '/' + choiceContent)
+        .get('/video/next/' + videoID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-
+              this.switch(videoID, successResponse.data.msg, successResponse.data.data)
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.msg)
@@ -1019,23 +1021,34 @@ export default {
       this.container = $("<div></div>").addClass("choice-container")
       for(let i = 0; i < 1; i++ ){
         this.choice[i] = $("<button></button").addClass("button hollow choice")
-        // this.choice[i].on("click", )
+        // 设置点击事件
+        this.choice[i].on("click",function(){
+            that.requestForNextVideo(that.choice[i].attr("name"))
+            // 隐藏按键和遮罩层
+            $(".dplayer-mask").removeClass("mask-show")
+            that.container.css("display", "none")
+        })
         this.container.append(this.choice[i])
       }
       $(".dplayer").append(this.container)
       // 监听视频是否播放完毕
       this.player.on('ended', function() {
-        if (this.nextVideos.length){
+          alert(that.nextVideos.length)
+        if (that.nextVideos.length){
           $(".dplayer-mask").addClass("mask-show")
           // 调整位置并显示
-          this.container.css("top", 200 - ((this.choice.length * 20)))
-          this.container.css("display", "initial")
+          that.container.css("top", 200 - ((that.nextVideos.length * 20)))
+          that.container.css("display", "initial")
+          for (let i = 0; i < that.nextVideos.length ;i++){
+            that.choice[i].text(that.nextVideos[i].choice).css("display", "initial")
+                .attr("name", that.nextVideos[i].nextVideoID)
+          }
         }
       })
       // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
       // 若没登录，则不能发弹幕
-      if (sessionStorage.getItem('userID')){
+      if (!sessionStorage.getItem('userID')){
           $(".dplayer-comment .dplayer-comment-icon")
               .addClass("dplayer-comment-disabled")
               .attr("disabled", "disabled")
