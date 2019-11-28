@@ -996,8 +996,18 @@ export default {
     },
 
     // 点击互动视频按键时候的操作
-    requestForNextVideo(videoID, ){
+    requestForNextVideo(videoID, choiceContent){
+      this.$axios
+        .get('/video/' + videoID + '/' + choiceContent)
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
 
+          }
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.msg)
+          }
+        })
+        .catch(failResponse => {})
     },
 
     init() {
@@ -1009,7 +1019,7 @@ export default {
       this.container = $("<div></div>").addClass("choice-container")
       for(let i = 0; i < 1; i++ ){
         this.choice[i] = $("<button></button").addClass("button hollow choice")
-        this.choice[i].on("click", )
+        // this.choice[i].on("click", )
         this.container.append(this.choice[i])
       }
       $(".dplayer").append(this.container)
