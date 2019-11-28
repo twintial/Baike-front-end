@@ -905,30 +905,28 @@
 </template>
 <style>
 .mask-show {
-  opacity: .6;
+  opacity: .6; 
   background: black;
   display: initial;
 }
 
-.test {
+.dplayer-comment-disabled {
+    cursor: no-drop !important; 
+}
+.choice-container {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  left: 31%;
+  z-index: 3;
+  display: none;
+}
+.choice {
+  padding-top: 15px;
+  margin-bottom: 10px;
+  width: 250px;
+  height: 10px;
   z-index: 3;
 }
-.select-shade {
-  position: relative;
-  height: 500px;
-  /* 导航栏为6 */
-  z-index: 5;
-  opacity: .6;
-  background: black;
-}
-.video-div {
-  position: relative;
-}
+
 </style>
 <script>
 import VueDPlayer from 'vue-dplayer'
@@ -950,10 +948,13 @@ export default {
           video: {
             url: 'http://localhost:8443/video/100024/37750c3691e2448ba4d9012c66c7c950.mp4',//改成一个默认视频
           },
+          lang: 'en',
           autoplay: false,
           danmaku: true
       },
       player: null,
+      container: null,
+      choice: []
     }
   },
   mounted() {
@@ -991,14 +992,38 @@ export default {
           }
       );
     },
+
+    // 点击互动视频按键时候的操作
+    
     init() {
+      // 获取到视频id
       this.interVideoID = this.$route.query.vID
+      // 加上遮罩层，互动视频用
       var that = this
+      // 加上按键
+      this.container = $("<div></div>").addClass("choice-container")
+      for(let i = 0; i < 1; i++ ){
+        this.choice[i] = $("<button></button").addClass("button hollow choice")
+        this.choice[i].on("click", )
+        this.container.append(this.choice[i])
+      }
+      $(".dplayer").append(this.container)
+      // 监听视频是否播放完毕
       this.player.on('ended', function() {
         $(".dplayer-mask").addClass("mask-show")
+        // 调整位置并显示
+        this.container.css("top", 200 - ((this.choice.length * 20)))
+        this.container.css("display", "initial")
       })
-      // 获得互动视频信息
+      // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
+      // 若没登录，则不能发弹幕
+      if (sessionStorage.getItem('userID')){
+          $(".dplayer-comment .dplayer-comment-icon")
+              .addClass("dplayer-comment-disabled")
+              .attr("disabled", "disabled")
+              .attr("data-balloon", "Please Login")
+      }
     },
 
     test() {
