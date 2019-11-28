@@ -342,11 +342,11 @@ var vm = {
             this.$router.push('/my-video')
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message)
+            alert(successResponse.data.msg)
           }
         })
         .catch(failResponse => {
-          this.$dlg.toast(successResponse.data.message, {messageType: 'error', closeTime: 3})
+          this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 3})
           alert("Error!")
         })
     }
