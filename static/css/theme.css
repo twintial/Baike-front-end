@@ -2668,7 +2668,6 @@ footer {
 .topProfile {
   position: relative;
   height: 350px;
-  background: url("../images/profile-bg.png") no-repeat;
   background-size: cover;
   width: 100%;
   margin-bottom: 90px; }

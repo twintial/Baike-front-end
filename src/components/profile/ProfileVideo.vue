@@ -162,7 +162,9 @@ export default {
           if (successResp.data.code === 200) {
             // 及时删除
             this.reomveFromVideos(interVideoID)
-            this.$emit('func')
+            if(this.picked == 'publish'){
+              this.$emit('func')
+            }
             this.$dlg.toast('删除成功', {messageType: 'success', closeTime: 5})
           }
           if (successResp.data.code === 400) {

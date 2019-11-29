@@ -17,7 +17,7 @@
 <script>
 import profileHeader from '@/components/profile/common/ProfileHeader.vue'
 import leftSideBar from '@/components/profile/common/LeftSideBar.vue'
-import aboutMe from '@/components/profile/ProfileAboutme.vue'
+import aboutMe from '@/components/profile/ProfileAboutMe.vue'
 import favourite from '@/components/profile/ProfileFavourite.vue'
 import followers from '@/components/profile/ProfileFollowers.vue'
 import myvideo from '@/components/profile/ProfileVideo.vue'

@@ -19,7 +19,7 @@
                                                 <img src="http://placehold.it/170x150" alt="video thumbnail">
                                             </div>
                                         </div>
-                                        <div class="media-object-section media-video-content">
+                                        <div class="media-object-section media-video-content resize">
                                             <div class="video-content">
                                                 <h5><a href="#">{{video.videoName}}</a></h5>
                                                 <p>{{video.introduction}}</p>
@@ -30,7 +30,7 @@
                                                     <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                                 </div>
                                                 <div class="video-btns">
-                                                    <button class="hollow button alert resize-button" ><i class="fa fa-heart-o"></i>favorite</button>
+                                                    <button class="hollow button alert resize-button" @click="favOvedio(video.interVideoID)"><i class="fa fa-heart-o"></i>favorite</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,15 @@
   text-align: center;
   margin-bottom: 20px;
 }
-
+.resize {
+  width: 100%;
+}
+.resize-button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 120px;
+  width: 115px;
+}
 
 
 </style>
@@ -107,6 +115,19 @@ export default {
       showMore(){
         this.requestForVideos( ++this.currentPage)
       },
+      favOvedio(interVideoID){
+        this.$axios
+        .get('/aboutHis/FavHisVideo/'+ interVideoID)
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {        
+            this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
+          }
+          if (successResponse.data.code === 400) {
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
+          }
+        })
+        .catch(failResponse => {})
+      }
     }
 }
 </script>

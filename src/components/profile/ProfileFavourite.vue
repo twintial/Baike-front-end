@@ -19,7 +19,7 @@
                                                 <img src="http://placehold.it/170x150" alt="video thumbnail">
                                             </div>
                                         </div>
-                                        <div class="media-object-section media-video-content">
+                                        <div class="media-object-section media-video-content resize">
                                             <div class="video-content">
                                                 <h5><a href="#">{{video.videoName}}</a></h5>
                                                 <p>{{video.introduction}}</p>
@@ -59,7 +59,15 @@
   text-align: center;
   margin-bottom: 20px;
 }
-
+.resize {
+  width: 100%;
+}
+.resize-button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 87px;
+  width: 145px;
+}
 
 
 </style>

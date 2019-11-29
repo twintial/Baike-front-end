@@ -1,19 +1,11 @@
 <template>
   <section class="topProfile">
-    <div class="main-text text-center">
-        <div class="row">
-            <div class="large-12 columns">
-                <h3>World’s Biggest</h3>
-                <h1>Powerfull Video Theme</h1>
-            </div>
-        </div>
-    </div>
+    <div class="myback" :style='{backgroundImage:"url("+ "http://localhost:8443/img/userIcon/" + MyBackIcon + ")"}'></div>
     <div class="profile-stats">
         <div class="row secBg">
             <div class="large-12 columns">
                 <div class="profile-author-img">
-                   <!-- :src="'http://localhost:8443/img/userIcon/'+UserInfo.iconURL+'/'+video.icon" -->
-                    <img src="http://placehold.it/120x110" alt="profile author img">
+                    <img  :src="'http://localhost:8443/img/userIcon/'+ MyIcon" alt="profile author img">
                 </div>
                 <div class="profile-subscribe">
                     <div class="mysub">                   
@@ -76,10 +68,14 @@
     padding-left:16px
 }
 
-.myspan{
-  display:inline-block;
-  width:45px;
+.myback {
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+    height: 350px;
 }
+
 
 </style>
 
@@ -88,7 +84,9 @@ export default {
   name: 'HisprofileHeader',
   data(){
       return{
-        UserInfo:[]
+        UserInfo:[],
+        MyIcon: 'user_default.jpg',
+        MyBackIcon: 'back_default.jpg'
       }
   },
   methods:{
@@ -98,6 +96,8 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.UserInfo = successResponse.data.data
+            this.MyIcon = successResponse.data.data.iconURL
+            this.MyBackIcon = successResponse.data.data.backgroundIconURL
             this.$emit('func',successResponse.data.data.introduction )
           }
           if (successResponse.data.code === 400) {
