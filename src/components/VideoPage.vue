@@ -6,7 +6,7 @@
             <section class="inner-video">
                 <div class="row secBg">
                     <div class="large-12 columns inner-flex-video">
-                      <div class="video-div">
+                      <div class="video-div" style="margin-bottom:16px">
                         <d-player :options="options"
                                   ref="player">
                         </d-player>
@@ -14,7 +14,6 @@
                       </div>
                     </div>
                 </div>
-                <button @click="test">测试</button>
             </section>
             <!-- single post stats -->
             <section class="SinglePostStats">
@@ -35,15 +34,18 @@
                                     <div class="post-title">
                                         <h4>{{interVideoInfo.videoName}}</h4>
                                         <p style="margin-top:30px">
-                                            <span><i class="fa fa-clock-o"></i>{{interVideoInfo.uploadTime}}</span>
+                                            <span><i class="fa fa-clock-o"></i>{{interVideoInfo.uploadTime | timestampToDate}}</span>
                                             <span><i class="fa fa-eye"></i>{{interVideoInfo.playVolume}}</span>
+                                            <span><i class="fa fa-heart-o"></i>{{interVideoInfo.collectPoint}}</span>
                                             <span><i class="fa fa-thumbs-o-up"></i>{{interVideoInfo.praisePoint}}</span>
                                             <span><i class="fa fa-commenting"></i>{{comments.length}}</span>
                                         </p>
                                     </div>
-                                    <div class="fa-position">
-                                        <a href="#" class="secondary-button"><i class="fa fa-heart"></i></a>
-                                        <a href="#" class="secondary-button"><i class="fa fa-thumbs-o-up"></i></a>
+                                    <div class="fa-div-position">
+                                        <i v-if="isCol" @click="deleteFromCollection" class="fa fa-heart fa-2x fa-style"></i>
+                                        <i v-else  @click="insertIntoCollection" class="fa fa-heart-o fa-2x fa-style"></i>
+                                        <i v-if="isThumbUp" class="fa fa-thumbs-up fa-2x fa-style"></i>
+                                        <i v-else class="fa fa-thumbs-o-up fa-2x fa-style"></i>
                                     </div>
                                 </div>
                             </div>
@@ -396,7 +398,7 @@
 
                         <!-- main comment -->
                         <div class="main-comment showmore_one">
-                            <div v-for="(comment, index) in comments" :key="index" class="media-object stack-for-small">
+                            <div v-for="(comment, index) in comments" :key="index" class="media-object stack-for-small comment-buttom-line">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
                                         <img :src="comment.icon" alt="comment">
@@ -405,7 +407,7 @@
                                 <div class="media-object-section comment-desc">
                                     <div class="comment-title">
                                         <span class="name"><a href="#">{{comment.nickName}}</a> Said:</span>
-                                        <span class="time float-right"><i class="fa fa-clock-o"></i>{{comment.sendTime}}</span>
+                                        <span class="time float-right"><i class="fa fa-clock-o"></i>{{comment.sendTime | timestampToDate}}</span>
                                     </div>
                                     <div class="comment-text">
                                         <p>{{comment.content}}</p>
@@ -723,11 +725,19 @@
   display: none;
 }
 
-.fa-position {
-    text-align: right;
-    margin: 38px 10px 0px 0px;
+.fa-div-position {
+  text-align: right;
+  margin: 38px 10px 0px 0px;
 }
-
+.fa-style {
+  cursor: pointer;
+  margin-left: 30px;
+  margin-right: 10px;
+}
+.comment-buttom-line {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ececec;
+}
 </style>
 <script>
 import VueDPlayer from 'vue-dplayer'
@@ -741,7 +751,7 @@ export default {
   data () {
     return {
       isEnded: false,
-      interVideoID: '',
+      interVideoID: null,
       // 用户信息
       uploadUserInfo:{
         nikcName: '',
@@ -770,13 +780,15 @@ export default {
       loginUserInfo:{
         iconURL: 'http://placehold.it/80x80',
         nickName: 'Please Login',
-        uID: ''
-      }
+        uID: null
+      },
+      // 收藏点赞
+      isCol: false,
+      isThumbUp: false
     }
   },
   mounted() {
     this.player = this.$refs.player.dp
-    this.requestForLoginUserInfo()
     this.init()
   },
   watch: {
@@ -786,14 +798,18 @@ export default {
     // 获得登陆的用户信息
     requestForLoginUserInfo(){
       this.$axios
-        .get('/getLoginUserInfo')
+        .get('/getLoginUserInfo/' + this.interVideoID)
         .then(successResponse => {
           if (successResponse.data.code === 200){
+            if (successResponse.data.msg > 0){
+              this.isCol = true
+            }
             this.loginUserInfo.iconURL = successResponse.data.data.iconURL
             this.loginUserInfo.nickName = successResponse.data.data.nickName
-            console.log(successResponse.data.data)
             this.loginUserInfo.uID = successResponse.data.data.uid
             this.loginUserInfo.isLogin = true
+                // 插入用户的观看历史
+            this.insertBrowseHistory()
           }
           if (successResponse.data.code === 400){
             // 不能评论
@@ -863,16 +879,74 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.code === 200){
-            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
+            this.commentContent = ''
+            let comment = {
+              icon: this.loginUserInfo.iconURL,
+              nickName: this.loginUserInfo.nickName,
+              uid: this.loginUserInfo.uID,
+              content: successResponse.data.data.content,
+              interVideoID: this.interVideoID,
+              sendTime : successResponse.data.data.sendTime
+            }
+            this.comments.push(comment)
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400){
             this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
           }
         })
     },
+    // 添加到历史记录
+    insertBrowseHistory(){
+      this.$axios
+        .post('/history', {
+          uid: this.loginUserInfo.uID,
+          watchVideoID: this.interVideoID
+        })
+        .then(successResponse => {
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.msg)
+          }
+        })
+        .catch(failResponse => {})
+    },
+    // 添加到收藏夹
+    insertIntoCollection(){
+      this.$axios
+        .post('/insert/collection', {
+          uid: this.loginUserInfo.uID,
+          favVideoID: this.interVideoID
+        })
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            this.isCol = true;
+            ++this.interVideoInfo.collectPoint;
+          }
+          if (successResponse.data.code === 400) {
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
+          }
+        })
+        .catch(failResponse => {})
+    },
+    deleteFromCollection(){
+      this.$axios
+        .delete('/delete/collection/' + this.loginUserInfo.uID + '/' + this.interVideoID)
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            this.isCol = false;
+            --this.interVideoInfo.collectPoint;
+          }
+          if (successResponse.data.code === 400) {
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
+          }
+        })
+        .catch(failResponse => {})
+    },
     init() {
       // 获取到视频id
       this.interVideoID = this.$route.query.vID
+      // 获得用户信息
+      this.requestForLoginUserInfo()
       // 加上遮罩层，互动视频用
       var that = this
       // 加上按键
@@ -906,9 +980,6 @@ export default {
       // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
     },
-
-    test() {
-    }
   },
 }
 </script>

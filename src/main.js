@@ -50,6 +50,14 @@ Vue.filter('formatSize', function (size) {
   }
   return size.toString() + ' B'
 })
+// 时间戳转换为可读时间
+Vue.filter('timestampToDate', function (timestamp) {
+  var d = new Date(timestamp);    //根据时间戳生成的时间对象
+  var date = (d.getFullYear()) + "-" + 
+            (d.getMonth() + 1) + "-" +
+            (d.getDate())
+  return date
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
