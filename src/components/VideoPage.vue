@@ -21,71 +21,29 @@
                 <!-- newest video -->
                 <div class="row secBg">
                     <div class="large-12 columns">
-                        <div class="media-object stack-for-small">
+                        <div class="media-object stack-for-small" style="padding-bottom:0px">
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
                                         <a href="#"><img src= "http://placehold.it/80x80" alt="post"></a>
                                     </div>
-                                    <p class="text-center"><a href="#">Joseph John</a></p>
+                                    <p class="text-center" style="margin-top:2px"><a href="#">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
                             </div>
                             <div class="media-object-section object-second">
                                 <div class="author-des clearfix">
                                     <div class="post-title">
-                                        <h4>There are many variations of passage.</h4>
-                                        <p>
-                                            <span><i class="fa fa-clock-o"></i>5 January 16</span>
-                                            <span><i class="fa fa-eye"></i>1,862K</span>
-                                            <span><i class="fa fa-thumbs-o-up"></i>1,862</span>
-                                            <span><i class="fa fa-thumbs-o-down"></i>180</span>
-                                            <span><i class="fa fa-commenting"></i>8</span>
+                                        <h4>{{interVideoInfo.videoName}}</h4>
+                                        <p style="margin-top:30px">
+                                            <span><i class="fa fa-clock-o"></i>{{interVideoInfo.uploadTime}}</span>
+                                            <span><i class="fa fa-eye"></i>{{interVideoInfo.playVolume}}</span>
+                                            <span><i class="fa fa-thumbs-o-up"></i>{{interVideoInfo.praisePoint}}</span>
+                                            <span><i class="fa fa-commenting"></i>{{comments.length}}</span>
                                         </p>
                                     </div>
-                                    <div class="subscribe">
-                                        <form method="post">
-                                            <button type="submit" name="subscribe">Subscribe</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="social-share">
-                                    <div class="post-like-btn clearfix">
-                                        <form method="post">
-                                            <button type="submit" name="fav"><i class="fa fa-heart"></i>Add to</button>
-                                        </form>
+                                    <div class="fa-position">
+                                        <a href="#" class="secondary-button"><i class="fa fa-heart"></i></a>
                                         <a href="#" class="secondary-button"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="#" class="secondary-button"><i class="fa fa-thumbs-o-down"></i></a>
-
-                                        <div class="float-right easy-share" data-easyshare data-easyshare-http data-easyshare-url="http://joinwebs.com">
-                                            <!-- Total -->
-                                            <button data-easyshare-button="total">
-                                                <span>Total</span>
-                                            </button>
-                                            <span data-easyshare-total-count>0</span>
-
-                                            <!-- Facebook -->
-                                            <button data-easyshare-button="facebook">
-                                                <span class="fa fa-facebook"></span>
-                                                <span>Share</span>
-                                            </button>
-                                            <span data-easyshare-button-count="facebook">0</span>
-
-                                            <!-- Twitter -->
-                                            <button data-easyshare-button="twitter" data-easyshare-tweet-text="">
-                                                <span class="fa fa-twitter"></span>
-                                                <span>Tweet</span>
-                                            </button>
-                                            <span data-easyshare-button-count="twitter">0</span>
-
-                                            <!-- Google+ -->
-                                            <button data-easyshare-button="google">
-                                                <span class="fa fa-google-plus"></span>
-                                                <span>+1</span>
-                                            </button>
-                                            <span data-easyshare-button-count="google">0</span>
-
-                                            <div data-easyshare-loader>Loading...</div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,29 +60,7 @@
                             <h5>Description</h5>
                         </div>
                         <div class="description showmore_one">
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur</p>
-                            <h6>Bullets List :</h6>
-                            <ul>
-                                <li>Sed ut perspiciatis unde omnis</li>
-                                <li>But I must explain to you how</li>
-                                <li>At vero eos et accusamus et iusto</li>
-                                <li>On the other hand, we denounce</li>
-                                <li>There are many variations of passages</li>
-                            </ul>
-                            <div class="categories">
-                                <button><i class="fa fa-folder"></i>Categories</button>
-                                <a href="#" class="inner-btn">entertainment</a>
-                                <a href="#" class="inner-btn">comedy</a>
-                            </div>
-                            <div class="tags">
-                                <button><i class="fa fa-tags"></i>Tags</button>
-                                <a href="#" class="inner-btn">3D Videos</a>
-                                <a href="#" class="inner-btn">Videos</a>
-                                <a href="#" class="inner-btn">HD</a>
-                                <a href="#" class="inner-btn">Movies</a>
-                            </div>
+                          <p>{{interVideoInfo.introduction}}</p>
                         </div>
                     </div>
                 </div>
@@ -433,7 +369,7 @@
                                 <div class="medium-12 small-12 columns">
                                     <div class="head-title">
                                         <i class="fa fa-comments"></i>
-                                        <h4>Comments <span>(4)</span></h4>
+                                        <h4>Comments <span>({{comments.length}})</span></h4>
                                     </div>
                                 </div>
                             </div>
@@ -443,15 +379,13 @@
                             <div class="media-object stack-for-small">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img src= "http://placehold.it/80x80" alt="comment">
+                                        <img :src="loginUserInfo.iconURL" alt="comment">
                                     </div>
-                                    <h6><a href="#">Joseph John</a></h6>
+                                    <h6><a href="#">{{loginUserInfo.nickName}}</a></h6>
                                 </div>
                                 <div class="media-object-section comment-textarea">
-                                    <form method="post">
-                                        <textarea name="commentText" placeholder="Add a comment here.."></textarea>
-                                        <input type="submit" name="submit" value="send">
-                                    </form>
+                                  <textarea v-model="commentContent" name="commentText" placeholder="Add a comment here.."></textarea>
+                                  <input @click="sendComment" id="comment-input" type="submit" value="send">
                                 </div>
                             </div>
                         </div>
@@ -462,163 +396,24 @@
 
                         <!-- main comment -->
                         <div class="main-comment showmore_one">
-                            <div class="media-object stack-for-small">
+                            <div v-for="(comment, index) in comments" :key="index" class="media-object stack-for-small">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img src= "http://placehold.it/80x80" alt="comment">
+                                        <img :src="comment.icon" alt="comment">
                                     </div>
                                 </div>
                                 <div class="media-object-section comment-desc">
                                     <div class="comment-title">
-                                        <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                        <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
+                                        <span class="name"><a href="#">{{comment.nickName}}</a> Said:</span>
+                                        <span class="time float-right"><i class="fa fa-clock-o"></i>{{comment.sendTime}}</span>
                                     </div>
                                     <div class="comment-text">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
+                                        <p>{{comment.content}}</p>
                                     </div>
-                                    <div class="comment-btns">
-                                        <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                        <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                        <span class='reply float-right hide-reply'></span>
-                                    </div>
-
-                                    <!--sub comment-->
-                                    <div class="media-object stack-for-small reply-comment">
-                                        <div class="media-object-section comment-img text-center">
-                                            <div class="comment-box-img">
-                                                <img src= "http://placehold.it/80x80" alt="comment">
-                                            </div>
-                                        </div>
-                                        <div class="media-object-section comment-desc">
-                                            <div class="comment-title">
-                                                <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                                <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                            </div>
-                                            <div class="comment-btns">
-                                                <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                                <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                                <span class='reply float-right hide-reply'></span>
-                                            </div>
-                                        </div>
-                                    </div><!-- end sub comment -->
-
-                                    <!--sub comment-->
-                                    <div class="media-object stack-for-small reply-comment">
-                                        <div class="media-object-section comment-img text-center">
-                                            <div class="comment-box-img">
-                                                <img src= "http://placehold.it/80x80" alt="comment">
-                                            </div>
-                                        </div>
-                                        <div class="media-object-section comment-desc">
-                                            <div class="comment-title">
-                                                <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                                <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                            </div>
-                                            <div class="comment-btns">
-                                                <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                                <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                                <span class='reply float-right hide-reply'></span>
-                                            </div>
-
-                                        </div>
-                                    </div><!-- end sub comment -->
-
                                 </div>
                             </div>
-
-                            <div class="media-object stack-for-small">
-                                <div class="media-object-section comment-img text-center">
-                                    <div class="comment-box-img">
-                                        <img src= "http://placehold.it/80x80" alt="comment">
-                                    </div>
-                                </div>
-                                <div class="media-object-section comment-desc">
-                                    <div class="comment-title">
-                                        <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                        <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                    </div>
-                                    <div class="comment-btns">
-                                        <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                        <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                        <span class='reply float-right hide-reply'></span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="media-object stack-for-small">
-                                <div class="media-object-section comment-img text-center">
-                                    <div class="comment-box-img">
-                                        <img src= "http://placehold.it/80x80" alt="comment">
-                                    </div>
-                                </div>
-                                <div class="media-object-section comment-desc">
-                                    <div class="comment-title">
-                                        <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                        <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                    </div>
-                                    <div class="comment-btns">
-                                        <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                        <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                        <span class='reply float-right hide-reply'></span>
-                                    </div>
-                                    <!--sub comment-->
-                                    <div class="media-object stack-for-small reply-comment">
-                                        <div class="media-object-section comment-img text-center">
-                                            <div class="comment-box-img">
-                                                <img src= "http://placehold.it/80x80" alt="comment">
-                                            </div>
-                                        </div>
-                                        <div class="media-object-section comment-desc">
-                                            <div class="comment-title">
-                                                <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                                <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                            </div>
-                                            <div class="comment-btns">
-                                                <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                                <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                                <span class='reply float-right hide-reply'></span>
-                                            </div>
-                                            <!--sub comment-->
-                                            <div class="media-object stack-for-small reply-comment">
-                                                <div class="media-object-section comment-img text-center">
-                                                    <div class="comment-box-img">
-                                                        <img src= "http://placehold.it/80x80" alt="comment">
-                                                    </div>
-                                                </div>
-                                                <div class="media-object-section comment-desc">
-                                                    <div class="comment-title">
-                                                        <span class="name"><a href="#">Joseph John</a> Said:</span>
-                                                        <span class="time float-right"><i class="fa fa-clock-o"></i>1 minute ago</span>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoresunt explicabo.</p>
-                                                    </div>
-                                                    <div class="comment-btns">
-                                                        <span><a href="#"><i class="fa fa-thumbs-o-up"></i></a> | <a href="#"><i class="fa fa-thumbs-o-down"></i></a></span>
-                                                        <span><a href="#"><i class="fa fa-share"></i>Reply</a></span>
-                                                        <span class='reply float-right hide-reply'></span>
-                                                    </div>
-                                                </div>
-                                            </div><!-- end sub comment -->
-                                        </div>
-                                    </div><!-- end sub comment -->
-                                </div>
+                            <div v-show="!comments.length" style="text-align:center">
+                              <p>There is on more comments</p>
                             </div>
                         </div><!-- End main comment -->
 
@@ -910,8 +705,8 @@
   display: initial;
 }
 
-.dplayer-comment-disabled {
-    cursor: no-drop !important; 
+.disabled {
+  cursor: no-drop !important; 
 }
 .choice-container {
   position: absolute;
@@ -928,6 +723,11 @@
   display: none;
 }
 
+.fa-position {
+    text-align: right;
+    margin: 38px 10px 0px 0px;
+}
+
 </style>
 <script>
 import VueDPlayer from 'vue-dplayer'
@@ -942,6 +742,12 @@ export default {
     return {
       isEnded: false,
       interVideoID: '',
+      // 用户信息
+      uploadUserInfo:{
+        nikcName: '',
+          
+      },
+      // 此页面的全部信息（页面加载完之后才获取）
       interVideoInfo: '',
       nowVideoID: '',
       nextVideos: [],
@@ -955,24 +761,60 @@ export default {
           danmaku: true
       },
       player: null,
-      container: null,
-      choice: []
+
+      container: null, // 容纳选项的容器dom
+      comments: [], // 评论
+      choice: [], // 选项
+      commentContent: '',
+      // 登陆的用户信息
+      loginUserInfo:{
+        iconURL: 'http://placehold.it/80x80',
+        nickName: 'Please Login',
+        uID: ''
+      }
     }
   },
   mounted() {
     this.player = this.$refs.player.dp
+    this.requestForLoginUserInfo()
     this.init()
   },
   watch: {
 
   },
   methods: {
+    // 获得登陆的用户信息
+    requestForLoginUserInfo(){
+      this.$axios
+        .get('/getLoginUserInfo')
+        .then(successResponse => {
+          if (successResponse.data.code === 200){
+            this.loginUserInfo.iconURL = successResponse.data.data.iconURL
+            this.loginUserInfo.nickName = successResponse.data.data.nickName
+            console.log(successResponse.data.data)
+            this.loginUserInfo.uID = successResponse.data.data.uid
+            this.loginUserInfo.isLogin = true
+          }
+          if (successResponse.data.code === 400){
+            // 不能评论
+            $("#comment-input").attr("disabled", "disabled").addClass("disabled")
+            // 若没登录，则不能发弹幕
+            $(".dplayer-comment .dplayer-comment-icon")
+              .addClass("disabled")
+              .attr("disabled", "disabled")
+              .attr("data-balloon", "Please Login")
+          }
+        })
+    },
+    // 初始化时，获得视频信息
     getVideo (interVideoID) {
       this.$axios
         .get('/video/' + interVideoID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.interVideoInfo = successResponse.data.data
+            this.uploadUserInfo = this.interVideoInfo.userInfo
+            this.comments = this.interVideoInfo.comments
             this.switch(this.interVideoInfo.initVideoID, this.interVideoInfo.initVideo.videoURL, this.interVideoInfo.nextVideos);
           }
           if (successResponse.data.code === 400) {
@@ -981,6 +823,7 @@ export default {
         })
         .catch(failResponse => {})
     },
+    // 切换视频
     switch(nowVID, nowURL, nextVideos){
       this.nowVideoID = nowVID
       this.nextVideos = nextVideos
@@ -996,14 +839,13 @@ export default {
           }
       );
     },
-
     // 点击互动视频按键时候的操作
     requestForNextVideo(videoID){
       this.$axios
         .get('/video/next/' + videoID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-              this.switch(videoID, successResponse.data.msg, successResponse.data.data)
+            this.switch(videoID, successResponse.data.msg, successResponse.data.data)
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.msg)
@@ -1011,7 +853,23 @@ export default {
         })
         .catch(failResponse => {})
     },
-
+    // 发送评论
+    sendComment(){
+      this.$axios
+        .post('/send/comment', {
+          uid: this.loginUserInfo.uID,
+          interVideoID: this.interVideoID,
+          content: this.commentContent
+        })
+        .then(successResponse => {
+          if (successResponse.data.code === 200){
+            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
+          }
+          if (successResponse.data.code === 400){
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
+          }
+        })
+    },
     init() {
       // 获取到视频id
       this.interVideoID = this.$route.query.vID
@@ -1033,8 +891,8 @@ export default {
       $(".dplayer").append(this.container)
       // 监听视频是否播放完毕
       this.player.on('ended', function() {
-          alert(that.nextVideos.length)
         if (that.nextVideos.length){
+          that.options.autoplay = true
           $(".dplayer-mask").addClass("mask-show")
           // 调整位置并显示
           that.container.css("top", 200 - ((that.nextVideos.length * 20)))
@@ -1047,17 +905,9 @@ export default {
       })
       // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
-      // 若没登录，则不能发弹幕
-      if (!sessionStorage.getItem('userID')){
-          $(".dplayer-comment .dplayer-comment-icon")
-              .addClass("dplayer-comment-disabled")
-              .attr("disabled", "disabled")
-              .attr("data-balloon", "Please Login")
-      }
     },
 
     test() {
-      
     }
   },
 }

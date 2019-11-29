@@ -2278,7 +2278,7 @@ footer {
       padding-right: 10px; }
     .SinglePostStats .media-object .author-img-sec {
       border-right: 1px solid #ececec;
-      padding: 15px 15px 15px 0; }
+      padding: 15px 15px 0 0; }
       .SinglePostStats .media-object .author-img-sec .author-single-post {
         width: 80px;
         height: 80px;
@@ -2295,8 +2295,8 @@ footer {
           color: #444444; }
     .SinglePostStats .media-object .author-des {
       width: 100%;
-      border-bottom: 1px solid #ececec;
-      padding: 19px 0; }
+      /* border-bottom: 1px solid #ececec; */
+      padding: 25px 0; }
       .SinglePostStats .media-object .author-des .post-title {
         float: left;
         display: inline; }

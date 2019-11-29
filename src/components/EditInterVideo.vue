@@ -29,6 +29,7 @@
                             <option value="three" class="option">three</option>
                         </select> -->
                         <select id="change" disabled>
+                          <option id="blankop"></option>
                           <option v-for="(videoList, index) in videoList" :key="index">{{videoList.title}}</option>
                         </select>
 
@@ -160,7 +161,11 @@ var Init = function() {
 
 
   $('#change').change(() => {
+    $('#blankop').remove();
     var changetitle = $('#change option:selected').val();
+    if (changetitle == ''){
+      return;
+    }
     var $node = $('#selected-node').data('node');
     $node.find('.content').text(changetitle);
     $('#selected-node').val(changetitle);
@@ -198,7 +203,7 @@ var Init = function() {
 
     var $node = $('#selected-node').data('node');
 
-    if (title === null) {
+    if (title == '') {
       alert('Please choose branch video');
       return;
     }
@@ -280,6 +285,13 @@ var Init = function() {
     } else if ($node[0] === $('.orgchart').find('.node:first')[0]) {
       alert('You should not delete the root nood');
       return;
+    }
+    var plot = $node.find('.title').text();
+    for (var i = 0; i < choiceList.length; i++) {
+      if (plot == choiceList[i]){
+        choiceList.splice(i, 1);
+        break;
+      }
     }
     oc.removeNodes($node);
     $('#selected-node').val('').data('node', null);
