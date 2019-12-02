@@ -17,91 +17,13 @@
           <ul class="vertical menu off-menu" data-responsive-menu="drilldown">
             <li class="has-submenu">
               <a href="#"><i class="fa fa-home"></i>Home</a>
-              <ul
-                class="submenu menu vertical"
-                data-submenu
-                data-animate="slide-in-down slide-out-up"
-              >
-                <li>
-                  <a href="index.html"
-                    ><i class="fa fa-home"></i>Home page v1</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v2.html"
-                    ><i class="fa fa-home"></i>Home page v2</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v3.html"
-                    ><i class="fa fa-home"></i>Home page v3</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v4.html"
-                    ><i class="fa fa-home"></i>Home page v4</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v5.html"
-                    ><i class="fa fa-home"></i>Home page v5</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v6.html"
-                    ><i class="fa fa-home"></i>Home page v6</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v7.html"
-                    ><i class="fa fa-home"></i>Home page v7</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v8.html"
-                    ><i class="fa fa-home"></i>Home page v8</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v9.html"
-                    ><i class="fa fa-home"></i>Home page v9</a
-                  >
-                </li>
-                <li>
-                  <a href="home-v10.html"
-                    ><i class="fa fa-home"></i>Home page v10</a
-                  >
-                </li>
-              </ul>
             </li>
-            <li class="has-submenu" data-dropdown-menu="example1">
-              <a href="#"><i class="fa fa-film"></i>Videos</a>
-              <ul
-                class="submenu menu vertical"
-                data-submenu
-                data-animate="slide-in-down slide-out-up"
-              >
-                <li>
-                  <a href="single-video-v1.html"
-                    ><i class="fa fa-film"></i>single video v1</a
-                  >
-                </li>
-                <li>
-                  <a href="single-video-v2.html"
-                    ><i class="fa fa-film"></i>single video v2</a
-                  >
-                </li>
-                <li>
-                  <a href="single-video-v3.html"
-                    ><i class="fa fa-film"></i>single video v3</a
-                  >
-                </li>
-                <li>
-                  <a href="submit-post.html"
-                    ><i class="fa fa-film"></i>submit post</a
-                  >
-                </li>
-              </ul>
+            <li
+              class="has-submenu"
+              data-dropdown-menu="example1"
+              v-if="online == true"
+            >
+              <a href="#"><i class="fa fa-film"></i>Upload Video</a>
             </li>
             <li>
               <a href="categories.html"><i class="fa fa-th"></i>category</a>
@@ -245,11 +167,8 @@
           </div>
           <div class="top-button">
             <ul class="menu">
-              <li>
-                <a href="submit-post.html">upload Video</a>
-              </li>
               <li class="dropdown-login">
-                <a href="login.html">login/Register</a>
+                <a href="">login/Register</a>
               </li>
             </ul>
           </div>
@@ -273,9 +192,9 @@
                   <div class="top-button">
                     <ul class="menu float-right">
                       <li>
-                        <a href="submit-post.html">upload Video</a>
+                        <a @click="logout" v-if="online == true">logout</a>
                       </li>
-                      <li class="dropdown-login">
+                      <li class="dropdown-login" v-if="online == false">
                         <a
                           class="loginReg"
                           data-toggle="example-dropdown"
@@ -284,7 +203,7 @@
                         >
                         <div class="login-form">
                           <h6 class="text-center">Great to have you back!</h6>
-                          <form method="post">
+                          <div>
                             <div class="input-group">
                               <span class="input-group-label"
                                 ><i class="fa fa-user"></i
@@ -293,6 +212,8 @@
                                 class="input-group-field"
                                 type="text"
                                 placeholder="Enter username"
+                                v-model="user.account"
+                                required
                               />
                             </div>
                             <div class="input-group">
@@ -303,6 +224,8 @@
                                 class="input-group-field"
                                 type="text"
                                 placeholder="Enter password"
+                                v-model="user.password"
+                                required
                               />
                             </div>
                             <div class="checkbox">
@@ -320,8 +243,10 @@
                               type="submit"
                               name="submit"
                               value="Login Now"
+                              @click="login"
                             />
-                          </form>
+                          </div>
+
                           <p class="text-center">
                             New here?
                             <a class="newaccount" href="login-register.html"
@@ -393,117 +318,50 @@
                             data-responsive-menu="drilldown medium-dropdown"
                           >
                             <li class="has-submenu">
-                              <a href="#"><i class="fa fa-home"></i>Home</a>
-                              <ul
-                                class="submenu menu vertical"
-                                data-submenu
-                                data-animate="slide-in-down slide-out-up"
-                              >
-                                <li>
-                                  <a href="index.html"
-                                    ><i class="fa fa-home"></i>Home page v1</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v2.html"
-                                    ><i class="fa fa-home"></i>Home page v2</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v3.html"
-                                    ><i class="fa fa-home"></i>Home page v3</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v4.html"
-                                    ><i class="fa fa-home"></i>Home page v4</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v5.html"
-                                    ><i class="fa fa-home"></i>Home page v5</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v6.html"
-                                    ><i class="fa fa-home"></i>Home page v6</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v7.html"
-                                    ><i class="fa fa-home"></i>Home page v7</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v8.html"
-                                    ><i class="fa fa-home"></i>Home page v8</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v9.html"
-                                    ><i class="fa fa-home"></i>Home page v9</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="home-v10.html"
-                                    ><i class="fa fa-home"></i>Home page v10</a
-                                  >
-                                </li>
-                              </ul>
+                              <a href="/"><i class="fa fa-home"></i>Home</a>
                             </li>
                             <li
                               class="has-submenu"
                               data-dropdown-menu="example1"
+                              v-if="online == true"
                             >
-                              <a href="#"><i class="fa fa-film"></i>Videos</a>
+                              <a href="#"><i class="fa fa-film"></i>Upload</a>
+                            </li>
+                            <li>
+                              <a><i class="fa fa-th"></i>category</a>
                               <ul
                                 class="submenu menu vertical"
                                 data-submenu
                                 data-animate="slide-in-down slide-out-up"
                               >
                                 <li>
-                                  <a href="single-video-v1.html"
-                                    ><i class="fa fa-film"></i>single video
-                                    v1</a
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>0</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="single-video-v2.html"
-                                    ><i class="fa fa-film"></i>single video
-                                    v2</a
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>1</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="single-video-v3.html"
-                                    ><i class="fa fa-film"></i>single video
-                                    v3</a
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>2</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="submit-post.html"
-                                    ><i class="fa fa-film"></i>submit post</a
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>3</a
                                   >
                                 </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="categories.html"
-                                ><i class="fa fa-th"></i>category</a
-                              >
-                            </li>
-                            <li>
-                              <a href="blog.html"
-                                ><i class="fa fa-edit"></i>blog</a
-                              >
-                              <ul
-                                class="submenu menu vertical"
-                                data-submenu
-                                data-animate="slide-in-down slide-out-up"
-                              >
                                 <li>
-                                  <a href="blog-single-post.html"
-                                    ><i class="fa fa-edit"></i>blog single
-                                    post</a
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>4</a
+                                  >
+                                </li>
+                                <li>
+                                  <a href="404.html"
+                                    ><i class="fa fa-th"></i>5</a
                                   >
                                 </li>
                               </ul>
@@ -615,9 +473,9 @@
                                 </li>
                               </ul>
                             </li>
-                            <li>
+                            <li v-if="online == true">
                               <a href="about-us.html"
-                                ><i class="fa fa-user"></i>about</a
+                                ><i class="fa fa-user"></i>Personal Center</a
                               >
                             </li>
                             <li>
@@ -641,7 +499,7 @@
                         />
                       </div>
                       <div class="search-btn float-right text-right">
-                        <button class="button" @click="searcho">搜索</button>
+                        <button class="button" @click="searcho">Search</button>
                       </div>
                     </div>
                   </div>
@@ -868,16 +726,21 @@
 </template>
 
 <script>
-import SearchResultVue from './components/SearchResult.vue';
+import SearchResultVue from "./components/SearchResult.vue";
 export default {
   name: "App",
   data() {
     return {
+      online: false,
       SN: "",
       type1: "search",
       type2: "fa fa-search",
-      type3: "display:none;"
+      type3: "display:none;",
+      user: { account: "", password: "" }
     };
+  },
+  mounted() {
+    this.isonline();
   },
   methods: {
     searcho() {
@@ -886,6 +749,46 @@ export default {
       this.type3 = "display:none;";
       this.$router.push({ path: "/SearchResult", query: { SR: this.SN } });
       this.$router.go(0);
+    },
+    login() {
+      this.$axios
+        .post("/login", {
+          account: this.user.account,
+          password: this.user.password
+        })
+        .then(successResponse => {
+          this.responseResult = JSON.stringify(successResponse.data);
+          if (successResponse.data.code === 200) {
+            this.$router.push("/");
+            this.$router.go(0);
+            alert("Already logged in");
+          }
+          if (successResponse.data.code === 400) {
+            alert(successResponse.data.message);
+          }
+        })
+        .catch(failResponse => {});
+    },
+    logout() {
+      this.$axios
+        .post("/logout", {})
+        .then(successResponse => {
+          this.$router.go(0);
+          alert("Already logged out");
+        })
+        .catch(failResponse => {
+          alert("No logged out");
+        });
+    },
+    isonline() {
+      this.$axios
+        .post("/isOnline", {})
+        .then(successResponse => {
+          this.online = successResponse.data;
+        })
+        .catch(failResponse => {
+          alert("error!");
+        });
     }
   }
 };
