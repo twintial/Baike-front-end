@@ -1,8 +1,5 @@
 <template>
     <div>
-        <profile-header></profile-header>
-        <div class="row">
-          <left-side-bar></left-side-bar>
           <!-- right side content area -->
           <div class="large-8 columns profile-inner">
               <!-- profile settings -->
@@ -155,7 +152,6 @@
                   </div>
               </section><!-- End profile settings -->
           </div><!-- end left side content area -->
-        </div>
     </div>
 </template>
 
@@ -246,12 +242,10 @@ p {
 <script>
 // import ImageCompressor from '@xkeshi/image-compressor'
 // import Cropper from 'cropperjs'
-import profileHeader from '@/components/profile/common/ProfileHeader.vue'
-import leftSideBar from '@/components/profile/common/LeftSideBar.vue'
 import FileUpload from 'vue-upload-component'
 export default {
   components: {
-    FileUpload, profileHeader ,leftSideBar
+    FileUpload
   },
   data() {
     return {

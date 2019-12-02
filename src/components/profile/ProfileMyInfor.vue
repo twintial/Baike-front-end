@@ -9,7 +9,9 @@
              <favourite v-else-if="MYPOS == 2" @func="minusfavVideo"></favourite>
              <followers v-else-if="MYPOS == 3" ></followers>
              <myfollow v-else-if="MYPOS == 4" @func="minusFollowers"></myfollow>
-             <setting v-else-if="MYPOS == 5" :userintroduction="giveUserIntro" :username="giveUserName"></setting>
+             <browsehistory v-else-if="MYPOS == 5" ></browsehistory>
+             <setting v-else-if="MYPOS == 6" :userintroduction="giveUserIntro" :username="giveUserName"></setting>
+             <submit v-else-if="MYPOS == 8" ></submit>
          </div>
     </div>
 </template>
@@ -23,6 +25,8 @@ import followers from '@/components/profile/ProfileFollowers.vue'
 import myvideo from '@/components/profile/ProfileVideo.vue'
 import setting from '@/components/profile/ProfileSetting.vue'
 import myfollow from '@/components/profile/ProfileMyFollow.vue'
+import browsehistory from '@/components/profile/ProfileBrowseHistory.vue'
+import submit from '@/components/profile/SubmitPost.vue'
 export default {
     name:'Myinformation',
     data(){
@@ -40,7 +44,9 @@ export default {
         followers,
         myvideo,
         setting,
-        myfollow
+        myfollow,
+        browsehistory,
+        submit
     },
     methods:{
         getMsgFormSon(data){

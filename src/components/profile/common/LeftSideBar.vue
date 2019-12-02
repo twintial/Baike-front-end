@@ -16,10 +16,11 @@
                                 <li class="clearfix"><a @click="changeView(2)" :class="{active:toPos==2}"><i class="fa fa-heart"></i>Favorite Videos<span class="float-right"></span></a></li>
                                 <li class="clearfix"><a @click="changeView(3)" :class="{active:toPos==3}"><i class="fa fa-users"></i>Followers<span class="float-right"></span></a></li>
                                 <li class="clearfix"><a @click="changeView(4)" :class="{active:toPos==4}"><i class="fa fa-child"></i>MyFollow<span class="float-right"></span></a></li>
-                                <li class="clearfix"><a @click="changeView(5)" :class="{active:toPos==5}"><i class="fa fa-gears"></i>Profile Settings</a></li>
-                                <li class="clearfix"><a @click="changeView(6)" :class="{active:toPos==6}"><i class="fa fa-sign-out"></i>Logout</a></li>
+                                <li class="clearfix"><a @click="changeView(5)" :class="{active:toPos==5}"><i class="fa fa-history"></i>Browse History<span class="float-right"></span></a></li>
+                                <li class="clearfix"><a @click="changeView(6)" :class="{active:toPos==6}"><i class="fa fa-gears"></i>Profile Settings</a></li>
+                                <li class="clearfix"><a @click="changeView(7)" :class="{active:toPos==7}"><i class="fa fa-sign-out"></i>Logout</a></li>
                             </ul>
-                            <a href="submit-post.html" class="button"><i class="fa fa-plus-circle"></i>Submit Video</a>
+                            <a class="button" @click="changeView(8)"><i class="fa fa-plus-circle"></i>Submit Video</a>
                         </div>
                     </div>
                 </div><!-- End profile overview -->
