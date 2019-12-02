@@ -1,7 +1,7 @@
 <template>
   <section class="topProfile">
     <label for="backavatar">
-    <div class="myback" :style='{backgroundImage:"url("+ "http://localhost:8443/img/userIcon/" + backdata.BackMyIcon + ")"}'></div>
+    <div class="myback img-point" :style='{backgroundImage:"url("+ "http://localhost:8443/img/userIcon/" + backdata.BackMyIcon + ")"}'></div>
     </label>
     <div v-show="false">
         <file-upload
@@ -23,7 +23,7 @@
             <div class="large-12 columns">
                 <div class="profile-author-img">
                     <label for="avatar"> 
-                        <img :src="'http://localhost:8443/img/userIcon/'+data.MyIcon" alt="profile author img">
+                        <img class="img-point" :src="coverFiles.length ? url : 'http://localhost:8443/img/userIcon/'+data.MyIcon" alt="profile author img">
                     </label>
                     <div v-show="false">
                         <file-upload
@@ -96,6 +96,9 @@
 </template>
 
 <style scoped>
+.img-point {
+  cursor: pointer;
+}
 
 .myback {
     background-repeat: no-repeat;
@@ -168,7 +171,7 @@ export default {
           if (true && !this.$refs.cover.active) {
           this.$refs.cover.active = true
           alert("Upload Icon Success")
-          location.reload()            
+        //   location.reload()            
           }
         }
       },
@@ -196,7 +199,7 @@ export default {
           if (true && !this.$refs.backcover.active) {
           this.$refs.backcover.active = true
           alert("Upload Background Icon Success")
-          location.reload()            
+        //   location.reload()            
           }
         }
       },

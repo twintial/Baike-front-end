@@ -134,9 +134,12 @@
                                               <div class="post-category">
                                                   <label>选择视频种类:
                                                       <select v-model="tag">
-                                                          <option value="动画" selected>动画</option>
-                                                          <option value="旅游">旅游</option>
-                                                          <option value="美少女">美少女</option>
+                                                          <option value="Adventure" selected>Adventure</option>
+                                                          <option value="Mystery">Mystery</option>
+                                                          <option value="Thriller">Thriller</option>
+                                                          <option value="Romance">Romance</option>
+                                                          <option value="Comedy">Comedy</option>
+                                                          <option value="Time-travel">Time-travel</option>
                                                       </select>
                                                   </label>
                                               </div>
@@ -232,11 +235,6 @@ tbody {
   font-size: 40px;
   color: #fff;
   padding: 0;
-}
-</style>
-<style>
-p {
-  color: white;
 }
 </style>
 <script>

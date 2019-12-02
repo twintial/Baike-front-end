@@ -16,7 +16,7 @@
                                     <div class="media-object stack-for-small">
                                         <div class="media-object-section media-img-content">
                                             <div class="video-img">
-                                                <img src="http://placehold.it/170x150" alt="video thumbnail">
+                                                <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                             </div>
                                         </div>
                                         <div class="media-object-section media-video-content resize">
@@ -26,7 +26,7 @@
                                             </div>
                                             <div class="video-detail clearfix">
                                                 <div class="video-stats">
-                                                    <span><i class="fa fa-clock-o"></i>{{video.uploadTime}}</span>
+                                                    <span><i class="fa fa-clock-o"></i>{{video.uploadTime | timestampToDate}}</span>
                                                     <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                                 </div>
                                                 <div class="video-btns">

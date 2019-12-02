@@ -116,6 +116,8 @@
     </section>
     <!--end slider-->
 
+
+
     <!-- Category -->
     <section id="category">
       <div class="row secBg">
@@ -607,6 +609,11 @@
     <!-- End ad Section -->
   </div>
 </template>
+<style scoped>
+.catagory-video {
+  width: initial;
+}
+</style>
 <script>
 export default {
   name: "HomePage",
@@ -620,7 +627,7 @@ export default {
       videobytime: undefined
     };
   },
-  created() {
+  mounted() {
     this.playv();
     this.timev();
     this.categary(1);
