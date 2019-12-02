@@ -1,19 +1,45 @@
 <template>
   <section class="topProfile">
-    <div class="main-text text-center">
-        <div class="row">
-            <div class="large-12 columns">
-                <h3>World’s Biggest</h3>
-                <h1>Powerfull Video Theme</h1>
-            </div>
-        </div>
+    <label for="backavatar">
+    <div class="myback" :style='{backgroundImage:"url("+ "http://localhost:8443/img/userIcon/" + backdata.BackMyIcon + ")"}'></div>
+    </label>
+    <div v-show="false">
+        <file-upload
+        extensions="gif,jpg,jpeg,png,webp"
+        accept="image/png,image/gif,image/jpeg,image/webp"
+        name="backavatar"
+        post-action="http://localhost:8443/api/aboutMe/uploadback"
+        :drop="false"
+        :data="backdata"
+        v-model="backcoverFiles"
+        @input-filter="coverbackInputFilter"
+        @input-file="coverbackInputFile"
+        ref="backcover">
+        Upload backavatar
+        </file-upload>
     </div>
     <div class="profile-stats">
         <div class="row secBg">
             <div class="large-12 columns">
                 <div class="profile-author-img">
-                   <!-- :src="'http://localhost:8443/img/userIcon/'+UserInfo.iconURL+'/'+video.icon" -->
-                    <img src="http://placehold.it/120x110" alt="profile author img">
+                    <label for="avatar"> 
+                        <img :src="'http://localhost:8443/img/userIcon/'+data.MyIcon" alt="profile author img">
+                    </label>
+                    <div v-show="false">
+                        <file-upload
+                        extensions="gif,jpg,jpeg,png,webp"
+                        accept="image/png,image/gif,image/jpeg,image/webp"
+                        name="avatar"
+                        post-action="http://localhost:8443/api/aboutMe/upload"
+                        :drop="false"
+                        :data="data"
+                        v-model="coverFiles"
+                        @input-filter="coverInputFilter"
+                        @input-file="coverInputFile"
+                        ref="cover">
+                        Upload avatar
+                        </file-upload>
+                    </div>
                 </div>
                 <div class="clearfix">
                     <div class="profile-author-name float-left">
@@ -68,12 +94,36 @@
   </section><!-- End profile top section -->
   
 </template>
+
+<style scoped>
+
+.myback {
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+    height: 350px;
+}
+
+
+</style>
 <script>
 export default {
   name: 'HisprofileHeader',
   data(){
       return{
-        UserInfo:[]
+        UserInfo:[],
+        coverFiles: [],
+        backcoverFiles:[],
+        url: '',
+        data: {
+            UserID: '',
+            MyIcon: 'user_default.jpg'
+        },
+        backdata: {
+            BackUserID: '',
+            BackMyIcon: 'back_default.jpg'
+        },
       }
   },
   methods:{
@@ -85,6 +135,10 @@ export default {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
             this.UserInfo = successResponse.data.data
+            this.data.UserID = successResponse.data.data.uid
+            this.data.MyIcon = successResponse.data.data.iconURL
+            this.backdata.BackUserID = successResponse.data.data.uid
+            this.backdata.BackMyIcon = successResponse.data.data.backgroundIconURL
             this.$emit('func',successResponse.data.data.introduction , successResponse.data.data.nickName)
           }
           if (successResponse.data.code === 400) {
@@ -107,7 +161,63 @@ export default {
           if( this.UserInfo.uploadVideoNum != 0){
             this.UserInfo.uploadVideoNum--
           }
-      }
+      },
+      coverInputFile(newFile, oldFile, prevent) {
+      // 自动上传
+        if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) { 
+          if (true && !this.$refs.cover.active) {
+          this.$refs.cover.active = true
+          alert("Upload Icon Success")
+          location.reload()            
+          }
+        }
+      },
+      coverInputFilter(newFile, oldFile, prevent){
+        if (newFile && !oldFile) {
+            if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+            this.alert('你上传的不是一张图片')
+            return prevent()
+            }
+        }
+        if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+            let URL = window.URL || window.webkitURL
+            if (URL && URL.createObjectURL) {
+            this.url = URL.createObjectURL(newFile.file)
+            }
+            // 删除上一张图片
+            if (this.coverFiles.length){
+                this.deleteFile(this.coverFiles[0].response)
+            }
+        }
+      },
+      coverbackInputFile(newFile, oldFile, prevent) {
+      // 自动上传
+        if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) { 
+          if (true && !this.$refs.backcover.active) {
+          this.$refs.backcover.active = true
+          alert("Upload Background Icon Success")
+          location.reload()            
+          }
+        }
+      },
+      coverbackInputFilter(newFile, oldFile, prevent){
+        if (newFile && !oldFile) {
+            if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+            this.alert('你上传的不是一张图片')
+            return prevent()
+            }
+        }
+        if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+            let URL = window.URL || window.webkitURL
+            if (URL && URL.createObjectURL) {
+            this.url = URL.createObjectURL(newFile.file)
+            }
+            // 删除上一张图片
+            if (this.backcoverFiles.length){
+                this.deleteFile(this.backcoverFiles[0].response)
+            }
+        }
+      },
   },
   mounted(){
       this.getUserHead()

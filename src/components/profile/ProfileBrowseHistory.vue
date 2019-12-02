@@ -7,8 +7,8 @@
                     <div class="row secBg">
                         <div class="large-12 columns">
                             <div class="heading">
-                                <i class="fa fa-heart"></i>
-                                <h4>Favorite Videos</h4>
+                                <i class="fa fa-history"></i>
+                                <h4>Browse History</h4>
                             </div>
                              <div class="description">
                             <div v-for="(video, index) in videos" :key="index" class="profile-video">
@@ -26,11 +26,11 @@
                                             </div>
                                             <div class="video-detail clearfix">
                                                 <div class="video-stats">
-                                                    <span><i class="fa fa-clock-o"></i>{{video.uploadTime}}</span>
+                                                    <span><i class="fa fa-clock-o"></i>{{video.watchDate}}</span>
                                                     <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                                 </div>
                                                 <div class="video-btns">
-                                                    <button class="hollow button alert resize-button" @click="comfirmToDelete(video.interVideoID)"><i class="fa fa-heart-o"></i>Unfavorite</button>
+                                                    <button class="hollow button alert resize-button" @click="comfirmToDelete(video.interVideoID)"><i class="fa fa-trash-o"></i>Delete</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div v-show="!videos.length" class="text-style">
-                               You haven't add your favorite video, enjoy and add one
+                               You haven't watched any videos
                             </div>
                             <div v-if="currentPage < totlePage" class="show-more-inner text-center">
                               <button class="show-more-btn" @click="showMore">show more</button>
@@ -76,7 +76,7 @@ Array.prototype.extend = function (other_array) {
     other_array.forEach(function(v) {this.push(v)}, this);  
 }
 export default {
-    name: 'Myfavvideo',
+    name: 'BrowseHistory',
     data() {
       return {
         currentPage: 1,
@@ -98,7 +98,7 @@ export default {
     methods: {
       requestForVideos(pageNum){
         this.$axios
-        .get('/aboutMe/favVideo/' + pageNum)
+        .get('/aboutMe/browseHistory/' + pageNum)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
@@ -129,7 +129,7 @@ export default {
       // 从后端删除
       deleteVideo(interVideoID){
         this.$axios
-        .delete('/aboutMe/favVideo/' + interVideoID)
+        .delete('/aboutMe/browseHistory/' + interVideoID)
         .then(successResp => {
           if (successResp.data.code === 200) {
             // 及时删除

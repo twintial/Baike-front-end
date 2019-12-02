@@ -13,7 +13,7 @@
                                 <div v-for="(myfollower, index) in followers" :key="index" class="large-2 small-6 medium-3 columns">
                                     <div class="follower">
                                         <div class="follower-img">
-                                            <img src="http://placehold.it/115x100" alt="followers">
+                                            <img :src="'http://localhost:8443/img/userIcon/'+myfollower.iconURL" alt="followers">
                                         </div>
                                         <span class="myspan"><a @click="moveToOpage(myfollower.uid)">{{myfollower.nickName}}</a></span>
                                     </div>
