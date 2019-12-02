@@ -90,9 +90,6 @@ export default {
         .then(successResponse => {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
-              alert(successResponse.data.data)
-              sessionStorage.setItem('userID', successResponse.data.data)
-              alert(sessionStorage.getItem('userID'))
               this.$router.push('/')
           }
           if (successResponse.data.code === 400) {

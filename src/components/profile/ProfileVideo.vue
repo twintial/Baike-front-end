@@ -36,7 +36,7 @@
                                                 <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                             </div>
                                             <div class="video-btns">
-                                                <button v-show="picked === 'editable'" class="hollow button primary resize-button" @click="goToEdit(video.interVideoID)"><i class="fa fa-pencil-square-o"></i>edit</button>
+                                                <button class="hollow button primary resize-button" @click="goToEdit(video.interVideoID)"><i class="fa fa-pencil-square-o"></i>edit</button>
                                                 <button class="hollow button alert resize-button" @click="comfirmToDelete(video.interVideoID)"><i class="fa fa-trash"></i>delete</button>
                                             </div>
                                         </div>
