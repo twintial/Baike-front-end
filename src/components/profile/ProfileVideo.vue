@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="media-object-section media-video-content resize">
                                         <div class="video-content">
-                                            <h5><a href="#">{{video.videoName}}</a></h5>
+                                            <h5><a @click="picked==='publish'? goToVideoPage(video.interVideoID) : goToEdit(video.interVideoID)">{{video.videoName}}</a></h5>
                                             <p>{{video.introduction}}</p>
                                         </div>
                                         <div class="video-detail clearfix">
@@ -32,7 +32,7 @@
                                                   <i class="fa fa-check-square-o" v-if="picked==='publish'" aria-hidden="true">Published</i>
                                                   <i class="fa fa-pencil-square-o" v-else aria-hidden="true">Editing</i>
                                                 </span>
-                                                <span><i class="fa fa-clock-o"></i>{{video.uploadTime}}</span>
+                                                <span><i class="fa fa-clock-o"></i>{{video.uploadTime | timestampToDate}}</span>
                                                 <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                             </div>
                                             <div class="video-btns">
@@ -185,6 +185,10 @@ export default {
         this.$router.push({name: 'editPage', query: {
           interVideoID: interVideoID
         }})
+      },
+
+      goToVideoPage(videoID) {
+        this.$router.push({path:'/video',query:{vID: videoID}});
       }
     }
 }

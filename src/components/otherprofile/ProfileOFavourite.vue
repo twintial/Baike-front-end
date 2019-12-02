@@ -16,12 +16,12 @@
                                     <div class="media-object stack-for-small">
                                         <div class="media-object-section media-img-content">
                                             <div class="video-img">
-                                                <img src="http://placehold.it/170x150" alt="video thumbnail">
+                                                <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                             </div>
                                         </div>
                                         <div class="media-object-section media-video-content resize">
                                             <div class="video-content">
-                                                <h5><a href="#">{{video.videoName}}</a></h5>
+                                                <h5><a @click="goToVideoPage(video.interVideoID)">{{video.videoName}}</a></h5>
                                                 <p>{{video.introduction}}</p>
                                             </div>
                                             <div class="video-detail clearfix">
@@ -127,6 +127,9 @@ export default {
           }
         })
         .catch(failResponse => {})
+      },
+      goToVideoPage(videoID) {
+        this.$router.push({path:'/video',query:{vID: videoID}});
       }
     }
 }

@@ -21,7 +21,7 @@
                                         </div>
                                         <div class="media-object-section media-video-content resize">
                                             <div class="video-content">
-                                                <h5><a href="#">{{video.videoName}}</a></h5>
+                                                <h5><a @click="goToVideoPage(video.interVideoID)">{{video.videoName}}</a></h5>
                                                 <p>{{video.introduction}}</p>
                                             </div>
                                             <div class="video-detail clearfix">
@@ -151,6 +151,9 @@ export default {
           messageType: 'confirm'
         })
       },
+      goToVideoPage(videoID) {
+        this.$router.push({path:'/video',query:{vID: videoID}});
+      }
     }
 }
 </script>

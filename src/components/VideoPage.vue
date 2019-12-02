@@ -24,7 +24,7 @@
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
-                                        <a href="#"><img src= "http://placehold.it/80x80" alt="post"></a>
+                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="'http://localhost:8443/img/userIcon/'+uploadUserInfo.iconURL" alt="post"></a>
                                     </div>
                                     <p class="text-center" style="margin-top:2px"><a href="#">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
@@ -381,7 +381,7 @@
                             <div class="media-object stack-for-small">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img :src="loginUserInfo.iconURL" alt="comment">
+                                        <img :src="loginUserInfo.uID ? 'http://localhost:8443/img/userIcon/'+loginUserInfo.iconURL : 'http://localhost:8443/img/userIcon/user_default.jpg'" alt="comment">
                                     </div>
                                     <h6><a href="#">{{loginUserInfo.nickName}}</a></h6>
                                 </div>
@@ -392,16 +392,12 @@
                             </div>
                         </div>
 
-                        <div class="comment-sort text-right">
-                            <span>Sort By : <a href="#">newest</a> | <a href="#">oldest</a></span>
-                        </div>
-
                         <!-- main comment -->
                         <div class="main-comment showmore_one">
                             <div v-for="(comment, index) in comments" :key="index" class="media-object stack-for-small comment-buttom-line">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img :src="comment.icon" alt="comment">
+                                        <img :src="'http://localhost:8443/img/userIcon/'+comment.icon" alt="comment">
                                     </div>
                                 </div>
                                 <div class="media-object-section comment-desc">
@@ -772,7 +768,8 @@ export default {
       // 用户信息
       uploadUserInfo:{
         nikcName: '',
-          
+        iconURL: '',
+        uid: null
       },
       // 此页面的全部信息（页面加载完之后才获取）
       interVideoInfo: '',
@@ -797,7 +794,7 @@ export default {
       commentContent: '',
       // 登陆的用户信息
       loginUserInfo:{
-        iconURL: 'http://placehold.it/80x80',
+        iconURL: '',
         nickName: 'Please Login',
         uID: null
       },
@@ -1030,6 +1027,15 @@ export default {
       // 获得互动视频信息并且切换到当前视频
       this.getVideo(this.interVideoID)
     },
+
+    goToDetails(uID){
+        this.$router.push({
+            name:'othersAccount',
+            query: {
+                oID: uID
+            }
+        })
+    }
   },
 }
 </script>
