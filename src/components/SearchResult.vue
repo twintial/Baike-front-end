@@ -71,7 +71,7 @@
                             <div class="video-stats clearfix">
                               <div class="thumb-stats pull-left">
                                 <i class="fa fa-heart"></i>
-                                <span>{{ result.praisePoint }}</span>
+                                <span>{{ result.collectPoint }}</span>
                               </div>
                             </div>
                           </div>
@@ -170,12 +170,6 @@
                           <div style="margin-left:1cm">
                             <br />
 
-                            <button
-                              class="button"
-                              style="font-size: 11px;width:80px;height: 41px; color:#69e5e9"
-                            >
-                              follow
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -198,7 +192,7 @@
                       aria-label="Page 2"
                       @click="thisPage(page)"
                       :style="{
-                        background: page == currentPage + 1 ? 'yellow' : ''
+                        background: page == currentPage + 1 ? '#e96969' : ''
                       }"
                       >{{ page }}</a
                     >
@@ -272,7 +266,7 @@
                         <a
                           class="accordion-title"
                           @click="searchnow"
-                          :style="{ background: tag == 'all' ? 'yellow' : '' }"
+                          :style="{ background: tag == 'all' ? '#e96969' : '' }"
                           >all</a
                         >
                       </center>
@@ -282,8 +276,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '0' ? 'yellow' : '' }"
-                          >0</a
+                          :style="{ background: tag == 'Comedy' ? '#e96969' : '' }"
+                          >Comedy</a
                         >
                       </center>
                     </li>
@@ -292,8 +286,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '1' ? 'yellow' : '' }"
-                          >1</a
+                          :style="{ background: tag == 'Adventure' ? '#e96969' : '' }"
+                          >Adventure</a
                         >
                       </center>
                     </li>
@@ -302,8 +296,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '2' ? 'yellow' : '' }"
-                          >2</a
+                          :style="{ background: tag == 'Mystery' ? '#e96969' : '' }"
+                          >Mystery</a
                         >
                       </center>
                     </li>
@@ -312,8 +306,19 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '3' ? 'yellow' : '' }"
-                          >3</a
+                          :style="{ background: tag == 'Thriller' ? '#e96969' : '' }"
+                          >Thriller</a
+                        >
+                      </center>
+                    </li>
+                    
+                    <li class="accordion-item" data-accordion-item>
+                      <center>
+                        <a
+                          class="accordion-title"
+                          @click="choose($event)"
+                          :style="{ background: tag == 'Time-travel' ? '#e96969' : '' }"
+                          >Time-travel</a
                         >
                       </center>
                     </li>
@@ -322,8 +327,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '4' ? 'yellow' : '' }"
-                          >4</a
+                          :style="{ background: tag == 'Romance' ? '#e96969' : '' }"
+                          >Romance</a
                         >
                       </center>
                     </li>

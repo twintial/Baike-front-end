@@ -91,6 +91,7 @@ export default {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
               this.$router.push('/')
+              this.$router.go(0);
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.msg)
