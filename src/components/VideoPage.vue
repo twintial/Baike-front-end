@@ -724,6 +724,13 @@
   z-index: 3;
   display: none;
 }
+.end-button {
+  position: absolute;
+  top: 40%;
+  left: 39%;
+  z-index: 3;
+  display: none;
+}
 
 .fa-div-position {
   text-align: right;
@@ -737,6 +744,16 @@
 .comment-buttom-line {
   padding-bottom: 15px;
   border-bottom: 1px solid #ececec;
+}
+
+.reload {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 3;
+  display: none;  
+  cursor: pointer;
+  color: grey
 }
 </style>
 <script>
@@ -773,6 +790,8 @@ export default {
       player: null,
 
       container: null, // 容纳选项的容器dom
+      reload: null, // 重新播按键
+      endButton: null, //视频播放结束的按键
       comments: [], // 评论
       choice: [], // 选项
       commentContent: '',
@@ -948,7 +967,18 @@ export default {
       // 获得用户信息
       this.requestForLoginUserInfo()
       // 加上遮罩层，互动视频用
+
       var that = this
+      // 加上重播按键
+      this.reload = $("<i></i>").addClass("fa fa-repeat fa-2x reload")
+      this.reload.on("click", function() {
+        // 隐藏按键和遮罩层
+        $(".dplayer-mask").removeClass("mask-show")
+        that.reload.css("display", "none")
+        that.container.css("display", "none")  
+        that.endButton.css("display", "none")  
+        that.player.play()
+      })
       // 加上按键
       this.container = $("<div></div>").addClass("choice-container")
       for(let i = 0; i < 1; i++ ){
@@ -958,16 +988,33 @@ export default {
             that.requestForNextVideo(that.choice[i].attr("name"))
             // 隐藏按键和遮罩层
             $(".dplayer-mask").removeClass("mask-show")
+            that.reload.css("display", "none")
             that.container.css("display", "none")
         })
         this.container.append(this.choice[i])
       }
+
+      // 视频播放结束的按键
+      this.endButton = $("<button></button>").addClass("button hollow end-button").text("视频播放结束～点击重播")
+          .on("click" ,function() {
+            // 隐藏按键和遮罩层
+            $(".dplayer-mask").removeClass("mask-show")
+            that.reload.css("display", "none")
+            that.endButton.css("display", "none")
+            that.requestForNextVideo(that.interVideoInfo.initVideoID)
+          })
       $(".dplayer").append(this.container)
+      $(".dplayer").append(this.reload)
+      $(".dplayer").append(this.endButton)
+
+
       // 监听视频是否播放完毕
       this.player.on('ended', function() {
+        $(".dplayer-mask").addClass("mask-show")
+        // 显示重播
+        that.reload.css("display", "initial")
         if (that.nextVideos.length){
           that.options.autoplay = true
-          $(".dplayer-mask").addClass("mask-show")
           // 调整位置并显示
           that.container.css("top", 200 - ((that.nextVideos.length * 20)))
           that.container.css("display", "initial")
@@ -975,6 +1022,9 @@ export default {
             that.choice[i].text(that.nextVideos[i].choice).css("display", "initial")
                 .attr("name", that.nextVideos[i].nextVideoID)
           }
+          // 显示重播按键
+        } else {
+          that.endButton.css("display", "initial")
         }
       })
       // 获得互动视频信息并且切换到当前视频
