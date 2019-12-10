@@ -8,38 +8,12 @@
                         <div class="medium-6 large-centered medium-centered">
                             <div class="page-heading text-center">
                                 <h3>User login</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                                <p>Login now and to have a nice day in the site</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row" data-equalizer data-equalize-on="medium" id="test-eq">
-                        <div class="large-4 large-offset-1 medium-6 columns">
-                            <div class="social-login" data-equalizer-watch>
-                                <h5 class="text-center">Login via Social Profile</h5>
-                                <div class="social-login-btn facebook">
-                                    <a href="#"><i class="fa fa-facebook"></i>login via facebook</a>
-                                </div>
-                                <div class="social-login-btn twitter">
-                                    <a href="#"><i class="fa fa-twitter"></i>login via twitter</a>
-                                </div>
-                                <div class="social-login-btn g-plus">
-                                    <a href="#"><i class="fa fa-google-plus"></i>login via google plus</a>
-                                </div>
-                                <div class="social-login-btn linkedin">
-                                    <a href="#"><i class="fa fa-linkedin"></i>login via linkedin</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="large-2 medium-2 columns show-for-large">
-                            <div class="middle-text text-center hide-for-small-only" data-equalizer-watch>
-                                <p>
-                                    <i class="fa fa-arrow-left arrow-left"></i>
-                                    <span>OR</span>
-                                    <i class="fa fa-arrow-right arrow-right"></i>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="large-4 medium-6 columns end">
+                    <div data-equalizer data-equalize-on="medium" id="test-eq">
+                        <div style="width:30%;margin-left:35%">
                             <div class="register-form">
                                 <h5 class="text-center">Create your Account</h5>
                                 <form method="post" onsubmit="return false;" data-abide novalidate>
@@ -49,20 +23,16 @@
                                     <div class="input-group">
                                         <span class="input-group-label"><i class="fa fa-user"></i></span>
                                         <input class="input-group-field" type="text" placeholder="Enter your email" v-model="user.account" required>
-                                        <span class="form-error">请输入邮箱</span>
+                                        <span class="form-error">enter email please</span>
                                     </div>
 
                                     <div class="input-group">
                                         <span class="input-group-label"><i class="fa fa-lock"></i></span>
                                         <input type="password" id="password" placeholder="Enter your password" v-model="user.password" required>
-                                        <span class="form-error">请输入密码</span>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="remember" type="checkbox" name="check" value="remember">
-                                        <label class="customLabel" for="remember">Remember me</label>
+                                        <span class="form-error">enter password please</span>
                                     </div>
                                     <button class="button expanded" @click="login">login Now</button>
-                                    <p class="loginclick"><a href="login-forgot-pass.html">Forgot Password</a> New Here? <a href="login-register.html">Create a new Account</a></p>
+                                    <p style="text-align:right"> New Here? <a href="login-register.html">Create a new Account</a></p>
                                 </form>
                             </div>
                         </div>

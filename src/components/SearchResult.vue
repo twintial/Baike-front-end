@@ -65,7 +65,7 @@
                               "
                               alt="new video"
                             />
-                            <a href="single-video-v2.html" class="hover-posts">
+                            <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                               <span><i class="fa fa-play"></i>Watch Video</span>
                             </a>
                             <div class="video-stats clearfix">
@@ -86,28 +86,12 @@
                             <div class="post-stats clearfix">
                               <p class="pull-left">
                                 <i class="fa fa-clock-o"></i>
-                                <span>{{ result.uploadTime }}</span>
+                                <span>{{ result.uploadTime | timestampToDate }}</span>
                               </p>
                               <p class="pull-left">
                                 <i class="fa fa-eye"></i>
                                 <span>{{ result.playVolume }}</span>
                               </p>
-                            </div>
-                            <div class="post-summary">
-                              <p>
-                                Sed ut perspiciatis unde omnis iste natus error
-                                sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae
-                                ab illo inventore veritatis et quasi architecto
-                                sequi nesciunt.
-                              </p>
-                            </div>
-                            <div class="post-button">
-                              <a
-                                href="single-video-v2.html"
-                                class="secondary-button"
-                                ><i class="fa fa-play-circle"></i>watch video</a
-                              >
                             </div>
                           </div>
                         </div>
@@ -125,10 +109,10 @@
                           <div class="post-thumb2 post-thumb">
                             <img
                               class="circle"
-                              src="http://placehold.it/370x220"
-                              alt="new video"
+                              :src="'http://localhost:8443/img/userIcon/'+result.iconURL"
+                              alt="user"
                             />
-                            <a href="single-video-v2.html" class="hover-posts"
+                            <a @click="goToDetails(result.uid)" class="hover-posts circle"
                               ><span
                                 ><i class="fa fa-search"></i>Browse more</span
                               ></a
@@ -136,7 +120,7 @@
                           </div>
                           <div class="post-des">
                             <h4>
-                              <a href="single-video-v2.html">{{
+                              <a @click="goToDetails(result.uid)">{{
                                 result.nickName
                               }}</a>
                             </h4>
@@ -371,6 +355,7 @@ export default {
   },
   watch: {
     searchstyle: function(val) {
+        this.dataShow = []
         this.currentPage = 0;
         this.tag = "all";
         this.search();
@@ -414,21 +399,6 @@ export default {
           });
       }
     },
-    change1() {
-      if (this.searchstyle == "video") {
-        this.searchstyle = "user";
-        this.currentPage = 0;
-        this.search();
-      }
-    },
-    change2() {
-      if (this.searchstyle == "user") {
-        this.searchstyle = "video";
-        this.currentPage = 0;
-        this.tag = "all";
-        this.search();
-      }
-    },
     nextPage() {
       if (this.currentPage == this.pageNum - 1) {
         alert("已经是最后一页啦");
@@ -459,6 +429,17 @@ export default {
       this.tag = "all";
       this.currentPage = 0;
       this.search();
+    },
+    goToVideoPage(videoID) {
+      this.$router.push({path:'/video',query:{vID: videoID}});
+    },
+    goToDetails(uID){
+        this.$router.push({
+            name:'othersAccount',
+            query: {
+                oID: uID
+            }
+        })
     }
   }
 };

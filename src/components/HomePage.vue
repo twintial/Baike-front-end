@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- layerslider -->
-      <img src="../assets/d009b3de9c82d158b4834dca8f0a19d8bc3e4243.jpg" width="90" height="60" /> 
+    <img src="@/assets/back_default.jpg" width="100%" style="margin-bottom:40px"/> 
 
     <section class="content">
       <!-- newest video -->

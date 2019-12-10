@@ -192,7 +192,7 @@
                           >login/Register</a
                         >
                         <div class="login-form">
-                          <h6 class="text-center">Great to have you back!</h6>
+                          <h6 class="text-center">Login Now!</h6>
                           <div>
                             <div class="input-group">
                               <span class="input-group-label"
@@ -219,17 +219,6 @@
                                 required
                               />
                             </div>
-                            <div class="checkbox">
-                              <input
-                                id="check1"
-                                type="checkbox"
-                                name="check"
-                                value="check"
-                              />
-                              <label class="customLabel" for="check1"
-                                >Remember me</label
-                              >
-                            </div>
                             <input
                               type="submit"
                               name="submit"
@@ -240,7 +229,7 @@
 
                           <p class="text-center">
                             New here?
-                            <a class="newaccount" href="login-register.html"
+                            <a class="newaccount" href="/register"
                               >Create a new Account</a
                             >
                           </p>
@@ -290,8 +279,8 @@
                         <div class="top-bar-left">
                           <ul class="menu">
                             <li class="menu-text">
-                              <a href="index.html"
-                                ><img src="images/logo.png" alt="logo"
+                              <a href="/"
+                                ><img width="134px" src="@/assets/logo.png" alt="logo"
                               /></a>
                             </li>
                           </ul>
@@ -310,13 +299,6 @@
                           >
                             <li class="has-submenu">
                               <a href="/"><i class="fa fa-home"></i>Home</a>
-                            </li>
-                            <li
-                              class="has-submenu"
-                              data-dropdown-menu="example1"
-                              v-if="online != -1"
-                            >
-                              <a href="/upload"><i class="fa fa-film"></i>Upload</a>
                             </li>
                             <li>
                               <a><i class="fa fa-th"></i>category</a>
@@ -388,211 +370,14 @@
           </header>
           <!-- End Header -->
           <!--breadcrumbs-->
-          <section id="breadcrumb" class="breadMargin">
-            <div class="row">
-              <div class="large-12 columns">
-                <nav aria-label="You are here:" role="navigation">
-                  <ul class="breadcrumbs">
-                    <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-                    <li>
-                      <span class="show-for-sr">Current: </span> page not found
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
+          <section id="breadcrumb" class="breadMargin" style="height:30px">
           </section>
           <!--end breadcrumbs-->
           <router-view />
           <!-- footer -->
-          <footer>
-            <div class="row">
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>About Betube</h5>
-                  </div>
-                  <div class="textwidget">
-                    Betube video wordpress theme lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s book.
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Recent Videos</h5>
-                  </div>
-                  <div class="widgetContent">
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Tags</h5>
-                  </div>
-                  <div class="tagcloud">
-                    <a href="#">3D Videos</a>
-                    <a href="#">Videos</a>
-                    <a href="#">HD</a>
-                    <a href="#">Movies</a>
-                    <a href="#">Sports</a>
-                    <a href="#">3D</a>
-                    <a href="#">Movies</a>
-                    <a href="#">Animation</a>
-                    <a href="#">HD</a>
-                    <a href="#">Music</a>
-                    <a href="#">Recreation</a>
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Subscribe Now</h5>
-                  </div>
-                  <div class="widgetContent">
-                    <form data-abide novalidate method="post">
-                      <p>Subscribe to get exclusive videos</p>
-                      <div class="input">
-                        <input
-                          type="text"
-                          placeholder="Enter your full Name"
-                          required
-                        />
-                        <span class="form-error">
-                          Yo, you had better fill this out, it's required.
-                        </span>
-                      </div>
-                      <div class="input">
-                        <input
-                          type="email"
-                          id="email"
-                          placeholder="Enter your email addres"
-                          required
-                        />
-                        <span class="form-error">
-                          I'm required!
-                        </span>
-                      </div>
-                      <button class="button" type="submit" value="Submit">
-                        Sign up Now
-                      </button>
-                    </form>
-                    <div class="social-links">
-                      <h5>We’re a Social Bunch</h5>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-facebook"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-twitter"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-google-plus"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-instagram"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-vimeo"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-youtube"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-flickr"></i
-                      ></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <a href="#" id="back-to-top" title="Back to top"
-              ><i class="fa fa-angle-double-up"></i
-            ></a>
-          </footer>
-          <!-- footer -->
           <div id="footer-bottom">
-            <div class="logo text-center">
-              <img src="images/footerlogo.png" alt="footer logo" />
-            </div>
             <div class="btm-footer-text text-center">
-              <p>2016 © Betube video wordpress theme.</p>
+              <p>2019 © Baike Video Share Sire</p>
             </div>
           </div>
         </div>
