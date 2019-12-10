@@ -170,7 +170,6 @@ export default {
         if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) { 
           if (true && !this.$refs.cover.active) {
           this.$refs.cover.active = true
-          alert("Upload Icon Success")
         //   location.reload()            
           }
         }
@@ -198,7 +197,6 @@ export default {
         if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) { 
           if (true && !this.$refs.backcover.active) {
           this.$refs.backcover.active = true
-          alert("Upload Background Icon Success")
         //   location.reload()            
           }
         }
