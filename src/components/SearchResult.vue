@@ -65,13 +65,13 @@
                               "
                               alt="new video"
                             />
-                            <a href="single-video-v2.html" class="hover-posts">
+                            <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                               <span><i class="fa fa-play"></i>Watch Video</span>
                             </a>
                             <div class="video-stats clearfix">
                               <div class="thumb-stats pull-left">
                                 <i class="fa fa-heart"></i>
-                                <span>{{ result.praisePoint }}</span>
+                                <span>{{ result.collectPoint }}</span>
                               </div>
                             </div>
                           </div>
@@ -86,28 +86,12 @@
                             <div class="post-stats clearfix">
                               <p class="pull-left">
                                 <i class="fa fa-clock-o"></i>
-                                <span>{{ result.uploadTime }}</span>
+                                <span>{{ result.uploadTime | timestampToDate }}</span>
                               </p>
                               <p class="pull-left">
                                 <i class="fa fa-eye"></i>
                                 <span>{{ result.playVolume }}</span>
                               </p>
-                            </div>
-                            <div class="post-summary">
-                              <p>
-                                Sed ut perspiciatis unde omnis iste natus error
-                                sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae
-                                ab illo inventore veritatis et quasi architecto
-                                sequi nesciunt.
-                              </p>
-                            </div>
-                            <div class="post-button">
-                              <a
-                                href="single-video-v2.html"
-                                class="secondary-button"
-                                ><i class="fa fa-play-circle"></i>watch video</a
-                              >
                             </div>
                           </div>
                         </div>
@@ -125,10 +109,10 @@
                           <div class="post-thumb2 post-thumb">
                             <img
                               class="circle"
-                              src="http://placehold.it/370x220"
-                              alt="new video"
+                              :src="'http://localhost:8443/img/userIcon/'+result.iconURL"
+                              alt="user"
                             />
-                            <a href="single-video-v2.html" class="hover-posts"
+                            <a @click="goToDetails(result.uid)" class="hover-posts circle"
                               ><span
                                 ><i class="fa fa-search"></i>Browse more</span
                               ></a
@@ -136,7 +120,7 @@
                           </div>
                           <div class="post-des">
                             <h4>
-                              <a href="single-video-v2.html">{{
+                              <a @click="goToDetails(result.uid)">{{
                                 result.nickName
                               }}</a>
                             </h4>
@@ -170,12 +154,6 @@
                           <div style="margin-left:1cm">
                             <br />
 
-                            <button
-                              class="button"
-                              style="font-size: 11px;width:80px;height: 41px; color:#69e5e9"
-                            >
-                              follow
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -198,7 +176,7 @@
                       aria-label="Page 2"
                       @click="thisPage(page)"
                       :style="{
-                        background: page == currentPage + 1 ? 'yellow' : ''
+                        background: page == currentPage + 1 ? '#e96969' : ''
                       }"
                       >{{ page }}</a
                     >
@@ -272,7 +250,7 @@
                         <a
                           class="accordion-title"
                           @click="searchnow"
-                          :style="{ background: tag == 'all' ? 'yellow' : '' }"
+                          :style="{ background: tag == 'all' ? '#e96969' : '' }"
                           >all</a
                         >
                       </center>
@@ -282,8 +260,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '0' ? 'yellow' : '' }"
-                          >0</a
+                          :style="{ background: tag == 'Comedy' ? '#e96969' : '' }"
+                          >Comedy</a
                         >
                       </center>
                     </li>
@@ -292,8 +270,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '1' ? 'yellow' : '' }"
-                          >1</a
+                          :style="{ background: tag == 'Adventure' ? '#e96969' : '' }"
+                          >Adventure</a
                         >
                       </center>
                     </li>
@@ -302,8 +280,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '2' ? 'yellow' : '' }"
-                          >2</a
+                          :style="{ background: tag == 'Mystery' ? '#e96969' : '' }"
+                          >Mystery</a
                         >
                       </center>
                     </li>
@@ -312,8 +290,19 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '3' ? 'yellow' : '' }"
-                          >3</a
+                          :style="{ background: tag == 'Thriller' ? '#e96969' : '' }"
+                          >Thriller</a
+                        >
+                      </center>
+                    </li>
+                    
+                    <li class="accordion-item" data-accordion-item>
+                      <center>
+                        <a
+                          class="accordion-title"
+                          @click="choose($event)"
+                          :style="{ background: tag == 'Time-travel' ? '#e96969' : '' }"
+                          >Time-travel</a
                         >
                       </center>
                     </li>
@@ -322,8 +311,8 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == '4' ? 'yellow' : '' }"
-                          >4</a
+                          :style="{ background: tag == 'Romance' ? '#e96969' : '' }"
+                          >Romance</a
                         >
                       </center>
                     </li>
@@ -366,6 +355,7 @@ export default {
   },
   watch: {
     searchstyle: function(val) {
+        this.dataShow = []
         this.currentPage = 0;
         this.tag = "all";
         this.search();
@@ -409,21 +399,6 @@ export default {
           });
       }
     },
-    change1() {
-      if (this.searchstyle == "video") {
-        this.searchstyle = "user";
-        this.currentPage = 0;
-        this.search();
-      }
-    },
-    change2() {
-      if (this.searchstyle == "user") {
-        this.searchstyle = "video";
-        this.currentPage = 0;
-        this.tag = "all";
-        this.search();
-      }
-    },
     nextPage() {
       if (this.currentPage == this.pageNum - 1) {
         alert("已经是最后一页啦");
@@ -454,6 +429,17 @@ export default {
       this.tag = "all";
       this.currentPage = 0;
       this.search();
+    },
+    goToVideoPage(videoID) {
+      this.$router.push({path:'/video',query:{vID: videoID}});
+    },
+    goToDetails(uID){
+        this.$router.push({
+            name:'othersAccount',
+            query: {
+                oID: uID
+            }
+        })
     }
   }
 };

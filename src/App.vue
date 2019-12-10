@@ -21,7 +21,7 @@
             <li
               class="has-submenu"
               data-dropdown-menu="example1"
-              v-if="online == true"
+              v-if="online != -1"
             >
               <a href="#"><i class="fa fa-film"></i>Upload Video</a>
             </li>
@@ -178,31 +178,21 @@
             <!-- Top -->
             <section id="top" class="topBar show-for-large">
               <div class="row">
-                <div class="medium-6 columns">
-                  <div class="socialLinks">
-                    <a href="#"><i class="fa fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-vimeo"></i></a>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                  </div>
-                </div>
-                <div class="medium-6 columns">
+                <div class="medium-6 columns" style="width:100%">
                   <div class="top-button">
                     <ul class="menu float-right">
-                      <li>
-                        <a @click="logout" v-if="online == true">logout</a>
+                      <li v-if="online != -1">
+                        Hello!  {{ nickname }}
                       </li>
-                      <li class="dropdown-login" v-if="online == false">
-                        <a
-                          class="loginReg"
-                          data-toggle="example-dropdown"
-                          href="#"
+                      <li>
+                        <a @click="logout" v-if="online != -1">logout</a>
+                      </li>
+                      <li class="dropdown-login" v-if="online == -1">
+                        <a class="loginReg" data-toggle="example-dropdown"
                           >login/Register</a
                         >
                         <div class="login-form">
-                          <h6 class="text-center">Great to have you back!</h6>
+                          <h6 class="text-center">Login Now!</h6>
                           <div>
                             <div class="input-group">
                               <span class="input-group-label"
@@ -222,22 +212,12 @@
                               ></span>
                               <input
                                 class="input-group-field"
-                                type="text"
+                                type="password"
+                                id="password"
                                 placeholder="Enter password"
                                 v-model="user.password"
                                 required
                               />
-                            </div>
-                            <div class="checkbox">
-                              <input
-                                id="check1"
-                                type="checkbox"
-                                name="check"
-                                value="check"
-                              />
-                              <label class="customLabel" for="check1"
-                                >Remember me</label
-                              >
                             </div>
                             <input
                               type="submit"
@@ -249,7 +229,7 @@
 
                           <p class="text-center">
                             New here?
-                            <a class="newaccount" href="login-register.html"
+                            <a class="newaccount" href="/register"
                               >Create a new Account</a
                             >
                           </p>
@@ -299,8 +279,8 @@
                         <div class="top-bar-left">
                           <ul class="menu">
                             <li class="menu-text">
-                              <a href="index.html"
-                                ><img src="images/logo.png" alt="logo"
+                              <a href="/"
+                                ><img width="134px" src="@/assets/logo.png" alt="logo"
                               /></a>
                             </li>
                           </ul>
@@ -320,13 +300,6 @@
                             <li class="has-submenu">
                               <a href="/"><i class="fa fa-home"></i>Home</a>
                             </li>
-                            <li
-                              class="has-submenu"
-                              data-dropdown-menu="example1"
-                              v-if="online == true"
-                            >
-                              <a href="#"><i class="fa fa-film"></i>Upload</a>
-                            </li>
                             <li>
                               <a><i class="fa fa-th"></i>category</a>
                               <ul
@@ -335,152 +308,40 @@
                                 data-animate="slide-in-down slide-out-up"
                               >
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>0</a
+                                  <a @click="searchby('Adventure')"
+                                    ><i class="fa fa-th"></i>Adventure</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>1</a
+                                  <a  @click="searchby('Mystery')"
+                                    ><i class="fa fa-th"></i>Mystery</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>2</a
+                                  <a  @click="searchby('Thriller')"
+                                    ><i class="fa fa-th"></i>Thriller</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>3</a
+                                  <a @click="searchby('Romance')"
+                                    ><i class="fa fa-th"></i>Romance</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>4</a
+                                  <a @click="searchby('Comedy')"
+                                    ><i class="fa fa-th"></i>Comedy</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>5</a
+                                  <a @click="searchby('Time-travel')"
+                                    ><i class="fa fa-th"></i>Time-travel</a
                                   >
                                 </li>
                               </ul>
                             </li>
-                            <li>
-                              <a href="#"
-                                ><i class="fa fa-magic"></i>features</a
-                              >
-                              <ul
-                                class="submenu menu vertical"
-                                data-submenu
-                                data-animate="slide-in-down slide-out-up"
-                              >
-                                <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-magic"></i>404 Page</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="archives.html"
-                                    ><i class="fa fa-magic"></i>Archives</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login.html"
-                                    ><i class="fa fa-magic"></i>login</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login-forgot-pass.html"
-                                    ><i class="fa fa-magic"></i>Forgot
-                                    Password</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login-register.html"
-                                    ><i class="fa fa-magic"></i>Register</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    ><i class="fa fa-magic"></i>profile</a
-                                  >
-                                  <ul
-                                    class="submenu menu vertical"
-                                    data-submenu
-                                    data-animate="slide-in-down slide-out-up"
-                                  >
-                                    <li>
-                                      <a href="profile-page-v1.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        v1</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-page-v2.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        v2</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-about-me.html"
-                                        ><i class="fa fa-magic"></i>Profile
-                                        About Me</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-comments.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        comments</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-favorite.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        favorites</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-followers.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        followers</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-settings.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        settings</a
-                                      >
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <a href="profile-video.html"
-                                    ><i class="fa fa-magic"></i>Author Page</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="search-results.html"
-                                    ><i class="fa fa-magic"></i>search
-                                    results</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="terms-condition.html"
-                                    ><i class="fa fa-magic"></i>Terms &amp;
-                                    Condition</a
-                                  >
-                                </li>
-                              </ul>
-                            </li>
-                            <li v-if="online == true">
-                              <a href="about-us.html"
+                            <li v-if="online != -1">
+                              <a href='/myaccount'
                                 ><i class="fa fa-user"></i>Personal Center</a
-                              >
-                            </li>
-                            <li>
-                              <a href="contact-us.html"
-                                ><i class="fa fa-envelope"></i>contact</a
                               >
                             </li>
                           </ul>
@@ -509,211 +370,14 @@
           </header>
           <!-- End Header -->
           <!--breadcrumbs-->
-          <section id="breadcrumb" class="breadMargin">
-            <div class="row">
-              <div class="large-12 columns">
-                <nav aria-label="You are here:" role="navigation">
-                  <ul class="breadcrumbs">
-                    <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-                    <li>
-                      <span class="show-for-sr">Current: </span> page not found
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
+          <section id="breadcrumb" class="breadMargin" style="height:30px">
           </section>
           <!--end breadcrumbs-->
           <router-view />
           <!-- footer -->
-          <footer>
-            <div class="row">
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>About Betube</h5>
-                  </div>
-                  <div class="textwidget">
-                    Betube video wordpress theme lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s book.
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Recent Videos</h5>
-                  </div>
-                  <div class="widgetContent">
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media-object">
-                      <div class="media-object-section">
-                        <div class="recent-img">
-                          <img src="http://placehold.it/80x80" alt="recent" />
-                          <a href="#" class="hover-posts">
-                            <span><i class="fa fa-play"></i></span>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="media-object-section">
-                        <div class="media-content">
-                          <h6>
-                            <a href="#"
-                              >The lorem Ipsumbeen the industry's standard.</a
-                            >
-                          </h6>
-                          <p>
-                            <i class="fa fa-user"></i><span>admin</span
-                            ><i class="fa fa-clock-o"></i
-                            ><span>5 january 16</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Tags</h5>
-                  </div>
-                  <div class="tagcloud">
-                    <a href="#">3D Videos</a>
-                    <a href="#">Videos</a>
-                    <a href="#">HD</a>
-                    <a href="#">Movies</a>
-                    <a href="#">Sports</a>
-                    <a href="#">3D</a>
-                    <a href="#">Movies</a>
-                    <a href="#">Animation</a>
-                    <a href="#">HD</a>
-                    <a href="#">Music</a>
-                    <a href="#">Recreation</a>
-                  </div>
-                </div>
-              </div>
-              <div class="large-3 medium-6 columns">
-                <div class="widgetBox">
-                  <div class="widgetTitle">
-                    <h5>Subscribe Now</h5>
-                  </div>
-                  <div class="widgetContent">
-                    <form data-abide novalidate method="post">
-                      <p>Subscribe to get exclusive videos</p>
-                      <div class="input">
-                        <input
-                          type="text"
-                          placeholder="Enter your full Name"
-                          required
-                        />
-                        <span class="form-error">
-                          Yo, you had better fill this out, it's required.
-                        </span>
-                      </div>
-                      <div class="input">
-                        <input
-                          type="email"
-                          id="email"
-                          placeholder="Enter your email addres"
-                          required
-                        />
-                        <span class="form-error">
-                          I'm required!
-                        </span>
-                      </div>
-                      <button class="button" type="submit" value="Submit">
-                        Sign up Now
-                      </button>
-                    </form>
-                    <div class="social-links">
-                      <h5>We’re a Social Bunch</h5>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-facebook"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-twitter"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-google-plus"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-instagram"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-vimeo"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-youtube"></i
-                      ></a>
-                      <a class="secondary-button" href="#"
-                        ><i class="fa fa-flickr"></i
-                      ></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <a href="#" id="back-to-top" title="Back to top"
-              ><i class="fa fa-angle-double-up"></i
-            ></a>
-          </footer>
-          <!-- footer -->
           <div id="footer-bottom">
-            <div class="logo text-center">
-              <img src="images/footerlogo.png" alt="footer logo" />
-            </div>
             <div class="btm-footer-text text-center">
-              <p>2016 © Betube video wordpress theme.</p>
+              <p>2019 © Baike Video Share Sire</p>
             </div>
           </div>
         </div>
@@ -730,7 +394,8 @@ export default {
   name: "App",
   data() {
     return {
-      online: false,
+      nickname: "",
+      online: -1,
       SN: "",
       type1: "search",
       type2: "fa fa-search",
@@ -738,15 +403,29 @@ export default {
       user: { account: "", password: "" }
     };
   },
-  mounted() {
+  created() {
     this.isonline();
   },
+  mounted() {
+    if (this.online != -1) {
+      this.getname();
+    }
+  },
   methods: {
+    getname() {
+      this.$axios
+        .get("/getname/" + this.online)
+        .then(successResponse => {
+          this.nickname = successResponse.data.nickName;
+        })
+        .catch(failResponse => {});
+    },
     searcho() {
-      this.type1 = "search";
-      this.type2 = "fa fa-search";
-      this.type3 = "display:none;";
       this.$router.push({ path: "/SearchResult", query: { SR: this.SN } });
+      this.$router.go(0);
+    },
+    searchby(t){
+      this.$router.push({ path: "/SearchResult", query: { SR: t } });
       this.$router.go(0);
     },
     login() {
@@ -772,6 +451,7 @@ export default {
       this.$axios
         .post("/logout", {})
         .then(successResponse => {
+          this.$router.push("/");
           this.$router.go(0);
           alert("Already logged out");
         })
@@ -784,6 +464,9 @@ export default {
         .post("/isOnline", {})
         .then(successResponse => {
           this.online = successResponse.data;
+          if (this.online != -1) {
+          this.getname();
+        }
         })
         .catch(failResponse => {
           alert("error!");

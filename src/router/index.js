@@ -9,29 +9,16 @@ import ErrorPage from '@/components/404.vue'
 import SearchResult from '@/components/SearchResult.vue'
 
 import UploadPage from '@/components/profile/SubmitPost.vue'
-import AboutMe from '@/components/profile/ProfileAboutMe'
-import Comments from '@/components/profile/ProfileComments'
-import Favourite from '@/components/profile/ProfileFavourite'
-import Followers from '@/components/profile/ProfileFollowers'
-import Setting from '@/components/profile/ProfileSetting'
-import Video from '@/components/profile/ProfileVideo'
 
 import MyAccount from '@/components/profile/ProfileMyInfor'
 import othersAccount from '@/components/otherprofile/ProfileOMyInfor'
 
-import Test from '@/test.vue'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
-    // 测试
-    {
-      path: '/test',
-      name: 'test',
-      component: Test
-    },
     // 错误页面重定向
     {
       path: '*',
