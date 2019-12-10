@@ -439,7 +439,6 @@ export default {
           if (successResponse.data.code === 200) {
             this.$router.push("/");
             this.$router.go(0);
-            alert("Already logged in");
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.message);
@@ -453,7 +452,6 @@ export default {
         .then(successResponse => {
           this.$router.push("/");
           this.$router.go(0);
-          alert("Already logged out");
         })
         .catch(failResponse => {
           alert("No logged out");

@@ -10,7 +10,6 @@
                         <d-player :options="options"
                                   ref="player">
                         </d-player>
-                        <!-- <video controls="controls" src="http://localhost:8443/video/100024/37750c3691e2448ba4d9012c66c7c950.mp4"></video> -->
                       </div>
                     </div>
                 </div>
