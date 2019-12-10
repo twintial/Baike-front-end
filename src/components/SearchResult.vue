@@ -149,13 +149,13 @@
                                   class="fa fa-video-camera"
                                   style="font-size: 14px;"
                                 ></i>
-                                <span style="font-size: 14px;">videos：11</span>
+                                <span style="font-size: 14px;">videos：{{videonum[index]}}</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i
                                   class="fa fa-users"
                                   style="font-size: 14px;"
                                 ></i>
-                                <span style="font-size: 14px;">fans:104</span>
+                                <span style="font-size: 14px;">{{follownum[index]}}</span>
                               </p>
                             </div>
                             <div
@@ -354,6 +354,8 @@ export default {
       ResultName: "",
       searchstyle: "video",
       dataShow: undefined,
+      follownum:undefined,
+      videonum:undefined,
       total: undefined,
       tag: "all",
       // 共几页
@@ -371,6 +373,7 @@ export default {
   },
   watch: {
     searchstyle: function(val) {
+        this.dataShow=[]
         this.currentPage = 0;
         this.tag = "all";
         this.search();
@@ -404,6 +407,8 @@ export default {
           .then(successResponse => {
             this.ResultName = this.SearchName;
             this.dataShow = successResponse.data.list;
+            this.follownum=successResponse.data.follow;
+            this.videonum=successResponse.data.video;
             this.total = successResponse.data.pageNum;
             this.pageNum = Math.ceil(this.total / 4) || 1;
             this.$router.push({
@@ -412,21 +417,6 @@ export default {
           })
           .catch(failResponse => {
           });
-      }
-    },
-    change1() {
-      if (this.searchstyle == "video") {
-        this.searchstyle = "user";
-        this.currentPage = 0;
-        this.search();
-      }
-    },
-    change2() {
-      if (this.searchstyle == "user") {
-        this.searchstyle = "video";
-        this.currentPage = 0;
-        this.tag = "all";
-        this.search();
       }
     },
     nextPage() {
