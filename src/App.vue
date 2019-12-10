@@ -21,7 +21,7 @@
             <li
               class="has-submenu"
               data-dropdown-menu="example1"
-              v-if="online == true"
+              v-if="online != -1"
             >
               <a href="#"><i class="fa fa-film"></i>Upload Video</a>
             </li>
@@ -178,27 +178,17 @@
             <!-- Top -->
             <section id="top" class="topBar show-for-large">
               <div class="row">
-                <div class="medium-6 columns">
-                  <div class="socialLinks">
-                    <a href="#"><i class="fa fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-vimeo"></i></a>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                  </div>
-                </div>
-                <div class="medium-6 columns">
+                <div class="medium-6 columns" style="width:100%">
                   <div class="top-button">
                     <ul class="menu float-right">
-                      <li>
-                        <a @click="logout" v-if="online == true">logout</a>
+                      <li v-if="online != -1">
+                        Hello!  {{ nickname }}
                       </li>
-                      <li class="dropdown-login" v-if="online == false">
-                        <a
-                          class="loginReg"
-                          data-toggle="example-dropdown"
-                          href="#"
+                      <li>
+                        <a @click="logout" v-if="online != -1">logout</a>
+                      </li>
+                      <li class="dropdown-login" v-if="online == -1">
+                        <a class="loginReg" data-toggle="example-dropdown"
                           >login/Register</a
                         >
                         <div class="login-form">
@@ -222,7 +212,8 @@
                               ></span>
                               <input
                                 class="input-group-field"
-                                type="text"
+                                type="password"
+                                id="password"
                                 placeholder="Enter password"
                                 v-model="user.password"
                                 required
@@ -323,9 +314,9 @@
                             <li
                               class="has-submenu"
                               data-dropdown-menu="example1"
-                              v-if="online == true"
+                              v-if="online != -1"
                             >
-                              <a href="#"><i class="fa fa-film"></i>Upload</a>
+                              <a href="/upload"><i class="fa fa-film"></i>Upload</a>
                             </li>
                             <li>
                               <a><i class="fa fa-th"></i>category</a>
@@ -335,152 +326,40 @@
                                 data-animate="slide-in-down slide-out-up"
                               >
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>0</a
+                                  <a @click="searchby('Adventure')"
+                                    ><i class="fa fa-th"></i>Adventure</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>1</a
+                                  <a  @click="searchby('Mystery')"
+                                    ><i class="fa fa-th"></i>Mystery</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>2</a
+                                  <a  @click="searchby('Thriller')"
+                                    ><i class="fa fa-th"></i>Thriller</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>3</a
+                                  <a @click="searchby('Romance')"
+                                    ><i class="fa fa-th"></i>Romance</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>4</a
+                                  <a @click="searchby('Comedy')"
+                                    ><i class="fa fa-th"></i>Comedy</a
                                   >
                                 </li>
                                 <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-th"></i>5</a
+                                  <a @click="searchby('Time-travel')"
+                                    ><i class="fa fa-th"></i>Time-travel</a
                                   >
                                 </li>
                               </ul>
                             </li>
-                            <li>
-                              <a href="#"
-                                ><i class="fa fa-magic"></i>features</a
-                              >
-                              <ul
-                                class="submenu menu vertical"
-                                data-submenu
-                                data-animate="slide-in-down slide-out-up"
-                              >
-                                <li>
-                                  <a href="404.html"
-                                    ><i class="fa fa-magic"></i>404 Page</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="archives.html"
-                                    ><i class="fa fa-magic"></i>Archives</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login.html"
-                                    ><i class="fa fa-magic"></i>login</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login-forgot-pass.html"
-                                    ><i class="fa fa-magic"></i>Forgot
-                                    Password</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="login-register.html"
-                                    ><i class="fa fa-magic"></i>Register</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    ><i class="fa fa-magic"></i>profile</a
-                                  >
-                                  <ul
-                                    class="submenu menu vertical"
-                                    data-submenu
-                                    data-animate="slide-in-down slide-out-up"
-                                  >
-                                    <li>
-                                      <a href="profile-page-v1.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        v1</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-page-v2.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        v2</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-about-me.html"
-                                        ><i class="fa fa-magic"></i>Profile
-                                        About Me</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-comments.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        comments</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-favorite.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        favorites</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-followers.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        followers</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="profile-settings.html"
-                                        ><i class="fa fa-magic"></i>profile
-                                        settings</a
-                                      >
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <a href="profile-video.html"
-                                    ><i class="fa fa-magic"></i>Author Page</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="search-results.html"
-                                    ><i class="fa fa-magic"></i>search
-                                    results</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="terms-condition.html"
-                                    ><i class="fa fa-magic"></i>Terms &amp;
-                                    Condition</a
-                                  >
-                                </li>
-                              </ul>
-                            </li>
-                            <li v-if="online == true">
-                              <a href="about-us.html"
+                            <li v-if="online != -1">
+                              <a href='/myaccount'
                                 ><i class="fa fa-user"></i>Personal Center</a
-                              >
-                            </li>
-                            <li>
-                              <a href="contact-us.html"
-                                ><i class="fa fa-envelope"></i>contact</a
                               >
                             </li>
                           </ul>
@@ -730,7 +609,8 @@ export default {
   name: "App",
   data() {
     return {
-      online: false,
+      nickname: "",
+      online: -1,
       SN: "",
       type1: "search",
       type2: "fa fa-search",
@@ -738,15 +618,29 @@ export default {
       user: { account: "", password: "" }
     };
   },
-  mounted() {
+  created() {
     this.isonline();
   },
+  mounted() {
+    if (this.online != -1) {
+      this.getname();
+    }
+  },
   methods: {
+    getname() {
+      this.$axios
+        .get("/getname/" + this.online)
+        .then(successResponse => {
+          this.nickname = successResponse.data.nickName;
+        })
+        .catch(failResponse => {});
+    },
     searcho() {
-      this.type1 = "search";
-      this.type2 = "fa fa-search";
-      this.type3 = "display:none;";
       this.$router.push({ path: "/SearchResult", query: { SR: this.SN } });
+      this.$router.go(0);
+    },
+    searchby(t){
+      this.$router.push({ path: "/SearchResult", query: { SR: t } });
       this.$router.go(0);
     },
     login() {
@@ -772,6 +666,7 @@ export default {
       this.$axios
         .post("/logout", {})
         .then(successResponse => {
+          this.$router.push("/");
           this.$router.go(0);
           alert("Already logged out");
         })
@@ -784,6 +679,9 @@ export default {
         .post("/isOnline", {})
         .then(successResponse => {
           this.online = successResponse.data;
+          if (this.online != -1) {
+          this.getname();
+        }
         })
         .catch(failResponse => {
           alert("error!");
