@@ -978,7 +978,7 @@ export default {
       })
       // 加上按键
       this.container = $("<div></div>").addClass("choice-container")
-      for(let i = 0; i < 1; i++ ){
+      for(let i = 0; i < 4; i++ ){
         this.choice[i] = $("<button></button").addClass("button hollow choice")
         // 设置点击事件
         this.choice[i].on("click",function(){
