@@ -85,6 +85,10 @@
 
                             <div class="post-stats clearfix">
                               <p class="pull-left">
+                                <i class="fa fa-user"></i>
+                                <span><a @click="goToDetails(result.uid)">{{result.nickName}}</a></span>
+                              </p>
+                              <p class="pull-left">
                                 <i class="fa fa-clock-o"></i>
                                 <span>{{ result.uploadTime | timestampToDate }}</span>
                               </p>
