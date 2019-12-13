@@ -30,7 +30,7 @@
                                           <div class="large-12 columns">
                                             <div>
                                               <label>选择你的视频封面:</label>
-                                              <label for="avatar"> 
+                                              <label for="videoCover"> 
                                                 <img id="cover-preview" :src="coverFiles.length ? url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"/>
                                               </label>
                                             </div>
@@ -38,13 +38,13 @@
                                               <file-upload
                                                 extensions="gif,jpg,jpeg,png,webp"
                                                 accept="image/png,image/gif,image/jpeg,image/webp"
-                                                name="avatar"
+                                                name="videoCover"
                                                 post-action="http://localhost:8443/api/cover/upload"
                                                 :drop="false"
                                                 v-model="coverFiles"
                                                 @input-filter="coverInputFilter"
                                                 @input-file="coverInputFile"
-                                                ref="cover">
+                                                ref="vCover">
                                                 Upload avatar
                                               </file-upload>
                                             </div>
@@ -351,8 +351,8 @@ export default {
       }
       // 自动上传
       if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
-        if (this.uploadAuto && !this.$refs.cover.active) {
-          this.$refs.cover.active = true
+        if (this.uploadAuto && !this.$refs.vCover.active) {
+          this.$refs.vCover.active = true
         }
       }
     },

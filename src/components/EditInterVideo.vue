@@ -19,8 +19,8 @@
                                 </div>
                             </div>
                         </span>
-                        <label class="selected-node-group">Node Video:</label>
-                        <input type="text" id="selected-node" class="selected-node-group" disabled>
+                        <label class="selected-node-group" style="display:none;">Node Video:</label>
+                        <input type="text" id="selected-node" class="selected-node-group" disabled style="display:none;">
 
                         <label>Change Node Video:</label>
                         <!-- <select id="change" disabled>
@@ -30,8 +30,11 @@
                         </select> -->
                         <select id="change" disabled>
                           <option id="blankop"></option>
-                          <option v-for="(videoList, index) in videoList" :key="index">{{videoList.title}}</option>
+                          <option v-for="(titleList, index) in titleList" :key="index">{{titleList}}</option>
                         </select>
+
+                        <label>Change Node Plot:</label>
+                        <input id="node-plot" type="text" disabled>
 
                         <label>Select New Video:</label>
                         <!-- <select id="select" disabled>
@@ -40,7 +43,7 @@
                             <option value="three" class="option">three</option>
                         </select> -->
                         <select id="select" disabled>
-                          <option v-for="(videoList, index) in videoList" :key="index">{{videoList.title}}</option>
+                          <option v-for="(titleList, index) in titleList" :key="index">{{titleList}}</option>
                         </select>
 
                         <label>Branch Plot:</label>
@@ -109,11 +112,13 @@ var Init = function() {
   oc.$chartContainer.on('click', '.node', function() {
     var $this = $(this);
     $('#selected-node').val($this.find('.content').text()).data('node', $this);
+    $('#node-plot').val($this.find('.title').text());
   });
 
   oc.$chartContainer.on('click', '.orgchart', function(event) {
     if (!$(event.target).closest('.node').length) {
       $('#selected-node').val('');
+      $('#node-plot').val('');
     }
   });
 
@@ -126,6 +131,7 @@ var Init = function() {
       $('#btn-add-nodes').attr("disabled",false);
       $('#btn-delete-nodes').attr("disabled",false);
       $('#btn-commit').attr("disabled",false);
+      $('#node-plot').attr("disabled",false);
     }
     else{
       this.value = 'view';
@@ -135,6 +141,7 @@ var Init = function() {
       $('#btn-add-nodes').attr("disabled","disabled");
       $('#btn-delete-nodes').attr("disabled","disabled");
       $('#btn-commit').attr("disabled","disabled");
+      $('#node-plot').attr("disabled","disabled");
     }
   });
 
@@ -159,17 +166,43 @@ var Init = function() {
   //   }
   // });
 
+  // var oldvideo = '';
 
-  $('#change').change(() => {
-    $('#blankop').remove();
-    var changetitle = $('#change option:selected').val();
-    if (changetitle == ''){
-      return;
-    }
-    var $node = $('#selected-node').data('node');
-    $node.find('.content').text(changetitle);
-    $('#selected-node').val(changetitle);
-  });
+  // $('#change').change(() => {
+  //   $('#blankop').remove();
+  //   if (oldvideo != ''){
+  //     vm.data().videoList.push(oldvideo);
+  //     alert('a');
+  //   }
+  //   oldvideo = $('#change option:selected').val();
+  //   alert(oldvideo);
+  //   // console.log(vm.methods.returnVideoList());
+  //   vm.methods.returnVideoList()
+  //   alert(vm.data().videoList.includes(oldvideo));
+  //   if (vm.data().videoList.includes(oldvideo)){
+  //     vm.data().videoList.splice(vm.data().videoList.indexOf(oldvideo),1);
+  //     alert('b');
+  //   }
+  //   var changetitle = $('#change option:selected').val();
+  //   if (changetitle == ''){
+  //     return;
+  //   }
+  //   var $node = $('#selected-node').data('node');
+  //   $node.find('.content').text(changetitle);
+  //   $('#selected-node').val(changetitle);
+  // });
+
+  // var oldselect = null;
+
+  // $('#select').change(() => {
+  //   if (oldselect != null){
+  //     vm.data().videoList.push(oldselect);
+  //   }
+  //   oldselect = $('#select option:selected').val();
+  //   if (vm.data().videoList.includes(oldselect)){
+  //     vm.data().videoList.splice(vm.data().videoList.indexOf(oldselect),1);
+  //   }
+  // });
 
 
   $('#btn-add-nodes').on('click', function() {
@@ -317,12 +350,22 @@ function getJson(chart) {//生成Json
   return subObj
 }
 
+function getTitle(chart, nodetitlelist){
+  var tr = chart.find('tr:first');
+  var subobj = tr.find('.content').text();
+  nodetitlelist.push(subobj);
+  tr.siblings(':last').children().each(function() {
+    getTitle($(this), nodetitlelist);
+  });
+}
+
 import qs from 'qs';
 
 var vm = {
   name: 'editintervideo',
   data() {
     return {
+        titleList: [],
         videoList: [],
         IVID: 0,
     }
@@ -332,13 +375,96 @@ var vm = {
     this.$axios
       .get('/edit/' + this.IVID)
       .then(successResponse => {
-        this.videoList = successResponse.data.data
-        // alert(this.videoList)
+        this.videoList = successResponse.data.data;
+        for (var i = 0; i < this.videoList.length; i++){
+          this.titleList.push(this.videoList[i].title);
+        }
       })
       .catch(failResponse => {
         alert("Error!")
       });
     Init();
+
+    $('#change').change(() => {
+      $('#blankop').remove();
+      var changetitle = $('#change option:selected').val();
+      if (changetitle == ''){
+        return;
+      }
+      var $node = $('#selected-node').data('node');
+      if ($node != null){
+        $node.find('.content').text(changetitle);
+        $('#selected-node').val(changetitle);
+      }
+      var nodetitlelist = [];
+      getTitle($('#chart-container'), nodetitlelist);
+      var valuelist = document.getElementsByTagName('option');
+      for (var i = 0; i < valuelist.length; i++){
+        $(valuelist[i]).attr("disabled", false);
+      }
+      for (var i = 0; i < nodetitlelist.length; i++){
+        for (var j = 0; j < valuelist.length; j++){
+          if ($(valuelist[j]).text() == nodetitlelist[i]){
+            $(valuelist[j]).attr("disabled", "disabled");
+          }
+        }
+      }
+    });
+
+    $('#select').change(() => {
+      var nodetitlelist = [];
+      getTitle($('#chart-container'), nodetitlelist);
+      var valuelist = document.getElementsByTagName('option');
+      for (var i = 0; i < valuelist.length; i++){
+        $(valuelist[i]).attr("disabled", false);
+      }
+      for (var i = 0; i < nodetitlelist.length; i++){
+        for (var j = 0; j < valuelist.length; j++){
+          if ($(valuelist[j]).text() == nodetitlelist[i]){
+            $(valuelist[j]).attr("disabled", "disabled");
+          }
+        }
+      }
+    });
+
+    $('#btn-add-nodes').on('blur', function(){
+      var nodetitlelist = [];
+      getTitle($('#chart-container'), nodetitlelist);
+      var valuelist = document.getElementsByTagName('option');
+      for (var i = 0; i < valuelist.length; i++){
+        $(valuelist[i]).attr("disabled", false);
+      }
+      for (var i = 0; i < nodetitlelist.length; i++){
+        for (var j = 0; j < valuelist.length; j++){
+          if ($(valuelist[j]).text() == nodetitlelist[i]){
+            $(valuelist[j]).attr("disabled", "disabled");
+          }
+        }
+      }
+    });
+
+
+    $('#btn-delete-nodes').on('blur', function(){
+      var nodetitlelist = [];
+      getTitle($('#chart-container'), nodetitlelist);
+      var valuelist = document.getElementsByTagName('option');
+      for (var i = 0; i < valuelist.length; i++){
+        $(valuelist[i]).attr("disabled", false);
+      }
+      for (var i = 0; i < nodetitlelist.length; i++){
+        for (var j = 0; j < valuelist.length; j++){
+          if ($(valuelist[j]).text() == nodetitlelist[i]){
+            $(valuelist[j]).attr("disabled", "disabled");
+          }
+        }
+      }
+    });
+
+
+    $('#node-plot').on('input', function(){
+      var $node = $('#selected-node').data('node');
+      $node.find('.title').text($('#node-plot').val());
+    });
   },
   methods: {
     postJson(){
