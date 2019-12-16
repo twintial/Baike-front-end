@@ -36,15 +36,12 @@
                                             <span><i class="fa fa-clock-o"></i>{{interVideoInfo.uploadTime | timestampToDate}}</span>
                                             <span><i class="fa fa-eye"></i>{{interVideoInfo.playVolume}}</span>
                                             <span><i class="fa fa-heart-o"></i>{{interVideoInfo.collectPoint}}</span>
-                                            <span><i class="fa fa-thumbs-o-up"></i>{{interVideoInfo.praisePoint}}</span>
                                             <span><i class="fa fa-commenting"></i>{{comments.length}}</span>
                                         </p>
                                     </div>
                                     <div class="fa-div-position">
                                         <i v-if="isCol" @click="deleteFromCollection" class="fa fa-heart fa-2x fa-style"></i>
                                         <i v-else  @click="insertIntoCollection" class="fa fa-heart-o fa-2x fa-style"></i>
-                                        <i v-if="isThumbUp" class="fa fa-thumbs-up fa-2x fa-style"></i>
-                                        <i v-else class="fa fa-thumbs-o-up fa-2x fa-style"></i>
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +532,7 @@ export default {
       }
 
       // 视频播放结束的按键
-      this.endButton = $("<button></button>").addClass("button hollow end-button").text("视频播放结束～点击重播")
+      this.endButton = $("<button></button>").addClass("button hollow end-button").text("click here to watch the initial video")
           .on("click" ,function() {
             // 隐藏按键和遮罩层
             $(".dplayer-mask").removeClass("mask-show")

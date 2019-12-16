@@ -31,7 +31,7 @@
                                             <div>
                                               <label>choose a cover for you video:</label>
                                               <label for="videoCover"> 
-                                                <img id="cover-preview" :src="coverFiles.length ? url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"/>
+                                                <img id="cover-preview" :src="coverFiles.length ? url : 'http://localhost:8443/img/cover_default.jpg'"/>
                                               </label>
                                             </div>
                                             <div v-show="false">

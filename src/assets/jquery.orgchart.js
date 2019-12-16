@@ -9,6 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 'use strict';
+import html2canvas from "html2canvas"
 
 (function (factory) {
   if (typeof module === 'object' && typeof module.exports === 'object') {

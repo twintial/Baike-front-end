@@ -43,7 +43,7 @@
                             <option value="three" class="option">three</option>
                         </select> -->
                         <select id="select" disabled>
-                          <option></option>
+                          <option id="blankop2"></option>
                           <option v-for="(titleList, index) in titleList" :key="index">{{titleList}}</option>
                         </select>
 
@@ -83,6 +83,7 @@
 <script type="text/javascript">
 
 import orgchart from "@/assets/jquery.orgchart.js"
+// import vDialogs from 'v-dialogs'
 
 var choiceList = [];
 
@@ -105,6 +106,8 @@ var Init = function() {
     'chartClass': 'edit-state',
     'nodeContent': 'title',
     'parentNodeSymbol': 'fa-th-large',
+    'exportButton': true,
+    'exportFilename': 'MyOrgChart',
     'createNode': function($node, data) {
       $node[0].id = getId();
     }
@@ -114,12 +117,19 @@ var Init = function() {
     var $this = $(this);
     $('#selected-node').val($this.find('.content').text()).data('node', $this);
     $('#node-plot').val($this.find('.title').text());
+    $('#change').val($this.find('.content').text());
+    if ($('#change option:selected').val() == $('#select option:selected').val()){
+        $('#select').val('');
+    }
   });
 
   oc.$chartContainer.on('click', '.orgchart', function(event) {
     if (!$(event.target).closest('.node').length) {
       $('#selected-node').val('');
       $('#node-plot').val('');
+    }
+    if ($('#change option:selected').val() == $('#select option:selected').val()){
+        $('#select').val('');
     }
   });
 
@@ -216,7 +226,7 @@ var Init = function() {
       var validVal1 = item.value.trim();
       for (var i = 0; i < choiceList.length; i++) {
         if (validVal1 == choiceList[i]){
-          this.$dlg.toast('Plot should not repeat', {messageType: 'warning', closeTime: 5})
+          alert('Plot should not repeat');
           flag = 1;
           return;
         }
@@ -231,14 +241,14 @@ var Init = function() {
     }
 
     if (!nodeVals.length) {
-      this.$dlg.toast('Please input branch plot', {messageType: 'warning', closeTime: 5})
+      alert('Please input branch plot');
       return;
     }
 
     var $node = $('#selected-node').data('node');
 
     if (title == '') {
-      this.$dlg.toast('Please choose branch video', {messageType: 'warning', closeTime: 5})
+      alert('Please choose branch video');
       return;
     }
     // var nodeType = $('input[name="node-type"]:checked');
@@ -251,7 +261,7 @@ var Init = function() {
     //   return;
     // }
     if (!$node) {
-      this.$dlg.toast('Please select one node in orgchart', {messageType: 'warning', closeTime: 5})
+      alert('Please select one node in chart');
       return;
     }
     var hasChild = $node.parent().attr('colspan') > 0 ? true : false;
@@ -311,13 +321,13 @@ var Init = function() {
     // }
   });
 
-  $('#btn-delete-nodes').on('click', function() {
+  $('#btn-delete-nodes').on('click', () => {
     var $node = $('#selected-node').data('node');
     if (!$node) {
-      this.$dlg.toast('Please select one node in chart', {messageType: 'warning', closeTime: 5})
+      alert('Please select one node in chart');
       return;
     } else if ($node[0] === $('.orgchart').find('.node:first')[0]) {
-      this.$dlg.toast('You should not delete the root nood', {messageType: 'warning', closeTime: 5})
+      alert('You should not delete the root nood');
       return;
     }
     var plot = $node.find('.title').text();
@@ -387,12 +397,19 @@ var vm = {
     Init();
 
     $('#change').change(() => {
+      var $node = $('#selected-node').data('node');
+      if ($node == null){
+        this.$dlg.toast('Please choose one node in chart', {messageType: 'warning', closeTime: 3});
+        return;
+      }
       $('#blankop').remove();
+      if ($('#change option:selected').val() == $('#select option:selected').val()){
+        $('#select').val('');
+      }
       var changetitle = $('#change option:selected').val();
       if (changetitle == ''){
         return;
       }
-      var $node = $('#selected-node').data('node');
       if ($node != null){
         $node.find('.content').text(changetitle);
         $('#selected-node').val(changetitle);
@@ -413,6 +430,11 @@ var vm = {
     });
 
     $('#select').change(() => {
+      var $node = $('#selected-node').data('node');
+      if ($node == null){
+        this.$dlg.toast('Please choose one node in chart', {messageType: 'warning', closeTime: 3});
+        return;
+      }
       var nodetitlelist = [];
       getTitle($('#chart-container'), nodetitlelist);
       var valuelist = document.getElementsByTagName('option');
