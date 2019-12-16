@@ -240,7 +240,7 @@
 .end-button {
   position: absolute;
   top: 40%;
-  left: 39%;
+  left: 32%;
   z-index: 3;
   display: none;
 }
