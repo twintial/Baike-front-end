@@ -471,7 +471,6 @@ export default {
     },
     nextPage() {
       if (this.currentPage == this.pageNum - 1) {
-        this.$dlg.toast("Already the last page", {messageType: 'error', closeTime: 5})
         return;
       }
       ++this.currentPage;
@@ -480,7 +479,6 @@ export default {
     // 上一页
     prePage() {
       if (this.currentPage == 0) {
-        this.$dlg.toast("Already the first page", {messageType: 'error', closeTime: 5})
         return;
       }
       --this.currentPage;
