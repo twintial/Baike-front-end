@@ -23,7 +23,7 @@
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
-                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="'http://localhost:8443/img/userIcon/'+uploadUserInfo.iconURL" alt="post"></a>
+                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="uploadUserInfo.iconURL?'http://localhost:8443/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
                                     </div>
                                     <p class="text-center" style="margin-top:2px"><a @click="goToDetails(uploadUserInfo.uid)">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
@@ -142,7 +142,7 @@
                             <div class="media-object stack-for-small">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img :src="loginUserInfo.uID ? 'http://localhost:8443/img/userIcon/'+loginUserInfo.iconURL : 'http://localhost:8443/img/userIcon/user_default.jpg'" alt="comment">
+                                        <img :src="loginUserInfo.uID ? 'http://localhost:8443/img/userIcon/'+loginUserInfo.iconURL : defaultIcon" alt="comment">
                                     </div>
                                     <h6>{{loginUserInfo.nickName}}</h6>
                                 </div>
@@ -283,6 +283,7 @@ export default {
   name: 'videPage',
   data () {
     return {
+      defaultIcon: 'http://localhost:8443/img/userIcon/user_default.jpg',
       isEnded: false,
       interVideoID: null,
       // 用户信息
@@ -298,7 +299,7 @@ export default {
       // 视频相关
       options: {
           video: {
-            url: 'http://localhost:8443/video/100024/37750c3691e2448ba4d9012c66c7c950.mp4',//改成一个默认视频
+            url: '',//改成一个默认视频
           },
           lang: 'en',
           autoplay: false,
@@ -406,7 +407,7 @@ export default {
           {
             id: this.nowVideoID,
             api: 'http://localhost:8443/api/danmaku/',
-            user: sessionStorage.getItem('userID')
+            user: this.loginUserInfo.uID
           }
       );
     },

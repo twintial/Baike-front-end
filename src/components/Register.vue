@@ -79,11 +79,11 @@ export default {
           .then(successResponse => {
             this.responseResult = JSON.stringify(successResponse.data)
             if (successResponse.data.code === 200) {
-              alert("ok")
+              this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5});
               this.$router.push('/login')
             }
             if (successResponse.data.code === 400) {
-              alert(successResponse.data.message)
+              this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5});
             }
           })
           .catch(failResponse => {})

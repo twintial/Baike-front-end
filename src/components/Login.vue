@@ -64,7 +64,7 @@ export default {
               this.$router.go(0);
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.msg)
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5});
           }
         })
         .catch(failResponse => {})

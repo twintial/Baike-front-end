@@ -216,7 +216,7 @@ var Init = function() {
       var validVal1 = item.value.trim();
       for (var i = 0; i < choiceList.length; i++) {
         if (validVal1 == choiceList[i]){
-          alert('Plot should not repeat');
+          this.$dlg.toast('Plot should not repeat', {messageType: 'warning', closeTime: 5})
           flag = 1;
           return;
         }
@@ -231,14 +231,14 @@ var Init = function() {
     }
 
     if (!nodeVals.length) {
-      alert('Please input branch plot')
+      this.$dlg.toast('Please input branch plot', {messageType: 'warning', closeTime: 5})
       return;
     }
 
     var $node = $('#selected-node').data('node');
 
     if (title == '') {
-      alert('Please choose branch video');
+      this.$dlg.toast('Please choose branch video', {messageType: 'warning', closeTime: 5})
       return;
     }
     // var nodeType = $('input[name="node-type"]:checked');
@@ -251,7 +251,7 @@ var Init = function() {
     //   return;
     // }
     if (!$node) {
-      alert('Please select one node in orgchart');
+      this.$dlg.toast('Please select one node in orgchart', {messageType: 'warning', closeTime: 5})
       return;
     }
     var hasChild = $node.parent().attr('colspan') > 0 ? true : false;
@@ -314,10 +314,10 @@ var Init = function() {
   $('#btn-delete-nodes').on('click', function() {
     var $node = $('#selected-node').data('node');
     if (!$node) {
-      alert('Please select one node in orgchart');
+      this.$dlg.toast('Please select one node in chart', {messageType: 'warning', closeTime: 5})
       return;
     } else if ($node[0] === $('.orgchart').find('.node:first')[0]) {
-      alert('You should not delete the root nood');
+      this.$dlg.toast('You should not delete the root nood', {messageType: 'warning', closeTime: 5})
       return;
     }
     var plot = $node.find('.title').text();
@@ -382,7 +382,7 @@ var vm = {
         }
       })
       .catch(failResponse => {
-        alert("Error!")
+        this.$dlg.toast('Error!', {messageType: 'error', closeTime: 5})
       });
     Init();
 
@@ -469,6 +469,7 @@ var vm = {
   },
   methods: {
     postJson(){
+      const key = this.$dlg.mask('uploading...')
       createJson()
       this.$axios
         .post('/edit' , qs.stringify({
@@ -476,17 +477,18 @@ var vm = {
           ID: this.IVID
         }))
         .then(successResponse => {
+          this.$dlg.close(key)
           if (successResponse.data.code === 200) {
             this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 3})
             this.$router.push('/myaccount')
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.msg)
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 3})
           }
         })
         .catch(failResponse => {
+          this.$dlg.close(key)
           this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 3})
-          alert("Error!")
         })
     }
   }

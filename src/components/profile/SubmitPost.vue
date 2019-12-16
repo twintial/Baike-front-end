@@ -8,28 +8,28 @@
                       <div class="large-12 columns">
                           <div class="heading">
                               <i class="fa fa-pencil-square-o"></i>
-                              <h4>上传你的新视频</h4>
+                              <h4>upload your new video</h4>
                           </div>
                           <div class="row">
                               <div class="large-12 columns">
                                   <form data-abide novalidate onsubmit="return false;">
                                       <div class="row">
                                           <div class="large-12 columns">
-                                              <label>标题:
-                                                  <input v-model="videoName" type="text" placeholder="在这里填写你的视频标题..." required>
+                                              <label>title:
+                                                  <input v-model="videoName" type="text" placeholder="fill in your title here..." required>
                                                   <span class="form-error">
-                                                      视频标题不能为空
+                                                      video title can't be empty
                                                   </span>
                                               </label>
                                           </div>
                                           <div class="large-12 columns">
-                                              <label >简介:
-                                                  <textarea v-model="introduction" placeholder="在这里填写你的视频简介..."></textarea>
+                                              <label >description:
+                                                  <textarea v-model="introduction" placeholder="fill in your description here..."></textarea>
                                               </label>
                                           </div>
                                           <div class="large-12 columns">
                                             <div>
-                                              <label>选择你的视频封面:</label>
+                                              <label>choose a cover for you video:</label>
                                               <label for="videoCover"> 
                                                 <img id="cover-preview" :src="coverFiles.length ? url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"/>
                                               </label>
@@ -60,19 +60,19 @@
                                                   <table class="hover unstriped">
                                                       <thead>
                                                       <tr>
-                                                          <th>编号</th>
-                                                          <th>视频名称</th>
-                                                          <th>大小</th>
-                                                          <th>上传速度</th>
-                                                          <th>状态</th>
+                                                          <th>NO</th>
+                                                          <th>title</th>
+                                                          <th>size</th>
+                                                          <th>speed</th>
+                                                          <th>state</th>
                                                       </tr>
                                                       </thead>
                                                       <tbody>
                                                       <tr v-if="!files.length">
                                                           <td id="before-update" colspan="7">
                                                           <div class="text-center p-5">
-                                                              <h4>拖拽视频或文件夹到此页面<br/>or</h4>
-                                                              <label :for="name" class="button primary">上传视频</label>
+                                                              <h4>drop video file or directory to this page<br/>or</h4>
+                                                              <label :for="name" class="button primary">upload</label>
                                                           </div>
                                                           </td>
                                                       </tr>
@@ -94,9 +94,9 @@
                                                           <td v-else>-</td>
 
                                                           <td v-if="file.error">{{file.error}}</td>
-                                                          <td v-else-if="file.success">成功</td>
-                                                          <td v-else-if="file.active">上传中</td>
-                                                          <td v-else>等待上传</td>
+                                                          <td v-else-if="file.success">success</td>
+                                                          <td v-else-if="file.active">uploading</td>
+                                                          <td v-else>waiting</td>
                                                       </tr>
                                                       </tbody>
                                                   </table>
@@ -120,11 +120,11 @@
                                                       @input-file="inputFile"
                                                       ref="upload">
                                                       <i class="fa fa-plus"></i>
-                                                      上传视频
+                                                      upload
                                                       </file-upload>
                                                       <button type="button" class="button alert resize-button"  v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false">
                                                       <i class="fa fa-stop" aria-hidden="true"></i>
-                                                          停止上传
+                                                          stop
                                                       </button>
                                                   </div>
                                               </div>
@@ -132,7 +132,7 @@
                                           </div>
                                           <div class="large-12 columns">
                                               <div class="post-category">
-                                                  <label>选择视频种类:
+                                                  <label>category:
                                                       <select v-model="tag">
                                                           <option value="Adventure" selected>Adventure</option>
                                                           <option value="Mystery">Mystery</option>
@@ -145,7 +145,7 @@
                                               </div>
                                           </div>
                                           <div class="large-12 columns" style="text-align:center">
-                                              <button id="submit-button" class="button primary" @click="submitVideo">立即投稿</button>
+                                              <button id="submit-button" class="button primary" @click="submitVideo">submit</button>
                                           </div>
                                       </div>
                                   </form>
@@ -299,7 +299,7 @@ export default {
           // beforeSend
           // min size
           if (newFile.size >= 0 && this.minSize > 0 && newFile.size < this.minSize) {
-            this.$refs.upload.update(newFile, { error: '上传失败' })
+            this.$refs.upload.update(newFile, { error: 'fail to upload' })
           }
         }
         if (newFile.progress !== oldFile.progress) {
@@ -392,15 +392,15 @@ export default {
       this.tag = ''
     },
     submitVideo(){
-      const key = this.$dlg.mask('视频上传中...')
+      const key = this.$dlg.mask('uploading...')
       if (!this.files.length){
         this.$dlg.close(key)
-        this.$dlg.toast("请上传视频", {messageType: 'error', closeTime: 5})
+        this.$dlg.toast("please upload at least one video", {messageType: 'error', closeTime: 5})
         return
       }
       if (!this.coverFiles.length){
         this.$dlg.close(key)
-        this.$dlg.toast("请给你的视频选择封面", {messageType: 'error', closeTime: 5})
+        this.$dlg.toast("please choose a cover for you video", {messageType: 'error', closeTime: 5})
         return
       }
       let videoUUIDs = []

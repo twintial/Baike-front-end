@@ -103,8 +103,6 @@ export default {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
             this.totlePage = successResponse.data.msg
-            
-            this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
             this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
@@ -135,7 +133,7 @@ export default {
             // 及时删除
             this.reomveFromVideos(interVideoID)
             this.$emit('func')
-            this.$dlg.toast('删除成功', {messageType: 'success', closeTime: 5})
+            this.$dlg.toast('delete success', {messageType: 'success', closeTime: 5})
           }
           if (successResp.data.code === 400) {
             this.$dlg.toast(successResp.data.msg, {messageType: 'error', closeTime: 5})
@@ -145,7 +143,7 @@ export default {
       // 弹出确认框
       comfirmToDelete(interVideoID){
         var that = this
-        this.$dlg.alert('确定要删除吗？', function(){
+        this.$dlg.alert('are you sure to delete？', function(){
           that.deleteVideo(interVideoID)
         }, {
           messageType: 'confirm'

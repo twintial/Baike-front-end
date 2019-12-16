@@ -8,8 +8,7 @@ import vUploader from 'v-uploader'
 import vDialogs from 'v-dialogs'
 
 
-Vue.use(vDialogs)
-
+Vue.use(vDialogs, { language: 'en' })
 
 const VueUploadComponent = require('vue-upload-component')
 Vue.component('file-upload', VueUploadComponent)
