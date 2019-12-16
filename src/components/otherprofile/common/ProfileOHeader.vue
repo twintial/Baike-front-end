@@ -8,7 +8,7 @@
                     <img  :src="'http://localhost:8443/img/userIcon/'+ MyIcon" alt="profile author img">
                 </div>
                 <div class="profile-subscribe">
-                    <div class="mysub">                   
+                    <div>                   
                         <button @click="subscribeHim">subscribe</button>
                     </div>
                 </div>
@@ -64,9 +64,6 @@
   
 </template>
 <style scoped>
-.mysub{
-    padding-left:16px
-}
 
 .myback {
     background-repeat: no-repeat;

@@ -144,7 +144,7 @@
                                     <div class="comment-box-img">
                                         <img :src="loginUserInfo.uID ? 'http://localhost:8443/img/userIcon/'+loginUserInfo.iconURL : 'http://localhost:8443/img/userIcon/user_default.jpg'" alt="comment">
                                     </div>
-                                    <h6><a href="#">{{loginUserInfo.nickName}}</a></h6>
+                                    <h6>{{loginUserInfo.nickName}}</h6>
                                 </div>
                                 <div class="media-object-section comment-textarea">
                                   <textarea v-model="commentContent" name="commentText" placeholder="Add a comment here.."></textarea>
@@ -184,22 +184,6 @@
         <div class="large-4 columns">
             <aside class="secBg sidebar">
                 <div class="row">
-                    <!-- search Widget -->
-                    <div class="large-12 medium-7 medium-centered columns">
-                        <div class="widgetBox">
-                            <div class="widgetTitle">
-                                <h5>Search Videos</h5>
-                            </div>
-                            <form id="searchform" method="get" role="search">
-                                <div class="input-group">
-                                    <input class="input-group-field" type="text" placeholder="Enter your keyword">
-                                    <div class="input-group-button">
-                                        <input type="submit" class="button" value="Submit">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div><!-- End search Widget -->
 
                     <!-- most view Widget -->
                     <div class="large-12 medium-7 medium-centered columns">
@@ -539,6 +523,9 @@ export default {
         this.choice[i].on("click",function(){
             that.requestForNextVideo(that.choice[i].attr("name"))
             // 隐藏按键和遮罩层
+            for (let i = 0; i < that.nextVideos.length ;i++){
+              that.choice[i].text(that.nextVideos[i].choice).css("display", "none")
+            }
             $(".dplayer-mask").removeClass("mask-show")
             that.reload.css("display", "none")
             that.container.css("display", "none")
@@ -587,7 +574,8 @@ export default {
         this.$router.push({name:'othersAccount',query: {oID: uID}})
     },
     goToVideoPage(videoID) {
-        this.$router.push({path:'/video',query:{vID: videoID}});
+        this.$router.push({query:{vID: videoID}});
+        this.$router.go(0)
     }
   },
 }

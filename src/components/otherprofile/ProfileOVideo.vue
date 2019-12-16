@@ -27,7 +27,7 @@
                                             <div class="video-detail clearfix">
                                           
                                                 <div class="video-stats">
-                                                    <span ><i class="fa fa-clock-o"></i>{{video.uploadTime}}</span>
+                                                    <span ><i class="fa fa-clock-o"></i>{{video.uploadTime | timestampToDate}}</span>
                                                     <span><i class="fa fa-eye"></i>{{video.playVolume}}</span>
                                                 </div>
                                                 <div class="video-btns">

@@ -43,6 +43,7 @@
                             <option value="three" class="option">three</option>
                         </select> -->
                         <select id="select" disabled>
+                          <option></option>
                           <option v-for="(titleList, index) in titleList" :key="index">{{titleList}}</option>
                         </select>
 
@@ -477,7 +478,7 @@ var vm = {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 3})
-            this.$router.push('/my-video')
+            this.$router.push('/myaccount')
           }
           if (successResponse.data.code === 400) {
             alert(successResponse.data.msg)

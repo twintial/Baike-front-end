@@ -20,6 +20,9 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   routes: [
     // 错误页面重定向
     {

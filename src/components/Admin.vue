@@ -153,7 +153,7 @@
                       <td>{{ tag }}</td>
                       <td>
                         <button
-                          type="button"
+                          type="button" class="button success" style="padding:7px 12px 7px 12px"
                           @click="changeVideoState(result.interVideoID)"
                         >
                           Recover
@@ -185,7 +185,7 @@
                       <td>{{ tag }}</td>
                       <td>
                         <button
-                          type="button"
+                          type="button" class="button alert" style="padding:7px 12px 7px 12px"
                           @click="changeVideoState(result.interVideoID)"
                         >
                           Freeze
@@ -214,7 +214,7 @@
                         <td>{{ tag }}</td>
                         <td>
                           <button
-                            type="button"
+                            type="button" class="button alert" style="padding:7px 12px 7px 12px"
                             @click="changeUserState(result.uid)"
                           >
                             Freeze
@@ -242,7 +242,7 @@
                       <td>{{ tag }}</td>
                       <td>
                         <button
-                          type="button"
+                          type="button" class="button success" style="padding:7px 12px 7px 12px"
                           @click="changeUserState(result.uid)"
                         >
                           Recover
@@ -327,6 +327,7 @@ export default {
   },
   methods: {
     search() {
+      this.dataShow=[]
       if (this.searchstyle == "video") {
         if (this.SearchName == "" || this.SearchName == null) {
           this.$axios
