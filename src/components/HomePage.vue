@@ -484,7 +484,6 @@ export default {
           this.videobyplay = successResponse.data;
         })
         .catch(failResponse => {
-          alert("?");
         });
     },
 

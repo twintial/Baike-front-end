@@ -444,7 +444,7 @@ export default {
             this.$router.go(0);
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.message);
+            this.$dlg.toast("Account does not exist or password is incorrect！", {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {});
@@ -457,7 +457,7 @@ export default {
           this.$router.go(0);
         })
         .catch(failResponse => {
-          alert("No logged out");
+          this.$dlg.toast("Fail to log out", {messageType: 'error', closeTime: 5})
         });
     },
     isonline() {
@@ -470,7 +470,7 @@ export default {
         }
         })
         .catch(failResponse => {
-          alert("error!");
+          this.$dlg.toast("error！", {messageType: 'error', closeTime: 5})
         });
     }
   }
