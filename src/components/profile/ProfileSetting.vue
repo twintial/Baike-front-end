@@ -52,7 +52,7 @@ export default {
   methods:{
       editInfor(){
           if(this.Myname == ''){
-              alert("Nick name can not be empty")
+              this.$dlg.toast("Nick name can not be empty", {messageType: 'success', closeTime: 5})
           }else{
               this.$axios
                 .post('/aboutMe/setting', {
@@ -62,11 +62,11 @@ export default {
                 .then(successResponse => {
                     this.responseResult = JSON.stringify(successResponse.data)
                     if (successResponse.data.code === 200) {
-                        alert("Edit Success")
+                        this.$dlg.toast("Edit Success", {messageType: 'success', closeTime: 5})
                         location.reload()
                 }
                 if (successResponse.data.code === 400) {
-                    alert(successResponse.data.msg)
+                    this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
                 }
                 })
                 .catch(failResponse => {})

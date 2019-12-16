@@ -96,7 +96,7 @@ export default {
       reomveFromFollowers(unFollowID){
         var index = -1;
         for (var i in this.followers){
-          if (this.followers[i].uID === unFollowID){
+          if (this.followers[i].uid === unFollowID){
             index = i;
             break;
           }
