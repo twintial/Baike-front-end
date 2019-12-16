@@ -41,7 +41,9 @@
               <div
                 class="tabs-content"
                 data-tabs-content="newVideos"
-                :style= "{ margin : searchstyle == 'user' ? '0px 0px 0px 80px' :''}"
+                :style="{
+                  margin: searchstyle == 'user' ? '0px 0px 0px 80px' : ''
+                }"
               >
                 <div class="tabs-panel is-active" id="new-all">
                   <div v-if="total > 0" class="row list-group">
@@ -53,9 +55,7 @@
                         style="float:left"
                       >
                         <div class="post thumb-border">
-                          <div
-                            class="post-thumb"
-                          >
+                          <div class="post-thumb">
                             <img
                               :src="
                                 'http://localhost:8443/img/videoCover/' +
@@ -65,7 +65,10 @@
                               "
                               alt="new video"
                             />
-                            <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
+                            <a
+                              @click="goToVideoPage(result.interVideoID)"
+                              class="hover-posts"
+                            >
                               <span><i class="fa fa-play"></i>Watch Video</span>
                             </a>
                             <div class="video-stats clearfix">
@@ -90,7 +93,9 @@
                               </p>
                               <p class="pull-left">
                                 <i class="fa fa-clock-o"></i>
-                                <span>{{ result.uploadTime | timestampToDate }}</span>
+                                <span>{{
+                                  result.uploadTime | timestampToDate
+                                }}</span>
                               </p>
                               <p class="pull-left">
                                 <i class="fa fa-eye"></i>
@@ -113,10 +118,15 @@
                           <div class="post-thumb2 post-thumb">
                             <img
                               class="circle"
-                              :src="'http://localhost:8443/img/userIcon/'+result.iconURL"
+                              :src="
+                                'http://localhost:8443/img/userIcon/' +
+                                  result.iconURL
+                              "
                               alt="user"
                             />
-                            <a @click="goToDetails(result.uid)" class="hover-posts circle"
+                            <a
+                              @click="goToDetails(result.uid)"
+                              class="hover-posts circle"
                               ><span
                                 ><i class="fa fa-search"></i>Browse more</span
                               ></a
@@ -137,13 +147,17 @@
                                   class="fa fa-video-camera"
                                   style="font-size: 14px;"
                                 ></i>
-                                <span style="font-size: 14px;">videos：{{videonum[index]}}</span>
+                                <span style="font-size: 14px;"
+                                  >videos：{{ videonum[index] }}</span
+                                >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i
                                   class="fa fa-users"
                                   style="font-size: 14px;"
                                 ></i>
-                                <span style="font-size: 14px;">{{follownum[index]}}</span>
+                                <span style="font-size: 14px;">{{
+                                  follownum[index]
+                                }}</span>
                               </p>
                             </div>
                             <div
@@ -157,7 +171,6 @@
                           </div>
                           <div style="margin-left:1cm">
                             <br />
-
                           </div>
                         </div>
                       </div>
@@ -225,7 +238,7 @@
                   <div class="input-group-button">
                     <button
                       class="button"
-                      @click="searchnow"
+                      @click="searchnow1"
                       style="font-size: 11px;width:80px;height: 41px;"
                     >
                       Search!
@@ -264,7 +277,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Comedy' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Comedy' ? '#e96969' : ''
+                          }"
                           >Comedy</a
                         >
                       </center>
@@ -274,7 +289,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Adventure' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Adventure' ? '#e96969' : ''
+                          }"
                           >Adventure</a
                         >
                       </center>
@@ -284,7 +301,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Mystery' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Mystery' ? '#e96969' : ''
+                          }"
                           >Mystery</a
                         >
                       </center>
@@ -294,7 +313,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Thriller' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Thriller' ? '#e96969' : ''
+                          }"
                           >Thriller</a
                         >
                       </center>
@@ -305,7 +326,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Time-travel' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Time-travel' ? '#e96969' : ''
+                          }"
                           >Time-travel</a
                         >
                       </center>
@@ -315,7 +338,9 @@
                         <a
                           class="accordion-title"
                           @click="choose($event)"
-                          :style="{ background: tag == 'Romance' ? '#e96969' : '' }"
+                          :style="{
+                            background: tag == 'Romance' ? '#e96969' : ''
+                          }"
                           >Romance</a
                         >
                       </center>
@@ -342,8 +367,8 @@ export default {
       ResultName: "",
       searchstyle: "video",
       dataShow: undefined,
-      follownum:undefined,
-      videonum:undefined,
+      follownum: undefined,
+      videonum: undefined,
       total: undefined,
       tag: "all",
       // 共几页
@@ -361,50 +386,87 @@ export default {
   },
   watch: {
     searchstyle: function(val) {
-        this.dataShow = []
-        this.currentPage = 0;
-        this.tag = "all";
-        this.search();
+      this.dataShow = [];
+      this.currentPage = 0;
+      this.tag = "all";
+      this.search();
     }
   },
   methods: {
     search() {
       if (this.searchstyle == "video") {
-        this.$axios
-          .get(
-            "/SearchVideo/" +
-              this.SearchName +
-              "/" +
-              this.tag +
-              "/" +
-              (this.currentPage + 1)
-          )
-          .then(successResponse => {
-            this.ResultName = this.SearchName;
-            this.dataShow = successResponse.data.list;
-            this.total = successResponse.data.pageNum;
-            this.pageNum = Math.ceil(this.total / 9) || 1;
-            this.$router.push({
-              query: { SR: this.SearchName }
-            });
-          })
-          .catch(failResponse => {});
+        if (this.SearchName == "" || this.SearchName == null) {
+          this.$axios
+            .get(
+              "/SearchVideo/" +
+                this.tag +
+                "/" +
+                (this.currentPage + 1)
+            )
+            .then(successResponse => {
+              this.ResultName = this.SearchName;
+              this.dataShow = successResponse.data.list;
+              this.total = successResponse.data.pageNum;
+              this.pageNum = Math.ceil(this.total / 9) || 1;
+              this.$router.push({
+                query: { SR: this.SearchName }
+              });
+            })
+            .catch(failResponse => {});
+        } else {
+          this.$axios
+            .get(
+              "/SearchVideo/" +
+                this.SearchName +
+                "/" +
+                this.tag +
+                "/" +
+                (this.currentPage + 1)
+            )
+            .then(successResponse => {
+              this.ResultName = this.SearchName;
+              this.dataShow = successResponse.data.list;
+              this.total = successResponse.data.pageNum;
+              this.pageNum = Math.ceil(this.total / 9) || 1;
+              this.$router.push({
+                query: { SR: this.SearchName }
+              });
+            })
+            .catch(failResponse => {});
+        }
       } else {
-        this.$axios
-          .get("/SearchUser/" + this.SearchName + "/" + (this.currentPage + 1))
+        if (this.SearchName == "" || this.SearchName == null) {
+          this.$axios
+          .get("/SearchUser/" + (this.currentPage + 1))
           .then(successResponse => {
             this.ResultName = this.SearchName;
             this.dataShow = successResponse.data.list;
-            this.follownum=successResponse.data.follow;
-            this.videonum=successResponse.data.video;
+            this.follownum = successResponse.data.follow;
+            this.videonum = successResponse.data.video;
             this.total = successResponse.data.pageNum;
             this.pageNum = Math.ceil(this.total / 4) || 1;
             this.$router.push({
               query: { SU: this.SearchName }
             });
           })
-          .catch(failResponse => {
-          });
+          .catch(failResponse => {});
+        }
+        else{
+        this.$axios
+          .get("/SearchUser/" + this.SearchName + "/" + (this.currentPage + 1))
+          .then(successResponse => {
+            this.ResultName = this.SearchName;
+            this.dataShow = successResponse.data.list;
+            this.follownum = successResponse.data.follow;
+            this.videonum = successResponse.data.video;
+            this.total = successResponse.data.pageNum;
+            this.pageNum = Math.ceil(this.total / 4) || 1;
+            this.$router.push({
+              query: { SU: this.SearchName }
+            });
+          })
+          .catch(failResponse => {});
+        }
       }
     },
     nextPage() {
@@ -438,16 +500,20 @@ export default {
       this.currentPage = 0;
       this.search();
     },
-    goToVideoPage(videoID) {
-      this.$router.push({path:'/video',query:{vID: videoID}});
+    searchnow1() {
+      this.currentPage = 0;
+      this.search();
     },
-    goToDetails(uID){
-        this.$router.push({
-            name:'othersAccount',
-            query: {
-                oID: uID
-            }
-        })
+    goToVideoPage(videoID) {
+      this.$router.push({ path: "/video", query: { vID: videoID } });
+    },
+    goToDetails(uID) {
+      this.$router.push({
+        name: "othersAccount",
+        query: {
+          oID: uID
+        }
+      });
     }
   }
 };

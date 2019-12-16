@@ -1,5 +1,5 @@
-<template>
-  <div id="app">
+<template >
+  <div>
     <div class="off-canvas-wrapper">
       <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
         <!--header-->
@@ -174,7 +174,7 @@
           </div>
         </div>
         <div class="off-canvas-content" data-off-canvas-content>
-          <header>
+          <header v-show="(this.$route.path !='/admin')&&(this.$route.path !='/adminlogin')">
             <!-- Top -->
             <section id="top" class="topBar show-for-large">
               <div class="row">
@@ -370,7 +370,10 @@
           </header>
           <!-- End Header -->
           <!--breadcrumbs-->
-          <section id="breadcrumb" class="breadMargin" style="height:30px">
+          <section id="breadcrumb" class="breadMargin" style="height:30px" v-show="(this.$route.path !='/admin')&&(this.$route.path !='/adminlogin')">
+          </section>
+          <section id="breadcrumb" class="breadMargin" style="height:60px" v-show="(this.$route.path =='/admin')||(this.$route.path =='/adminlogin')">
+           <h2 style="color:white" align="center"> Baike Management Interface</h2>
           </section>
           <!--end breadcrumbs-->
           <router-view />
