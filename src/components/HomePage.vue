@@ -39,8 +39,8 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
+                      <img :src="'http://localhost:8443/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
                       <div class="video-stats clearfix">
@@ -52,68 +52,20 @@
                     </div>
                     <div class="post-des">
                       <h6>
-                        <a href="single-video-v2.html">{{
+                        <a @click="goToVideoPage(result.interVideoID)">{{
                           result.videoName
                         }}</a>
                       </h6>
                       <div class="post-stats clearfix">
                         <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                            <i class="fa fa-user"></i>
+                            <span><a @click="moveToOpage(result.uid)">{{result.nickName}}</a></span>
                         </p>
-                        <p class="pull-right">
-                          <i class="fa fa-eye"></i>
-                          <span>{{ result.playVolume }}</span>
-                        </p>
-                      </div>
-                      <div class="post-summary">
-                        <p>
-                          {{ result.introduction }}
-                        </p>
-                      </div>
-                      <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
-                          ><i class="fa fa-play-circle"></i>watch video</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tabs-panel" id="new-hd">
-              <div class="row list-group">
-                <div
-                  class="item large-3 medium-6 columns group-item-grid-default"
-                  v-for="(result, index) in result1"
-                  :key="index + '-label'"
-                >
-                  <div class="post thumb-border">
-                    <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
-                        <span><i class="fa fa-play"></i>Watch Video</span>
-                      </a>
-                      <div class="video-stats clearfix">
-                        <div class="thumb-stats pull-left">
-                          <i class="fa fa-heart"></i>
-                          <span>{{ result.collectPoint }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-des">
-                      <h6>
-                        <a href="single-video-v2.html"
-                          >There are many variations of passage.</a
-                        >
-                      </h6>
-                      <div class="post-stats clearfix">
                         <p class="pull-left">
                           <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                          <span>{{ result.uploadTime | timestampToDate}}</span>
                         </p>
-                        <p class="pull-right">
+                        <p class="pull-left">
                           <i class="fa fa-eye"></i>
                           <span>{{ result.playVolume }}</span>
                         </p>
@@ -124,7 +76,7 @@
                         </p>
                       </div>
                       <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
+                        <a @click="goToVideoPage(result.interVideoID)" class="secondary-button"
                           ><i class="fa fa-play-circle"></i>watch video</a
                         >
                       </div>
@@ -176,8 +128,8 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
+                      <img :src="'http://localhost:8443/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
                       <div class="video-stats clearfix">
@@ -189,68 +141,20 @@
                     </div>
                     <div class="post-des">
                       <h6>
-                        <a href="single-video-v2.html">{{
+                        <a @click="goToVideoPage(result.interVideoID)">{{
                           result.videoName
                         }}</a>
                       </h6>
                       <div class="post-stats clearfix">
                         <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                            <i class="fa fa-user"></i>
+                            <span><a @click="moveToOpage(result.uid)">{{result.nickName}}</a></span>
                         </p>
-                        <p class="pull-right">
-                          <i class="fa fa-eye"></i>
-                          <span>{{ result.playVolume }}</span>
-                        </p>
-                      </div>
-                      <div class="post-summary">
-                        <p>
-                          {{ result.introduction }}
-                        </p>
-                      </div>
-                      <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
-                          ><i class="fa fa-play-circle"></i>watch video</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tabs-panel" id="new-hd">
-              <div class="row list-group">
-                <div
-                  class="item large-3 medium-6 columns group-item-grid-default"
-                  v-for="(result, index) in result2"
-                  :key="index + '-label'"
-                >
-                  <div class="post thumb-border">
-                    <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
-                        <span><i class="fa fa-play"></i>Watch Video</span>
-                      </a>
-                      <div class="video-stats clearfix">
-                        <div class="thumb-stats pull-left">
-                          <i class="fa fa-heart"></i>
-                          <span>{{ result.collectPoint }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-des">
-                      <h6>
-                        <a href="single-video-v2.html"
-                          >There are many variations of passage.</a
-                        >
-                      </h6>
-                      <div class="post-stats clearfix">
                         <p class="pull-left">
                           <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                          <span>{{ result.uploadTime | timestampToDate}}</span>
                         </p>
-                        <p class="pull-right">
+                        <p class="pull-left">
                           <i class="fa fa-eye"></i>
                           <span>{{ result.playVolume }}</span>
                         </p>
@@ -261,7 +165,7 @@
                         </p>
                       </div>
                       <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
+                        <a @click="goToVideoPage(result.interVideoID)" class="secondary-button"
                           ><i class="fa fa-play-circle"></i>watch video</a
                         >
                       </div>
@@ -313,8 +217,8 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
+                      <img :src="'http://localhost:8443/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
                       <div class="video-stats clearfix">
@@ -326,68 +230,20 @@
                     </div>
                     <div class="post-des">
                       <h6>
-                        <a href="single-video-v2.html">{{
+                        <a @click="goToVideoPage(result.interVideoID)">{{
                           result.videoName
                         }}</a>
                       </h6>
                       <div class="post-stats clearfix">
                         <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                            <i class="fa fa-user"></i>
+                            <span><a @click="moveToOpage(result.uid)">{{result.nickName}}</a></span>
                         </p>
-                        <p class="pull-right">
-                          <i class="fa fa-eye"></i>
-                          <span>{{ result.playVolume }}</span>
-                        </p>
-                      </div>
-                      <div class="post-summary">
-                        <p>
-                          {{ result.introduction }}
-                        </p>
-                      </div>
-                      <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
-                          ><i class="fa fa-play-circle"></i>watch video</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tabs-panel" id="new-hd">
-              <div class="row list-group">
-                <div
-                  class="item large-3 medium-6 columns group-item-grid-default"
-                  v-for="(result, index) in result3"
-                  :key="index + '-label'"
-                >
-                  <div class="post thumb-border">
-                    <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
-                        <span><i class="fa fa-play"></i>Watch Video</span>
-                      </a>
-                      <div class="video-stats clearfix">
-                        <div class="thumb-stats pull-left">
-                          <i class="fa fa-heart"></i>
-                          <span>{{ result.collectPoint }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-des">
-                      <h6>
-                        <a href="single-video-v2.html"
-                          >There are many variations of passage.</a
-                        >
-                      </h6>
-                      <div class="post-stats clearfix">
                         <p class="pull-left">
                           <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                          <span>{{ result.uploadTime | timestampToDate}}</span>
                         </p>
-                        <p class="pull-right">
+                        <p class="pull-left">
                           <i class="fa fa-eye"></i>
                           <span>{{ result.playVolume }}</span>
                         </p>
@@ -398,7 +254,7 @@
                         </p>
                       </div>
                       <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
+                        <a @click="goToVideoPage(result.interVideoID)" class="secondary-button"
                           ><i class="fa fa-play-circle"></i>watch video</a
                         >
                       </div>
@@ -453,8 +309,8 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
+                      <img :src="'http://localhost:8443/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
                       <div class="video-stats clearfix">
@@ -466,16 +322,20 @@
                     </div>
                     <div class="post-des">
                       <h6>
-                        <a href="single-video-v2.html">{{
+                        <a @click="goToVideoPage(result.interVideoID)">{{
                           result.videoName
                         }}</a>
                       </h6>
                       <div class="post-stats clearfix">
                         <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
+                            <i class="fa fa-user"></i>
+                            <span><a @click="moveToOpage(result.uid)">{{result.nickName}}</a></span>
                         </p>
-                        <p class="pull-right">
+                        <p class="pull-left">
+                          <i class="fa fa-clock-o"></i>
+                          <span>{{ result.uploadTime | timestampToDate}}</span>
+                        </p>
+                        <p class="pull-left">
                           <i class="fa fa-eye"></i>
                           <span>{{ result.playVolume }}</span>
                         </p>
@@ -486,7 +346,7 @@
                         </p>
                       </div>
                       <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
+                        <a @click="goToVideoPage(result.interVideoID)" class="secondary-button"
                           ><i class="fa fa-play-circle"></i>watch video</a
                         >
                       </div>
@@ -496,57 +356,6 @@
               </div>
             </div>
 
-            <div class="tabs-panel" id="new-hd">
-              <div class="row list-group">
-                <div
-                  class="item large-3 medium-6 columns group-item-grid-default"
-                  v-for="(result, index) in videobytime"
-                  :key="index + '-label'"
-                >
-                  <div class="post thumb-border">
-                    <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
-                        <span><i class="fa fa-play"></i>Watch Video</span>
-                      </a>
-                      <div class="video-stats clearfix">
-                        <div class="thumb-stats pull-left">
-                          <i class="fa fa-heart"></i>
-                          <span>{{ result.collectPoint }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-des">
-                      <h6>
-                        <a href="single-video-v2.html"
-                          >There are many variations of passage.</a
-                        >
-                      </h6>
-                      <div class="post-stats clearfix">
-                        <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
-                        </p>
-                        <p class="pull-right">
-                          <i class="fa fa-eye"></i>
-                          <span>{{ result.playVolume }}</span>
-                        </p>
-                      </div>
-                      <div class="post-summary">
-                        <p>
-                          {{ result.introduction }}
-                        </p>
-                      </div>
-                      <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
-                          ><i class="fa fa-play-circle"></i>watch video</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -588,8 +397,8 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
+                      <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="new video" />
+                      <a @click="goToVideoPage(video.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
                       <div class="video-stats clearfix">
@@ -601,14 +410,18 @@
                     </div>
                     <div class="post-des">
                       <h6>
-                        <a href="single-video-v2.html">{{ video.videoName }}</a>
+                        <a @click="goToVideoPage(video.interVideoID)">{{ video.videoName }}</a>
                       </h6>
                       <div class="post-stats clearfix">
                         <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ video.uploadTime }}</span>
+                            <i class="fa fa-user"></i>
+                            <span><a @click="moveToOpage(video.uid)">{{video.nickName}}</a></span>
                         </p>
-                        <p class="pull-right">
+                        <p class="pull-left">
+                          <i class="fa fa-clock-o"></i>
+                          <span>{{ video.uploadTime | timestampToDate}}</span>
+                        </p>
+                        <p class="pull-left">
                           <i class="fa fa-eye"></i>
                           <span>{{ video.playVolume }}</span>
                         </p>
@@ -619,59 +432,7 @@
                         </p>
                       </div>
                       <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
-                          ><i class="fa fa-play-circle"></i>watch video</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tabs-panel" id="new-hd">
-              <div class="row list-group">
-                <div
-                  class="item large-3 medium-6 columns group-item-grid-default"
-                  v-for="(result, index) in videobyplay"
-                  :key="index + '-label'"
-                >
-                  <div class="post thumb-border">
-                    <div class="post-thumb">
-                      <img src="http://placehold.it/370x220" alt="new video" />
-                      <a href="single-video-v2.html" class="hover-posts">
-                        <span><i class="fa fa-play"></i>Watch Video</span>
-                      </a>
-                      <div class="video-stats clearfix">
-                        <div class="thumb-stats pull-left">
-                          <i class="fa fa-heart"></i>
-                          <span>{{ result.collectPoint }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-des">
-                      <h6>
-                        <a href="single-video-v2.html"
-                          >There are many variations of passage.</a
-                        >
-                      </h6>
-                      <div class="post-stats clearfix">
-                        <p class="pull-left">
-                          <i class="fa fa-clock-o"></i>
-                          <span>{{ result.uploadTime }}</span>
-                        </p>
-                        <p class="pull-right">
-                          <i class="fa fa-eye"></i>
-                          <span>{{ result.playVolume }}</span>
-                        </p>
-                      </div>
-                      <div class="post-summary">
-                        <p>
-                          {{ result.introduction }}
-                        </p>
-                      </div>
-                      <div class="post-button">
-                        <a href="single-video-v2.html" class="secondary-button"
+                        <a @click="goToVideoPage(video.interVideoID)" class="secondary-button"
                           ><i class="fa fa-play-circle"></i>watch video</a
                         >
                       </div>
@@ -738,13 +499,19 @@ export default {
 
     categary(x) {
       this.$axios
-        .get("/category/" + x)
+        .get("/category/" + x + "/" + 4)
         .then(successResponse => {
           if (x == "Adventure") this.result1 = successResponse.data;
           if (x == "Romance") this.result2 = successResponse.data;
           if (x == "Comedy") this.result3 = successResponse.data;
         })
         .catch(failResponse => {});
+    },
+    moveToOpage(oid){
+      this.$router.push({name:'othersAccount',query:{oID:oid}});
+    },
+    goToVideoPage(videoID) {
+      this.$router.push({path:'/video',query:{vID: videoID}});
     }
   }
 };

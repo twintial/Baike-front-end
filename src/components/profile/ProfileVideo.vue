@@ -131,7 +131,6 @@ export default {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
             this.totlePage = successResponse.data.msg
-            // alert(this.totlePage)
             this.$dlg.toast("success", {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {

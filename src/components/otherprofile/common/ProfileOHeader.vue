@@ -101,7 +101,7 @@ export default {
             this.$emit('func',successResponse.data.data.introduction )
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.msg)
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
           }
         })
         .catch(failResponse => {})
@@ -112,10 +112,10 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.UserInfo.userFollowerNum++
-            alert(successResponse.data.msg)       
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'success', closeTime: 5})   
           }
           if (successResponse.data.code === 400) {
-            alert(successResponse.data.msg)
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})  
           }
         })
         .catch(failResponse => {})
