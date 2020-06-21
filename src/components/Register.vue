@@ -86,7 +86,11 @@ export default {
               this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5});
             }
           })
-          .catch(failResponse => {})
+          .catch(failResponse => {
+            if (failResponse.code === 400) {
+              console.log(failResponse.data)
+            }
+          })
       }
     }
   }
