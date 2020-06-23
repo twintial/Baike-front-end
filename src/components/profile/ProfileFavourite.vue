@@ -16,7 +16,7 @@
                                     <div class="media-object stack-for-small">
                                         <div class="media-object-section media-img-content">
                                             <div class="video-img">
-                                                <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
+                                                <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                             </div>
                                         </div>
                                         <div class="media-object-section media-video-content resize">

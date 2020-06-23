@@ -23,7 +23,7 @@
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
-                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="uploadUserInfo.iconURL?'http://localhost:8443/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
+                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="uploadUserInfo.iconURL?'http://localhost:5000/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
                                     </div>
                                     <p class="text-center" style="margin-top:2px"><a @click="goToDetails(uploadUserInfo.uid)">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
@@ -83,7 +83,7 @@
                             <div v-for="(video, index) in relatedVideos" :key="index" class="item large-4 columns end group-item-grid-default">
                                 <div class="post thumb-border">
                                     <div class="post-thumb">
-                                        <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="landing">
+                                        <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="landing">
                                         <a @click="goToVideoPage(video.interVideoID)" class="hover-posts">
                                             <span><i class="fa fa-play"></i>Watch Video</span>
                                         </a>
@@ -139,7 +139,7 @@
                             <div class="media-object stack-for-small">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img :src="loginUserInfo.uID ? 'http://localhost:8443/img/userIcon/'+loginUserInfo.iconURL : defaultIcon" alt="comment">
+                                        <img :src="loginUserInfo.uID ? 'http://localhost:5000/img/userIcon/'+loginUserInfo.iconURL : defaultIcon" alt="comment">
                                     </div>
                                     <h6>{{loginUserInfo.nickName}}</h6>
                                 </div>
@@ -155,7 +155,7 @@
                             <div v-for="(comment, index) in comments" :key="index" class="media-object stack-for-small comment-buttom-line">
                                 <div class="media-object-section comment-img text-center">
                                     <div class="comment-box-img">
-                                        <img :src="'http://localhost:8443/img/userIcon/'+comment.icon" alt="comment">
+                                        <img :src="'http://localhost:5000/img/userIcon/'+comment.icon" alt="comment">
                                     </div>
                                 </div>
                                 <div class="media-object-section comment-desc">
@@ -191,7 +191,7 @@
                             <div class="widgetContent">
                                 <div v-for="(video, index) in mostViewVideos" :key="index" class="video-box thumb-border">
                                     <div class="video-img-thumb">
-                                        <img :src="'http://localhost:8443/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="most viewed videos">
+                                        <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="most viewed videos">
                                         <a @click="goToVideoPage(video.interVideoID)" class="hover-posts">
                                             <span><i class="fa fa-play"></i>Watch Video</span>
                                         </a>
@@ -280,7 +280,7 @@ export default {
   name: 'videPage',
   data () {
     return {
-      defaultIcon: 'http://localhost:8443/img/userIcon/user_default.jpg',
+      defaultIcon: 'http://localhost:5000/img/userIcon/user_default.jpg',
       isEnded: false,
       interVideoID: null,
       // 用户信息
@@ -399,11 +399,11 @@ export default {
       // 切换到初始视频
       this.player.switchVideo(
           {
-            url: 'http://localhost:8443/' + nowURL,
+            url: 'http://localhost:5000/' + nowURL,
           },
           {
             id: this.nowVideoID,
-            api: 'http://localhost:8443/api/danmaku/',
+            api: 'http://localhost:5000/api/danmaku/',
             user: this.loginUserInfo.uID
           }
       );

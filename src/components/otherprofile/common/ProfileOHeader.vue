@@ -1,11 +1,11 @@
 <template>
   <section class="topProfile">
-    <div class="myback" :style='{backgroundImage:"url("+ "http://localhost:8443/img/userIcon/" + MyBackIcon + ")"}'></div>
+    <div class="myback" :style='{backgroundImage:"url("+ "http://localhost:5000/img/userIcon/" + MyBackIcon + ")"}'></div>
     <div class="profile-stats">
         <div class="row secBg">
             <div class="large-12 columns">
                 <div class="profile-author-img">
-                    <img  :src="'http://localhost:8443/img/userIcon/'+ MyIcon" alt="profile author img">
+                    <img  :src="'http://localhost:5000/img/userIcon/'+ MyIcon" alt="profile author img">
                 </div>
                 <div class="profile-subscribe">
                     <div>                   

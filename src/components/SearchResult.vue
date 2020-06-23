@@ -58,7 +58,7 @@
                           <div class="post-thumb">
                             <img
                               :src="
-                                'http://localhost:8443/img/videoCover/' +
+                                'http://localhost:5000/img/videoCover/' +
                                   result.interVideoID +
                                   '/' +
                                   result.icon
@@ -119,7 +119,7 @@
                             <img
                               class="circle"
                               :src="
-                                'http://localhost:8443/img/userIcon/' +
+                                'http://localhost:5000/img/userIcon/' +
                                   result.iconURL
                               "
                               alt="user"

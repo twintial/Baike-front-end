@@ -31,7 +31,7 @@
                                             <div>
                                               <label>choose a cover for you video:</label>
                                               <label for="videoCover"> 
-                                                <img id="cover-preview" :src="coverFiles.length ? url : 'http://localhost:8443/img/cover_default.jpg'"/>
+                                                <img id="cover-preview" :src="coverFiles.length ? url : 'http://localhost:5000/img/cover_default.jpg'"/>
                                               </label>
                                             </div>
                                             <div v-show="false">
@@ -39,7 +39,7 @@
                                                 extensions="gif,jpg,jpeg,png,webp"
                                                 accept="image/png,image/gif,image/jpeg,image/webp"
                                                 name="videoCover"
-                                                post-action="http://localhost:8443/api/cover/upload"
+                                                post-action="http://localhost:5000/api/cover/upload"
                                                 :drop="false"
                                                 v-model="coverFiles"
                                                 @input-filter="coverInputFilter"
@@ -260,7 +260,7 @@ export default {
       minSize: 0,
       thread: 3,
       name: 'file',
-      postAction: 'http://localhost:8443/api/video/upload',
+      postAction: 'http://localhost:5000/api/video/upload',
       uploadAuto: true,
       currentIndex: -1,
       // 视频封面上传
