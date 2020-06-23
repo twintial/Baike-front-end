@@ -423,7 +423,7 @@ export default {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
             this.initPage()
-            this.$dlg.toast(successResponse.data.data, {messageType: 'success', closeTime: 5})
+            this.$dlg.toast(successResponse.data.msg, {messageType: 'success', closeTime: 5})
           }
           if (successResponse.data.code === 400) {
             this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})

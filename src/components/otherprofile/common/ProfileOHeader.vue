@@ -92,6 +92,7 @@ export default {
         .get('/aboutHis/' + this.$route.query.oID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
+            console.log(successResponse.data.data)
             this.UserInfo = successResponse.data.data
             this.MyIcon = successResponse.data.data.iconURL
             this.MyBackIcon = successResponse.data.data.backgroundIconURL

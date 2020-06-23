@@ -140,11 +140,12 @@ export default {
           this.responseResult = JSON.stringify(successResponse.data)
           if (successResponse.data.code === 200) {
             this.UserInfo = successResponse.data.data
-            this.data.UserID = successResponse.data.data.uid
-            this.data.MyIcon = successResponse.data.data.iconURL
-            this.backdata.BackUserID = successResponse.data.data.uid
-            this.backdata.BackMyIcon = "http://localhost:5000/img/userIcon/" + successResponse.data.data.backgroundIconURL
-            this.$emit('func',successResponse.data.data.introduction , successResponse.data.data.nickName)
+            this.UserInfo.nickName = this.UserInfo.u.nickName
+            this.data.UserID = successResponse.data.data.u.uid
+            this.data.MyIcon = successResponse.data.data.u.iconURL
+            this.backdata.BackUserID = successResponse.data.data.u.uid
+            this.backdata.BackMyIcon = "http://localhost:5000/img/userIcon/" + successResponse.data.data.u.backgroundIconURL
+            this.$emit('func',successResponse.data.data.u.introduction , successResponse.data.data.u.nickName)
           }
           if (successResponse.data.code === 400) {
             this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
