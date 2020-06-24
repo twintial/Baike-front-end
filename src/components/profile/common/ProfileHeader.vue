@@ -2,7 +2,7 @@
   <section class="topProfile">
     <label for="backavatar">
     <!-- <div class="myback img-point" :style='{backgroundImage:"url("+ "http://localhost:5000/img/userIcon/" + backdata.BackMyIcon + ")"}'></div> -->
-    <div class="myback img-point" :style="{backgroundImage:`url(${backdata.BackMyIcon})`}"></div>
+    <div class="myback img-point" :style="{backgroundImage:`url(${backcoverFiles.length ? backUrl: backdata.BackUrl + backdata.BackMyIcon})`}"></div>
     
     </label>
     <div v-show="false">
@@ -121,17 +121,21 @@ export default {
         coverFiles: [],
         backcoverFiles:[],
         url: '',
+        backUrl: '',
         data: {
             UserID: '',
             MyIcon: 'user_default.jpg'
         },
         backdata: {
             BackUserID: '',
-            BackMyIcon: 'http://localhost:5000/img/userIcon/back_default.jpg'
+            BackUrl: 'http://localhost:5000/img/userIcon/',
+            BackMyIcon: 'back_default.jpg'
         },
       }
   },
   methods:{
+      deleteFile(response){
+    },
       getUserHead(){
         this.$axios
         .post('/aboutMe', {
@@ -144,7 +148,7 @@ export default {
             this.data.UserID = successResponse.data.data.u.uid
             this.data.MyIcon = successResponse.data.data.u.iconURL
             this.backdata.BackUserID = successResponse.data.data.u.uid
-            this.backdata.BackMyIcon = "http://localhost:5000/img/userIcon/" + successResponse.data.data.u.backgroundIconURL
+            this.backdata.BackMyIcon = successResponse.data.data.u.backgroundIconURL
             this.$emit('func',successResponse.data.data.u.introduction , successResponse.data.data.u.nickName)
           }
           if (successResponse.data.code === 400) {
@@ -214,7 +218,7 @@ export default {
         if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
             let URL = window.URL || window.webkitURL
             if (URL && URL.createObjectURL) {
-            this.backdata.BackMyIcon = URL.createObjectURL(newFile.file)
+            this.backUrl = URL.createObjectURL(newFile.file)
             }
             // 删除上一张图片
             if (this.backcoverFiles.length){

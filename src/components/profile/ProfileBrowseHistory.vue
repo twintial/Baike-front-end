@@ -102,6 +102,7 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.temp = successResponse.data.data
+            console.log(this.temp)
             this.totlePage = successResponse.data.msg
           }
           if (successResponse.data.code === 400) {

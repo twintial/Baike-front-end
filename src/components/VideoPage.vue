@@ -23,7 +23,7 @@
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
-                                        <a @click="goToDetails(uploadUserInfo.uID)"><img :src="uploadUserInfo.iconURL?'http://localhost:5000/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
+                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="uploadUserInfo.iconURL?'http://localhost:5000/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
                                     </div>
                                     <p class="text-center" style="margin-top:2px"><a @click="goToDetails(uploadUserInfo.uid)">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
@@ -499,7 +499,7 @@ export default {
     },
     init() {
       // 获取到视频id
-      this.interVideoID = this.$route.query.vID
+      this.interVideoID = parseInt(this.$route.query.vID)
       // 获得用户信息
       this.requestForLoginUserInfo()
       // 加上遮罩层，互动视频用
