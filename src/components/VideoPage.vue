@@ -23,7 +23,7 @@
                             <div class="media-object-section">
                                 <div class="author-img-sec">
                                     <div class="thumbnail author-single-post">
-                                        <a @click="goToDetails(uploadUserInfo.uid)"><img :src="uploadUserInfo.iconURL?'http://localhost:5000/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
+                                        <a @click="goToDetails(uploadUserInfo.uID)"><img :src="uploadUserInfo.iconURL?'http://localhost:5000/img/userIcon/'+uploadUserInfo.iconURL:defaultIcon" alt="post"></a>
                                     </div>
                                     <p class="text-center" style="margin-top:2px"><a @click="goToDetails(uploadUserInfo.uid)">{{uploadUserInfo.nickName}}</a></p>
                                 </div>
@@ -364,8 +364,10 @@ export default {
         .get('/video/' + interVideoID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
+            // console.log(successResponse.data.data)
             this.interVideoInfo = successResponse.data.data
             this.uploadUserInfo = this.interVideoInfo.userInfo
+            console.log(this.uploadUserInfo)
             this.comments = this.interVideoInfo.comments
             this.getRelatedVideos(this.interVideoInfo.tag)
             this.switch(this.interVideoInfo.initVideoID, this.interVideoInfo.initVideo.videoURL, this.interVideoInfo.nextVideos);
@@ -453,7 +455,7 @@ export default {
     insertBrowseHistory(){
       this.$axios
         .post('/history', {
-          uid: this.loginUserInfo.uID,
+          uID: this.loginUserInfo.uID,
           watchVideoID: this.interVideoID
         })
         .then(successResponse => {

@@ -88,15 +88,17 @@ export default {
   },
   methods:{
       getUserHead(){
+        console.log(this.$route.query.oID)
         this.$axios
         .get('/aboutHis/' + this.$route.query.oID)
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             console.log(successResponse.data.data)
             this.UserInfo = successResponse.data.data
-            this.MyIcon = successResponse.data.data.iconURL
-            this.MyBackIcon = successResponse.data.data.backgroundIconURL
-            this.$emit('func',successResponse.data.data.introduction )
+            this.UserInfo.nickName = this.UserInfo.u.nickName
+            this.MyIcon = successResponse.data.data.u.iconURL
+            this.MyBackIcon = successResponse.data.data.u.backgroundIconURL
+            this.$emit('func',successResponse.data.data.u.introduction )
           }
           if (successResponse.data.code === 400) {
             this.$dlg.toast(successResponse.data.msg, {messageType: 'error', closeTime: 5})
