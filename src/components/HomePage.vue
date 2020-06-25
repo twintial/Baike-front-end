@@ -39,7 +39,7 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img :src="'http://localhost:5000/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <img :src="url + '/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
                       <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
@@ -128,7 +128,7 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img :src="'http://localhost:5000/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <img :src="url + '/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
                       <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
@@ -217,7 +217,7 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img :src="'http://localhost:5000/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <img :src="url + '/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
                       <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
@@ -309,7 +309,7 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img :src="'http://localhost:5000/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
+                      <img :src="url + '/img/videoCover/'+result.interVideoID+'/'+result.icon" alt="new video" />
                       <a @click="goToVideoPage(result.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
@@ -397,7 +397,7 @@
                 >
                   <div class="post thumb-border">
                     <div class="post-thumb">
-                      <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="new video" />
+                      <img :src="url + '/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="new video" />
                       <a @click="goToVideoPage(video.interVideoID)" class="hover-posts">
                         <span><i class="fa fa-play"></i>Watch Video</span>
                       </a>
@@ -458,10 +458,13 @@
 }
 </style>
 <script>
+import url from '@/js/url.js'
+
 export default {
   name: "HomePage",
   data() {
     return {
+      url: url,
       videobyplay: undefined,
       result1: undefined,
       result2: undefined,

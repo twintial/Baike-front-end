@@ -16,7 +16,7 @@
                                     <div class="media-object stack-for-small">
                                         <div class="media-object-section media-img-content">
                                             <div class="video-img">
-                                                <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
+                                                <img :src="resourceUrl + '/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                             </div>
                                         </div>
                                         <div class="media-object-section media-video-content" resize>
@@ -80,6 +80,8 @@
 
 </style>
 <script>
+import resourceUrl from '@/js/url.js'
+
 Array.prototype.extend = function (other_array) {
     other_array.forEach(function(v) {this.push(v)}, this);  
 }
@@ -87,6 +89,7 @@ export default {
     name: 'Hisvideo',
     data() {
       return {
+        resourceUrl: resourceUrl,
         currentPage: 1,
         totlePage: 0,
         temp: [],

@@ -58,7 +58,7 @@
                           <div class="post-thumb">
                             <img
                               :src="
-                                'http://localhost:5000/img/videoCover/' +
+                                url + '/img/videoCover/' +
                                   result.interVideoID +
                                   '/' +
                                   result.icon
@@ -119,7 +119,7 @@
                             <img
                               class="circle"
                               :src="
-                                'http://localhost:5000/img/userIcon/' +
+                                url + '/img/userIcon/' +
                                   result.iconURL
                               "
                               alt="user"
@@ -359,10 +359,12 @@
 </template>
 
 <script>
+import url from '@/js/url.js'
 export default {
   name: "SearchResult",
   data() {
     return {
+      url: url,
       SearchName: "",
       ResultName: "",
       searchstyle: "video",

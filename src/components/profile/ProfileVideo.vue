@@ -18,7 +18,7 @@
                                 <div class="media-object stack-for-small">
                                     <div class="media-object-section media-img-content">
                                         <div class="video-img">
-                                            <img :src="'http://localhost:5000/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
+                                            <img :src="resourceUrl + '/img/videoCover/'+video.interVideoID+'/'+video.icon" alt="video thumbnail">
                                         </div>
                                     </div>
                                     <div class="media-object-section media-video-content resize">
@@ -81,6 +81,7 @@ input[type=radio] {
 }
 </style>
 <script>
+import resourceUrl from '@/js/url.js'
 
 // 数组合并
 Array.prototype.extend = function (other_array) {
@@ -90,6 +91,7 @@ export default {
     name: 'Myvideo',
     data() {
       return {
+        resourceUrl: resourceUrl,
         picked: 'publish',
         currentPage: 1,
         totlePage: 0,

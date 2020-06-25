@@ -13,7 +13,7 @@
                                 <div v-for="(myfollower, index) in followers" :key="index" class="large-2 small-6 medium-3 columns">
                                     <div class="follower">
                                         <div class="follower-img">
-                                            <img :src="'http://localhost:5000/img/userIcon/'+myfollower.iconURL" alt="followers">
+                                            <img :src="resourceUrl + '/img/userIcon/'+myfollower.iconURL" alt="followers">
                                         </div>
                                         <span class="myspan"><a @click="moveToOpage(myfollower.uid)">{{myfollower.nickName}}</a></span>
                                     </div>
@@ -53,6 +53,8 @@
 
 </style>
 <script>
+import resourceUrl from '@/js/url.js'
+
 Array.prototype.extend = function (other_array) {
     other_array.forEach(function(v) {this.push(v)}, this);  
 }
@@ -60,6 +62,7 @@ export default {
     name: 'Hisfollowers',
     data() {
       return {
+        resourceUrl: resourceUrl,
         currentPage: 1,
         totlePage: 0,
         temp: [],

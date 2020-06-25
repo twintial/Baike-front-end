@@ -10,7 +10,7 @@
         extensions="gif,jpg,jpeg,png,webp"
         accept="image/png,image/gif,image/jpeg,image/webp"
         name="backavatar"
-        post-action="http://localhost:5000/api/aboutMe/uploadback"
+        :post-action="resourceUrl+ '/api/aboutMe/uploadback'"
         :drop="false"
         :data="backdata"
         v-model="backcoverFiles"
@@ -25,14 +25,14 @@
             <div class="large-12 columns">
                 <div class="profile-author-img">
                     <label for="avatar"> 
-                        <img class="img-point" :src="coverFiles.length ? url : 'http://localhost:5000/img/userIcon/'+data.MyIcon" alt="profile author img">
+                        <img class="img-point" :src="coverFiles.length ? url : resourceUrl + '/img/userIcon/'+data.MyIcon" alt="profile author img">
                     </label>
                     <div v-show="false">
                         <file-upload
                         extensions="gif,jpg,jpeg,png,webp"
                         accept="image/png,image/gif,image/jpeg,image/webp"
                         name="avatar"
-                        post-action="http://localhost:5000/api/aboutMe/upload"
+                        :post-action="resourceUrl + '/api/aboutMe/upload'"
                         :drop="false"
                         :data="data"
                         v-model="coverFiles"
@@ -113,10 +113,13 @@
 
 </style>
 <script>
+import resourceUrl from '@/js/url.js'
+
 export default {
   name: 'HisprofileHeader',
   data(){
       return{
+        resourceUrl: resourceUrl,
         UserInfo:[],
         coverFiles: [],
         backcoverFiles:[],
@@ -128,7 +131,7 @@ export default {
         },
         backdata: {
             BackUserID: '',
-            BackUrl: 'http://localhost:5000/img/userIcon/',
+            BackUrl: resourceUrl + '/img/userIcon/',
             BackMyIcon: 'back_default.jpg'
         },
       }
